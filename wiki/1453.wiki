@@ -1,0 +1,27 @@
+#summary tanım sayfası
+
+= 1453 Hakkında =
+
+1453 gerçek zamanlı bir strateji oyunu olacaktır. İzmir Ekonomi Üniversitesi Bilgisayar Bilimleri Fakültesi öğrencileri tarafından Bitirme Projesi olarak verilecektir.
+
+
+= Geliştiriciler =
+
+İzmir Ekonomi Üniversitesi, Bilgisayar ve Yazılım Müh. Öğrencileri:
+  * Kaya Oğuz
+  * Serkan Barut
+  * Sakine Şule Metin
+  * Sevil Güler
+
+Dışarıdan destek:
+  * Melih Önyer & Beyaz Kare - Grafikler
+  * Semih Önyer - Müzik ve sesler
+  * Özcan Oğuz - Müzik ve sesler
+  * İEÜ Bilgisayar ve Yazılım Müh. - Test grubu
+
+= Bağlantılar =
+
+  * [http://bindortyuzelliuc.wordpress.com Geliştirici Günlükleri]
+
+
+
