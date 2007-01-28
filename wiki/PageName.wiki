@@ -1,0 +1,23 @@
+#summary 12 Şubat Takvimi
+
+= 12 Şubat Takvimi =
+
+İkinci yarıyıl başlayana kadar yapılacaklar ve yol haritasıdır. İkinci yarıyıldan Şubat sonuna kadar da ikinci bir evre yer alacak.
+
+
+= Yapılacaklar =
+
+  * SDL ile GUI Sistemi, Kaya
+  * Harita Sistemi, Serkan
+  * SDL_Mixer ile Ses Sistemi, Şule
+  * SDL_ttf ve Font Sistemi, Sevil
+  * Birimler, Kaya
+
+= Yol Haritası =
+
+|| *İş* || *Son Tarih* || *Geliştirici* || *Notlar* ||
+|| GUI Sistemi || 04.02.2007, Pazar || Kaya || dropdown, scrollbox, textview, scrollbar ||
+|| Harita Sistemi || ?? || Serkan || ? ||
+|| Ses Sistemi || ?? || Şule || ? ||
+|| Font Sistemi || ?? || Sevil || ? ||
+|| Birimler || 11.02.2007, Pazar || Kaya || Command Queue, Damage, Stats ||
