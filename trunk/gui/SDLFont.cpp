@@ -8,6 +8,7 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 		return;
 	}
 	TTF_Font *font;
+	/// Font used here is a constant value: font.ttf
 	font = TTF_OpenFont("font.ttf", size);
 	if (!font)
 	{

@@ -14,23 +14,12 @@ SDLComboOption::SDLComboOption(
 	
 	durum = NORMAL;
 	tip = COMBOOPTION;
-	w = parent->getWidth();
-	h = 20;
 	
-	SDL_Color c = { 0, 0, 0 };
-	yazi = new SDLFont(option, 16, c);
-}
-
-bool SDLComboOption::isMouseOver(int mx, int my)
-{
-	if (
-		(mx > px1) &&
-		(mx < px2) &&
-		(my > py1) &&
-		(my < py2)
-		)
-		return true;
-	else return false;
+	yazi = new SDLLabel(option);
+	if (yazi->getWidth() > parent->getWidth())
+		w = yazi->getWidth() + 6;
+	else w = parent->getWidth() + 6; // spacing
+	h = 20;
 }
 
 SDLCombo::SDLCombo()
@@ -38,40 +27,46 @@ SDLCombo::SDLCombo()
 	tip = SDLWidget::COMBO;
 	durum = CLOSED;
 	SDLCombo *me = this;
-	button = new SDLButton("img/combo.png", "V");
+	button = new SDLButton("img/combo.png", "v");
 	button->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLCombo::toggleOptions);
 	yazi = 0;
-	w = h = 0;
+	w = 0;
+	h = button->getHeight();
 }
 
+/**
+ * Adds an SDLComboOption to the SDLCombo. If the size of the 
+ * SDLComboOption is larger, then all the widgets are set up
+ * accordingly. All the other SDLComboOptions grow to the new size,
+ * SDLButton and SDLLabel are also repositioned.
+ */
 void SDLCombo::addOption(string option, string value, bool def)
 {
-	options.push_back(SDLComboOption(this, option, value, def));
-}
-
-void SDLCombo::setSize(int pw, int ph)
-{ 
-	w = pw; 
-	h = ph; 
-	px2 = px1 + w;
-	py2 = py1 + h;
-	button->setPosition(px2-button->getWidth(), py1+1);
-}
-
-void SDLCombo::packOptions()
-{
-	int oy = 20;
-	for(int i=0;i<options.size();i++)
+	SDLComboOption temp(this, option, value, def);
+	
+	if (temp.getWidth() > w)
 	{
-		options[i].setPosition(px1, (py2+1) + (oy*i));
-		if (options[i].isSelected())
-		{
-			SDL_Color c = { 0, 0, 0 };
-			yazi = new SDLFont(options[i].getOption(), 16, c);
-		}
+		w = temp.getWidth();
+		px2 = px1 + w; // update for the new width
 	}
+	
+	for (int i=0;i<options.size();i++)
+		options[i].setWidth(w);
+	
+	temp.setPosition(px1, (py2 + 1) + (temp.getHeight()*options.size()));
+	if (def)
+	{
+		yazi = new SDLLabel(option);
+		yazi->setPosition(px1+4, py1 + ((h - yazi->getHeight())/2));
+	}
+	
+	button->setPosition(px2, py1);
+	options.push_back(temp);
 }
 
+/**
+ * Toggles options, this is executed via the SDLButton
+ */
 void SDLCombo::toggleOptions()
 {
 	if (durum == OPEN)
@@ -89,34 +84,52 @@ string SDLCombo::getSelected()
 	}
 }
 
-void SDLCombo::handleMouseEvent(int eventType, int button, int x, int y)
+void SDLCombo::handleEvent(int eventType, int button, int x, int y)
 {
-	if (durum == CLOSED) return;
-	for (int i=0;i<options.size();i++)
+	this->button->handleMouseEvent(eventType, button, x, y);
+	if (durum == CLOSED) 
 	{
 		switch(eventType)
 		{
-			case SDL_MOUSEMOTION:
-				if (options[i].isMouseOver(x, y))
-					options[i].setState(SDLComboOption::OVER);
-				else options[i].setState(SDLComboOption::NORMAL);
-				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (button == SDL_BUTTON_LEFT)
+				if (button == SDL_BUTTON_LEFT && isMouseOver(x, y))
 				{
-					if(options[i].isMouseOver(x, y))
-					{
-						for (int j=0;j<options.size();j++)
-							options[j].deSelect();
-						options[i].setSelected();
-						SDL_Color c = { 0, 0, 0 };
-						delete(yazi);
-						yazi = new SDLFont(options[i].getOption(), 16, c);
-						toggleOptions();
-						return;
-					}
+					toggleOptions();
+					return;
 				}
-				break;
+		}
+	}
+	else if (durum == OPEN)
+	{
+		for (int i=0;i<options.size();i++)
+		{
+			switch(eventType)
+			{
+				case SDL_MOUSEMOTION:
+					if (options[i].isMouseOver(x, y))
+						options[i].setState(SDLComboOption::OVER);
+					else options[i].setState(SDLComboOption::NORMAL);
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					if (button == SDL_BUTTON_LEFT)
+					{
+						if (isMouseOver(x, y))
+						{
+							toggleOptions();
+						}
+						if(options[i].isMouseOver(x, y))
+						{
+							for (int j=0;j<options.size();j++)
+								options[j].deSelect();
+							options[i].setSelected();
+							delete(yazi);
+							yazi = new SDLLabel(options[i].getOption());
+							toggleOptions();
+							return;
+						}
+					}
+					break;
+			}
 		}
 	}
 }

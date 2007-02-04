@@ -4,8 +4,10 @@ LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf
 
 all: guitest
 
-guitest: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o
-	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o -o guitest
+again: clean all
+
+guitest: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o
+	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o -o guitest
 	
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp
@@ -36,6 +38,9 @@ SDLCheckBox.o: SDLCheckBox.cpp
 	
 SDLTextView.o: SDLTextView.cpp
 	$(CC) $(FLAGS) SDLTextView.cpp
+
+SDLListView.o: SDLListView.cpp
+	$(CC) $(FLAGS) SDLListView.cpp
 
 clean:
 	rm -rf *.o guitest

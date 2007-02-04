@@ -8,16 +8,20 @@ SDLCheckBox::SDLCheckBox(string label)
 	button = new SDLButton("img/combo.png", "");
 	button->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLCheckBox::toggle);
 	check = new SDLWidget("img/check.png");
-	
-	SDL_Color c = { 255, 255, 255 };
-	yazi = new SDLFont(label, 16, c);
-	
+	yazi = new SDLLabel(label);
+	w = button->getWidth() + 10 + yazi->getWidth();
+	h = button->getHeight();
 }
 
 void SDLCheckBox::toggle()
 {
 	if (on) setOff();
 	else if (!on) setOn();
+}
+
+void SDLCheckBox::handleEvent(int eventType, int button, int x, int y)
+{
+	this->button->handleMouseEvent(eventType, button, x, y);
 }
 
 

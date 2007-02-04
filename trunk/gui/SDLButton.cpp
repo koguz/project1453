@@ -19,26 +19,12 @@ SDLButton::SDLButton(string f, string label=string())
 	tip = BUTTON;
 	if (label.size() != 0)
 	{
-		SDL_Color c = { 255, 255, 255 };
-		SDLFont t2(label, 16, c);
-		metin = t2.getString();
+		metin = new SDLLabel(label);
 	}
 	else metin = 0;
 }
 
-bool SDLButton::isMouseOver(int mx, int my)
-{
-	if (
-		(mx > px1) &&
-		(mx < px2) &&
-		(my > py1) &&
-		(my < py2)
-		)
-		return true;
-	else return false;
-}
-
-void SDLButton::handleMouseEvent(int eventType, int button, int x, int y)
+void SDLButton::handleEvent(int eventType, int button, int x, int y)
 {
 	switch(eventType)
 	{

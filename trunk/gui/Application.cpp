@@ -46,15 +46,25 @@ bool Application::Init()
 	
 	SDLCombo *combo = new SDLCombo();
 	combo->setPosition(200, 30);
-	combo->setSize(150, 25);
 	combo->addOption("Çok Zor", "5");
 	combo->addOption("Zor", "4");
 	combo->addOption("Normal", "3", true);
 	combo->addOption("Kolay", "2");
 	combo->addOption("Çocuk Oyuncağı", "1");
-	combo->packOptions();
 	current->addWidget(combo);
 	
+	
+	SDLListView *lw = new SDLListView(4);
+	lw->setPosition(200, 220);
+	lw->addItem("madde 1");
+	lw->addItem("madde 2");
+	lw->addItem("madde 3");
+	lw->addItem("madde 4");
+	lw->addItem("madde 5");
+	lw->addItem("madde 6");
+	lw->addItem("madde 7");
+	lw->addItem("madde 8");
+	current->addWidget(lw);
 	
 	return true;
 }

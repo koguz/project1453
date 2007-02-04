@@ -28,30 +28,30 @@ void SDLScreen::eventHandler(SDL_Event *event)
 	my = event->motion.y;
 	for (unsigned int i=0;i<widgets.size();i++)
 	{
-		if (widgets[i]->getType() == SDLWidget::BUTTON)
-		{
-			SDLButton* t = (SDLButton*) widgets[i];
-			t->handleMouseEvent(event->type, event->button.button, mx, my);
-		}
-		else if (widgets[i]->getType() == SDLWidget::COMBO)
-		{
-			SDLCombo *c = (SDLCombo*) widgets[i];
-			if (c->button != 0)
-				c->button->handleMouseEvent(event->type, event->button.button, mx, my);
-			c->handleMouseEvent(event->type, event->button.button, mx, my);
-			
-		}
-		else if (widgets[i]->getType() == SDLWidget::CHECKBOX)
-		{
-			SDLCheckBox* c = (SDLCheckBox*) widgets[i];
-			if (c->button != 0)
-				c->button->handleMouseEvent(event->type, event->button.button, mx, my);
-		}
-		else if (widgets[i]->getType() == SDLWidget::TEXTVIEW)
-		{
-			SDLTextView *t = (SDLTextView*) widgets[i];
-			t->handleMouseEvent(event->type, event->button.button, mx, my);
-		}
+		widgets[i]->handleMouseEvent(event->type, event->button.button, mx, my);
+// 		if (widgets[i]->getType() == SDLWidget::BUTTON)
+// 		{
+// 			SDLButton* t = (SDLButton*) widgets[i];
+// 			t->handleMouseEvent(event->type, event->button.button, mx, my);
+// 		}
+// 		else if (widgets[i]->getType() == SDLWidget::COMBO)
+// 		{
+// 			SDLCombo *c = (SDLCombo*) widgets[i];
+// 			if (c->button != 0)
+// 				c->button->handleMouseEvent(event->type, event->button.button, mx, my);
+// 			c->handleMouseEvent(event->type, event->button.button, mx, my);
+// 			
+// 		}
+// 		else if (widgets[i]->getType() == SDLWidget::CHECKBOX)
+// 		{
+// 			SDLCheckBox* c = (SDLCheckBox*) widgets[i];
+// 			c->handleMouseEvent(event->type, event->button.button, mx, my);
+// 		}
+// 		else if (widgets[i]->getType() == SDLWidget::TEXTVIEW)
+// 		{
+// 			SDLTextView *t = (SDLTextView*) widgets[i];
+// 			t->handleMouseEvent(event->type, event->button.button, mx, my);
+// 		}
 	}
 }
 

@@ -18,5 +18,17 @@ SDLWidget::SDLWidget(char *f)
 }
 
 
+bool SDLWidget::isMouseOver(int mx, int my)
+{
+	if (
+		(mx > px1) &&
+		(mx < px2) &&
+		(my > py1) &&
+		(my < py2)
+		)
+		return true;
+	else return false;
+}
+
 
 	

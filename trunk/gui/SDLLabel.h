@@ -9,12 +9,22 @@
 
 
 using namespace std;
-
+/** \brief Simple label widget
+ * 
+ * SDLLabel is a simple label widget which holds a 
+ * string. This function will be expanded when a new
+ * SDLFont class arrives.
+ * @see SDLFont
+ * \author Kaya Oguz
+ * \date 2007.02
+ */
 class SDLLabel:public SDLWidget
 {
 	public: 
-	SDLLabel();
-	SDLLabel(string lbl);
+	SDLLabel(); /// Basic constructor
+	
+	/** \param lbl is the string to be used */
+	SDLLabel(string lbl); 
 	
 	virtual void drawWidget(SDL_Surface *screen)
 	{
@@ -29,7 +39,11 @@ class SDLLabel:public SDLWidget
 	}
 	
 	protected:
+	/// Holds the string which the SDLLabel displays
 	string label;
+	
+	/// Size of the font of the widget. This is fixed until a new version arrives
+	int size; 
 };
 
 

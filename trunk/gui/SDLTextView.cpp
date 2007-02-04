@@ -4,6 +4,8 @@
 SDLTextView::SDLTextView(string text, int w, int r)
 {
 	tip = SDLWidget::TEXTVIEW;
+	lineHeight = 20; // sonra degisecek...
+	
 	metin = text;
 	width = w;
 	rows = r;
@@ -38,7 +40,8 @@ void SDLTextView::repositionLabels()
 	int j = 0;
 	for (int i=uppos;i<downpos;i++)
 	{
-		satirlar[i].setPosition(px1+4, py1+(20*j));
+		// sağdan 4 piksel içe- bir de satir boyuna göre ortalama...
+		satirlar[i].setPosition(px1+4, py1+(lineHeight*j)+((lineHeight-satirlar[i].getHeight()) / 2));
 		j++;
 	}
 }
@@ -64,7 +67,7 @@ void SDLTextView::moveDown()
 }
 
 
-void SDLTextView::handleMouseEvent(int eventType, int button, int x, int y)
+void SDLTextView::handleEvent(int eventType, int button, int x, int y)
 {
 	up->handleMouseEvent(eventType, button, x, y);
 	down->handleMouseEvent(eventType, button, x, y);
