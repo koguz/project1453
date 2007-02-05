@@ -12,17 +12,19 @@ using namespace std;
  *
  * This is the basic simple button to use in a GUI. 
  * It uses an image file for three states, in which these
- * states are drawn top to down. The most important member
- * of the button is the clicked.
+ * states are drawn from top to down. The most important member
+ * of the button is the clicked member which can be bind for 
+ * any action.
  *
  * The SDLButton has an SDLLabel member, if a label is
- * given at the contructor.
+ * given at the constructor.
  *
  * The member clicked is the crucial part of the 
  * SDLButton. With this variable, and the help of 
  * the Functor classes we can bind any member function
  * of any class to this button. So, when the button is 
  * clicked the function of a specific class is executed.
+ * @see callback.h 
  * 
  * Below you can see how the toggle function of SDLCheckBox
  * is binded to the button used in SDLCheckBox. me is the 
@@ -48,14 +50,23 @@ class SDLButton:public SDLWidget
 	 */
 	SDLButton(string f, string label);
 	
-	/// Binds button to any function of any class
+	/** \brief Binds button to any function of any class
+	 *
+	 * Binding can be done to any function of any class. The function
+	 * makeFunctor can be used as follows:
+	 * 
+	 * \code 
+ 	 * button->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLCheckBox::toggle);
+ 	 * \endcode 
+ 	 * 
+	 */
 	CBFunctor0 clicked; 
 	
-	/** \brief Drawing the widget
+	/** \brief Draws the widget
 	 *
 	 * Drawing a button is done by drawing the 
 	 * widget according to the ButtonState and 
-	 * drawing the SDLLabel, if there is one
+	 * drawing the SDLLabel, if there is one.
 	 */
 	virtual void drawWidget(SDL_Surface *screen)
 	{

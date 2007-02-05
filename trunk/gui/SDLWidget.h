@@ -117,17 +117,17 @@ class SDLWidget
 	int getHeight() { return h; }
 	
 	protected:
-	/// Widget surface, most likely an image
+	/// \brief Widget surface, most likely an image
 	SDL_Surface *widget; 
 	
 	/// Holds the type of the widget
 	WidgetType tip; 
-	int px1 /** X-Coordinate for left corners */, 
-		px2 /** X-Coordinate for right corners */, 
-		py1 /** Y-Coordinate for upper corners */, 
-		py2 /** Y-Coordinate for lower corners */,
-		w /** Width of widget */, 
-		h /** Height of widget */; 
+	int px1 /** \brief X-Coordinate for left corners */, 
+		px2 /** \brief X-Coordinate for right corners */, 
+		py1 /** \brief Y-Coordinate for upper corners */, 
+		py2 /** \brief Y-Coordinate for lower corners */,
+		w /** \brief Width of widget */, 
+		h /** \brief Height of widget */; 
 };
 
 #endif /*SDLWIDGET_H_*/

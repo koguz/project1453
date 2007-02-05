@@ -160,11 +160,6 @@ class SDLCombo:public SDLWidget
 
 	void addOption(string option, string value, bool def=false);
 	
-	/// Handles mouse events internally 
-	/// @see handleMouseEvent
-	void handleEvent(int eventType, int button, int x, int y);
-	
-	
 	protected:
 	/// SDLButton used for toggling
 	SDLButton *button;
@@ -187,6 +182,10 @@ class SDLCombo:public SDLWidget
 	/// Toggles showing and/or displaying options.
 	/// This is connected to the button.
 	void toggleOptions();
+	
+	/// Handles mouse events internally 
+	/// @see handleMouseEvent
+	void handleEvent(int eventType, int button, int x, int y);
 };
 
 #endif
