@@ -6,8 +6,8 @@ all: guitest
 
 again: clean all
 
-guitest: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o
-	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o -o guitest
+guitest: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o
+	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o -o guitest
 	
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp
@@ -41,6 +41,9 @@ SDLTextView.o: SDLTextView.cpp
 
 SDLListView.o: SDLListView.cpp
 	$(CC) $(FLAGS) SDLListView.cpp
+
+SDLProgressBar.o: SDLProgressBar.cpp
+	$(CC) $(FLAGS) SDLProgressBar.cpp
 
 clean:
 	rm -rf *.o guitest

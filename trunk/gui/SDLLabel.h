@@ -38,6 +38,17 @@ class SDLLabel:public SDLWidget
 		SDL_BlitSurface(widget, NULL, screen, &dest);
 	}
 	
+	/** \brief Sets label text
+	 *
+	 * This function resets the text of the 
+	 * label.
+	 * \param lbl is the new string
+	 */
+	void setText(string lbl);
+	
+	/// \return the text of the label
+	string getText() { return label; }
+	
 	protected:
 	/// Holds the string which the SDLLabel displays
 	string label;

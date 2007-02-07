@@ -10,6 +10,7 @@
 #include "SDLCheckBox.h"
 #include "SDLTextView.h"
 #include "SDLListView.h"
+#include "SDLProgressBar.h"
 
 using namespace std;
 

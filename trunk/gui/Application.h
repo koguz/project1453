@@ -19,6 +19,7 @@ class Application
 	unsigned int flags; // for initializing
 	bool done;
 	SDLScreen *current;
+	SDLProgressBar *pb;
 	
 	public:
 	SDL_Surface* screen; // ana penceremiz

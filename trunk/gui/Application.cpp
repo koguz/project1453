@@ -66,6 +66,10 @@ bool Application::Init()
 	lw->addItem("madde 8");
 	current->addWidget(lw);
 	
+	pb = new SDLProgressBar(48, 6, GREEN, 2, 10);
+	pb->setPosition(40, 350);
+	current->addWidget(pb);
+	
 	return true;
 }
 
@@ -85,6 +89,7 @@ int Application::Run()
 	
 	SDL_Event event;
 	done = true;
+	Uint32 lastTick = SDL_GetTicks();
 	while(done)
 	{
 		while(SDL_PollEvent(&event))
@@ -96,7 +101,11 @@ int Application::Run()
 					break;
 			}
 			current->eventHandler(&event);
-		}	
+		}
+		if ((SDL_GetTicks() - lastTick) >= 1000)
+		{
+			pb->setValue(pb->getValue()+1);
+		}
 		current->display();
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		SDL_Delay(50);

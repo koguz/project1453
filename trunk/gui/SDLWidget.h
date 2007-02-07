@@ -7,6 +7,7 @@
 #define DARKGRAY 0xAAAAAAFF
 #define DARKERGRAY 0x444444FF
 #define BLUE 0x336699FF
+#define GREEN 0x00FF00FF
 
 #include <iostream>
 #include "Headers.h"
