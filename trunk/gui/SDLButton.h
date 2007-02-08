@@ -91,7 +91,6 @@ class SDLButton:public SDLWidget
 		{
 			metin->drawWidget(screen);
 		}
-		clicked = 0;
 	}
 	
 	/// While positioning, we also position 
