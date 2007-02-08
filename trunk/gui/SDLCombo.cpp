@@ -17,8 +17,8 @@ SDLComboOption::SDLComboOption(
 	
 	yazi = new SDLLabel(option);
 	if (yazi->getWidth() > parent->getWidth())
-		w = yazi->getWidth() + 6;
-	else w = parent->getWidth() + 6; // spacing
+		w = yazi->getWidth() + 12;
+	else w = parent->getWidth();//  + 6; // spacing
 	h = 20;
 }
 
@@ -75,24 +75,24 @@ void SDLCombo::toggleOptions()
 		showOptions();
 }
 
-string SDLCombo::getSelected()
+string SDLCombo::getValue()
 {
 	for(int i=0;i<options.size();i++)
 	{
 		if (options[i].isSelected())
 			return options[i].getValue();
 	}
-	return "none";
+	return "";
 }
 
-string SDLCombo::getSelectedValue()
+string SDLCombo::getSelectedString()
 {
 	for(int i=0;i<options.size();i++)
 	{
 		if (options[i].isSelected())
 			return options[i].getOption();
 	}
-	return "Seçilmemiş";
+	return "";
 }
 
 void SDLCombo::handleEvent(int eventType, int button, int x, int y)

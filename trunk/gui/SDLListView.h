@@ -89,6 +89,12 @@ class SDLListViewItem:public SDLWidget
 	
 	/// \return The state of the item
 	itemState getState() { return durum; }
+	
+	/// Resets the width of the item
+	void setWidth(int pw)
+	{
+		w = pw; px2 = px1 + w;
+	}
 };
 
 
@@ -141,7 +147,7 @@ class SDLListView:public SDLWidget
 	{
 		px1 = x;
 		py1 = y;
-		w = width;
+		// w = width;
 		h = rows * lineHeight;
 		px2 = px1 + w;
 		py2 = py1 + h;
@@ -161,7 +167,7 @@ class SDLListView:public SDLWidget
 	protected:
 	/// Vector of SDLListViewItem widgets
 	vector<SDLListViewItem> items;
-	int width /*! Width of widget */,
+	int // width /*! Width of widget */,
 		rows /*! Number of rows of widget */,
 		uppos /*! Upper position for the items */,
 		downpos /*! Lower position for the items */,

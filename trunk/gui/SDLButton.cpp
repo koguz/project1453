@@ -22,6 +22,7 @@ SDLButton::SDLButton(string f, string label=string())
 		metin = new SDLLabel(label);
 	}
 	else metin = 0;
+	clicked = 0;
 }
 
 void SDLButton::handleEvent(int eventType, int button, int x, int y)

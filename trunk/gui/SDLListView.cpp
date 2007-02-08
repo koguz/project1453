@@ -9,7 +9,9 @@ SDLListViewItem::SDLListViewItem(SDLListView *p, string str)
 	selected = false;
 	
 	yazi = new SDLLabel(str);
-	w = parent->getWidth();
+	if (yazi->getWidth() > parent->getWidth())
+		w = yazi->getWidth() + 12;
+	else w = parent->getWidth(); 
 	h = 20; // fixed?
 }
 
@@ -18,8 +20,9 @@ SDLListView::SDLListView(int rows)
 	tip = LIST;
 	lineHeight = 20;
 	
-	w = width = 200; // bu da sabit, sonra değiştir
+	w = 0; 
 	this->rows = rows;
+	h = lineHeight*rows;
 	
 	SDLListView *me = this;
 	
@@ -39,6 +42,17 @@ void SDLListView::addItem(string item)
 	SDLListViewItem temp(this, item);
 	items.push_back(temp);
 	lines = items.size();
+	
+	if (temp.getWidth() > w)
+	{
+		w = temp.getWidth();
+		px2 = px1 + w;
+		up->setPosition(px1+w+1, py1);
+		down->setPosition(px1+w+1, py2-down->getHeight()+1);
+	}
+	
+	for (int i=0;i<items.size();i++)
+		items[i].setWidth(w);
 	
 	uppos = 0;
 	if (lines < rows)

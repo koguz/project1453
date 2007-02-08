@@ -132,10 +132,10 @@ class SDLCombo:public SDLWidget
 	enum comboState{ CLOSED, OPEN };
 	
 	/// \return The selected option string
-	string getSelected();
+	string getValue();
 	
 	/// \return The selected option's string
-	string getSelectedValue();
+	string getSelectedString();
 	
 	/// Displays all widgets according to the state
 	virtual void drawWidget(SDL_Surface* screen)
@@ -160,7 +160,13 @@ class SDLCombo:public SDLWidget
 	{
 		handleEvent(eventType, button, x, y);
 	}
-
+	
+	/** Adds a new option
+	 * 
+	 * \param option is the string displayed
+	 * \param value is the value of the option
+	 * \param def is whether the option is default / selected
+	 */
 	void addOption(string option, string value, bool def=false);
 	
 	protected:
