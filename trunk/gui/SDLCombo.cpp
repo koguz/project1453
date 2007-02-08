@@ -82,6 +82,17 @@ string SDLCombo::getSelected()
 		if (options[i].isSelected())
 			return options[i].getValue();
 	}
+	return "none";
+}
+
+string SDLCombo::getSelectedValue()
+{
+	for(int i=0;i<options.size();i++)
+	{
+		if (options[i].isSelected())
+			return options[i].getOption();
+	}
+	return "Seçilmemiş";
 }
 
 void SDLCombo::handleEvent(int eventType, int button, int x, int y)

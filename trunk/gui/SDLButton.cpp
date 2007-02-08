@@ -44,8 +44,8 @@ void SDLButton::handleEvent(int eventType, int button, int x, int y)
 				if (isMouseOver(x, y))
 				{
 					setState(PRESSED);
-					if (clicked != 0)
-						clicked();
+// 					if (clicked != 0)
+// 						clicked();
 				}
 			}
 			break;
@@ -54,7 +54,9 @@ void SDLButton::handleEvent(int eventType, int button, int x, int y)
 			{
 				if (isMouseOver(x, y))
 				{
-					setState(OVER);
+					setState(NORMAL);
+					if (clicked != 0)
+						clicked();
 				}
 				else setState(NORMAL);
 			}

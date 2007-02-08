@@ -134,6 +134,9 @@ class SDLCombo:public SDLWidget
 	/// \return The selected option string
 	string getSelected();
 	
+	/// \return The selected option's string
+	string getSelectedValue();
+	
 	/// Displays all widgets according to the state
 	virtual void drawWidget(SDL_Surface* screen)
 	{

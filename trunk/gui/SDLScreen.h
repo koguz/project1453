@@ -90,7 +90,14 @@ class SDLScreen
 	 * @see addWidget
 	 * 
 	 */
-	void display();
+	virtual void SDLScreen::display()
+	{
+		SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 120, 120, 120));
+		for (unsigned int i=0;i<widgets.size();i++)
+		{
+			widgets[i]->drawWidget(screen);
+		}
+	}
 	
 	/** \brief Event Handler
 	 *

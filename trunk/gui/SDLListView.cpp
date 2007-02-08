@@ -18,7 +18,7 @@ SDLListView::SDLListView(int rows)
 	tip = LIST;
 	lineHeight = 20;
 	
-	width = 200; // bu da sabit, sonra değiştir
+	w = width = 200; // bu da sabit, sonra değiştir
 	this->rows = rows;
 	
 	SDLListView *me = this;
@@ -87,6 +87,7 @@ string SDLListView::getValue()
 			return items[i].getValue();
 		}
 	}
+	return "Seçili öğe yok!";
 }
 
 void SDLListView::handleEvent(int eventType, int button, int x, int y)
