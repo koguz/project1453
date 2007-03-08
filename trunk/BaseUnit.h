@@ -56,7 +56,6 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	direction yon;
 	string curState;
 	Sprite sprites[8];
-		
 };
 
 

@@ -49,8 +49,6 @@ void Application::startSingleGame()
 	}
 	gt->err->setText(" ");
 	
-	
-	// oyunu yaratmadan önce ekranı mı ayarlasak?
 	game = new Game(screen, gt->ulke->getValue(), atoi(gt->rakipTip->getValue().c_str()), gt->haritalar->getValue());
 }
 

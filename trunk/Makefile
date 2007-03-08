@@ -1,5 +1,5 @@
 CC=g++
-FLAGS=`sdl-config --cflags` -c
+FLAGS=`sdl-config --cflags` -c 
 LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf
 
 all: g1453

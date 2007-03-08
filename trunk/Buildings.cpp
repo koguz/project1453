@@ -26,7 +26,7 @@ AskerOcagi::AskerOcagi():BaseBuilding("Asker Ocağı")
 {
 	hitpoints = 800;
 	sight= 6;
-	size = 3;
+	size = 4;
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 	cost = Cost(200, 0, 400);

@@ -26,10 +26,10 @@ class BaseGraphicObject
 	void unselect() { selected = false; }
 	bool isSelected() { return selected; }
 	
-// 	virtual void update() { cout << "basegraphic cagrildi?" << endl; }
 	virtual SDL_Surface* getImg() { return 0; }
 	
 	SDLScreen* getScreen() { return komutlar; } 
+	SDLProgressBar *healthBar;
 	
 	protected:
 	int posx, posy, cx, cy; // cx ve cy merkez noktaları

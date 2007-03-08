@@ -12,8 +12,11 @@ BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(
 	xp = 0; // no xp
 	kills = 0; // no kills
 	
+	tip = UNIT;
+	
 	waitingCommand = "yok";
 	waiting = false;
+	
 }
 
 SDL_Rect BaseUnit::getFrame()
@@ -111,6 +114,7 @@ void BaseUnit::moveToTarget(int tx, int ty)
 
 void BaseUnit::update()
 {
+	healthBar->setValue(currentHp);
 	Coordinates temp;
 	if (!target.empty())
 	{

@@ -35,7 +35,6 @@ void Player::buildStartingUnits(int x, int y)
 		k->instantBuild();
 		k->setPosition(x, y);
 		nesneler.push_back(k);
-		birimler.push_back(k); // uff
 	}
 	else if (faction == "Bizans")
 	{
@@ -43,7 +42,6 @@ void Player::buildStartingUnits(int x, int y)
 		s->instantBuild();
 		s->setPosition(x, y);
 		nesneler.push_back(s);
-		birimler.push_back(s);
 	}
 }
 
@@ -101,58 +99,48 @@ void Player::update()
 	SDL_Rect dest;
 	dest.w = dest.h = 64;
 	
-	for(int i=0;i<birimler.size();i++)
+	list<BaseObject*>::iterator iter;
+	for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 	{
-		BaseUnit* birim = (BaseUnit*) birimler[i];
-		birim->update();
-		dest.x = birim->getX();
-		dest.y = birim->getY();
-		SDL_Rect src = birim->getFrame();
-		SDL_BlitSurface(birim->getImg(), &src, screen, &dest);
-		if (birim->isSelected())
+		if ((*iter)->getType() == BaseObject::UNIT)
 		{
-			// etrafina bi kare cizelim, di mi :D
-			int ux1 = birim->getX() + birim->hotspot.x;
-			// int ux2 = ux1 + adamlar[i]->hotspot.w;
-			int ux2 = ux1 + 4;
-			int ux3 = ux2 + 19;
-			int ux4 = ux3 + 4;
-			int uy1 = birim->getY() + birim->hotspot.y;
-			// int uy2 = uy1 + adamlar[i]->hotspot.h;
-			int uy2 = uy1 + 4;
-			int uy3 = uy2 + 19;
-			int uy4 = uy3 + 4;
-			// aacircleColor(screen, adamlar[i]->getCenter().x, adamlar[i]->getCenter().y, 18, 0x00FF00FF);
-			// rectangleColor(screen, ux1, uy1, ux2, uy2, 0x00FF00FF);
-			// characterColor(screen, 10, 10, 'c', 0xFFFFFFFF);
-			lineColor(screen, ux1, uy1, ux2, uy1, 0x00FF00FF);
-			lineColor(screen, ux3, uy1, ux4, uy1, 0x00FF00FF);
-			lineColor(screen, ux1, uy4, ux2, uy4, 0x00FF00FF);
-			lineColor(screen, ux3, uy4, ux4, uy4, 0x00FF00FF);
-			lineColor(screen, ux1, uy1, ux1, uy2, 0x00FF00FF);
-			lineColor(screen, ux1, uy3, ux1, uy4, 0x00FF00FF);
-			lineColor(screen, ux4, uy1, ux4, uy2, 0x00FF00FF);
-			lineColor(screen, ux4, uy3, ux4, uy4, 0x00FF00FF);
+			BaseUnit* birim = (BaseUnit*)(*iter);
+			birim->update();
+			dest.x = birim->getX();
+			dest.y = birim->getY();
+			SDL_Rect src = birim->getFrame();
+			SDL_BlitSurface(birim->getImg(), &src, screen, &dest);
+			if (birim->isSelected())
+			{
+				int ux1 = birim->getX() + birim->hotspot.x;
+				int ux2 = ux1 + 4;
+				int ux3 = ux2 + 19;
+				int ux4 = ux3 + 4;
+				int uy1 = birim->getY() + birim->hotspot.y;
+				int uy2 = uy1 + 4;
+				int uy3 = uy2 + 19;
+				int uy4 = uy3 + 4;
+				lineColor(screen, ux1, uy1, ux2, uy1, 0x00FF00FF);
+				lineColor(screen, ux3, uy1, ux4, uy1, 0x00FF00FF);
+				lineColor(screen, ux1, uy4, ux2, uy4, 0x00FF00FF);
+				lineColor(screen, ux3, uy4, ux4, uy4, 0x00FF00FF);
+				lineColor(screen, ux1, uy1, ux1, uy2, 0x00FF00FF);
+				lineColor(screen, ux1, uy3, ux1, uy4, 0x00FF00FF);
+				lineColor(screen, ux4, uy1, ux4, uy2, 0x00FF00FF);
+				lineColor(screen, ux4, uy3, ux4, uy4, 0x00FF00FF);
+				
+				// bir de healthBar
+				int hx = ux1;
+				int hy = uy1 - 10;
+				birim->healthBar->setPosition(hx, hy);
+				birim->healthBar->drawWidget(screen);
+			}
 		}
 	}
-	
 	if (isMultipleSelecting())
 	{
 		rectangleColor(screen, rsx1, rsy1, rsx2, rsy2, 0x00FF00FF);
 	}
-	
-/*	
-	if (!birimSirasi.empty())
-	{
-		BaseUnit* temp = birimSirasi.front();
-		if (temp->build())
-		{
-			birimSirasi.pop_front();
-			birimler.push_back(temp);
-			cout << "birimler size: " << birimler.size() << endl;
-		}
-	}
-*/
 }
 
 
@@ -174,48 +162,62 @@ void Player::eventHandler(SDL_Event *event)
 			{
 				// önce seçilen birine bir komut verilmişmi
 				bool tmm = false;
-				for (unsigned int i=0;i<birimler.size();i++)
+				list<BaseObject*>::iterator iter;
+				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 				{
-					BaseUnit *birim = (BaseUnit*) birimler[i];
-					if (birim->isWaiting())
+					if ((*iter)->getType() == BaseObject::UNIT)
 					{
-						birim->issueCommand(mx, my);
-						tmm = true;
+						BaseUnit* birim = (BaseUnit*)(*iter);
+						if (birim->isWaiting())
+						{
+							birim->issueCommand(mx, my);
+							tmm = true;
+						}
 					}
 				}
 				if (tmm)
 					break;
 				bool single = false;
-				for(unsigned int i=0;i<birimler.size();i++)
+				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 				{
-					BaseUnit *birim = (BaseUnit*) birimler[i];
-					ux1 = birim->getX() + birim->hotspot.x;
-					ux2 = ux1 + birim->hotspot.w;
-					uy1 = birim->getY() + birim->hotspot.y;
-					uy2 = uy1 + birim->hotspot.h;
-					if (
-						(mx > ux1) &&
-						(mx < ux2) &&
-						(my > uy1) &&
-						(my < uy2)
-						)
+					if ((*iter)->getType() == BaseObject::UNIT)
 					{
-						if (!single)
+						BaseUnit* birim = (BaseUnit*)(*iter);
+						ux1 = birim->getX() + birim->hotspot.x;
+						ux2 = ux1 + birim->hotspot.w;
+						uy1 = birim->getY() + birim->hotspot.y;
+						uy2 = uy1 + birim->hotspot.h;
+						if (
+							(mx > ux1) &&
+							(mx < ux2) &&
+							(my > uy1) &&
+							(my < uy2)
+							)
 						{
-							// sadece bir adam seciliyor (olur da ust uste gelirlerse)
-							birim->select();
-							// current = birim->getEkran();
-							single = true;
-							empty = false;
+							if (!single)
+							{
+								// sadece bir adam seciliyor (olur da ust uste gelirlerse)
+								birim->select();
+								// current = birim->getEkran();
+								single = true;
+								empty = false;
+							}
 						}
+						else birim->unselect();
 					}
-					else birim->unselect();
 				}
 				if (empty)
 				{
 					// current = birimler;
-					for(unsigned int i=0;i<birimler.size();i++)
-						birimler[i]->unselect();
+					
+					for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+					{
+						if ((*iter)->getType() == BaseObject::UNIT)
+						{
+							BaseUnit* birim = (BaseUnit*)(*iter);
+							birim->unselect();
+						}
+					}
 					
 					// bir kare seçim başlıyor o zaman...
 					drawing = true;
@@ -225,13 +227,14 @@ void Player::eventHandler(SDL_Event *event)
 			}
 			else if (event->button.button == SDL_BUTTON_RIGHT)
 			{
-				for(int i=0;i<birimler.size();i++)
+				list<BaseObject*>::iterator iter;
+				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 				{
-					if (birimler[i]->isSelected())
+					if ((*iter)->getType() == BaseObject::UNIT)
 					{
-						BaseUnit* birim = (BaseUnit*) birimler[i];
-						birim->defaultAction(mx, my);
-						// adamlar[i].moveToTarget(mx, my);
+						BaseUnit* birim = (BaseUnit*)(*iter);
+						if (birim->isSelected())
+							birim->defaultAction(mx, my);
 					}
 				}
 			}
@@ -241,39 +244,44 @@ void Player::eventHandler(SDL_Event *event)
 			// bakalim kimleri sectik
 			if (event->button.button = SDL_BUTTON_LEFT && drawing)
 			{
-				for (int i=0;i<birimler.size();i++)
+				list<BaseObject*>::iterator iter;
+				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 				{
-					int smx = birimler.at(i)->getCenter().x;
-					int smy = birimler.at(i)->getCenter().y;
-					if  (
-						(
-							(smx > rsx1) &&
-							(smx < rsx2) &&
-							(smy > rsy1) &&
-							(smy < rsy2)
-						) ||
-						(
-							(smx < rsx1) &&
-							(smx > rsx2) &&
-							(smy < rsy1) &&
-							(smy > rsy2)
-						) ||
-						(
-							(smx > rsx1) &&
-							(smx < rsx2) &&
-							(smy < rsy1) &&
-							(smy > rsy2)
-						) ||
-						(
-							(smx < rsx1) &&
-							(smx > rsx2) &&
-							(smy > rsy1) &&
-							(smy < rsy2)
-						)
-					)
+					if ((*iter)->getType() == BaseObject::UNIT)
 					{
-						if (isValidSelection())
-							birimler.at(i)->select();
+						BaseUnit* birim = (BaseUnit*)(*iter);
+						int smx = birim->getCenter().x;
+						int smy = birim->getCenter().y;
+						if  (
+							(
+								(smx > rsx1) &&
+								(smx < rsx2) &&
+								(smy > rsy1) &&
+								(smy < rsy2)
+							) ||
+							(
+								(smx < rsx1) &&
+								(smx > rsx2) &&
+								(smy < rsy1) &&
+								(smy > rsy2)
+							) ||
+							(
+								(smx > rsx1) &&
+								(smx < rsx2) &&
+								(smy < rsy1) &&
+								(smy > rsy2)
+							) ||
+							(
+								(smx < rsx1) &&
+								(smx > rsx2) &&
+								(smy > rsy1) &&
+								(smy < rsy2)
+							)
+						)
+						{
+							if (isValidSelection())
+								birim->select();
+						}
 					}
 				}
 				drawing = dragging = false;

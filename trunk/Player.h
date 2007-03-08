@@ -17,7 +17,6 @@ class Player
 {
 	private:
 	list<BaseObject*> nesneler;
-	vector<BaseGraphicObject*> birimler;
 	string faction;
 	SDL_Surface *screen;
 	bool drawing;
