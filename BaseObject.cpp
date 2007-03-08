@@ -21,7 +21,6 @@ bool BaseObject::build()
 	{
 		sayac = SDL_GetTicks();
 		currentHp++;
-// 		cout << "hp: " << currentHp << endl;
 		if (currentHp == hitpoints)
 		{
 			built = true;

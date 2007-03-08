@@ -48,6 +48,8 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	yon = N;
 	komutlar = new SDLScreen(screen);
 	setState("dur");
+	
+	healthBar = new SDLProgressBar(28, 4, GREEN, 0, hitpoints);
 }
 
 void Koylu::setCommandCalis()
