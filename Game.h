@@ -13,14 +13,14 @@
 
 using namespace std;
 
+
 class Game
 {
 	public:
 	SDLScreen *ui; // for general ui, displaying player status etc.
 	SDLScreen *commands; // for units, which can change when a unit/building selected...
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
-	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;
-	
+	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz, *commandList;
 	
 	Player *human, *cpu;
 	

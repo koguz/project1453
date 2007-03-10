@@ -6,8 +6,8 @@ all: g1453
 
 again: clean all
 
-g1453: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o BaseObject.o Sprite.o BaseGraphicObject.o
-	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o  BaseObject.o Sprite.o BaseGraphicObject.o -o g1453
+g1453: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o BaseObject.o Sprite.o BaseGraphicObject.o SDLCommandButton.o 
+	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o  BaseObject.o Sprite.o BaseGraphicObject.o SDLCommandButton.o -o g1453
 	
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp
@@ -67,6 +67,9 @@ Technologies.o: Technologies.cpp
 
 Sprite.o: Sprite.cpp
 	$(CC) $(FLAGS) Sprite.cpp
+
+SDLCommandButton.o: SDLCommandButton.cpp
+	$(CC) $(FLAGS) SDLCommandButton.cpp
 
 # SDLGUI base below
 

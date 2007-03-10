@@ -1,3 +1,12 @@
+2007.03.11
+
+01:38
+	- Birim alt ekranları eklendi, burada yeni bir GUI bileşeni,
+	  SDLCommandButton yazıp kullandım. Bu sayede düğmenin üzerine
+	  geldiğinde düğme ile ilgili bilgiler gözüküyor
+	- Az sonra kodu düzenleyip, derleyip, toplayıp tekrar atacağım, 
+	  bir şey bozulmasın diye yedekliyorum şimdi :)
+
 2007.03.08	
 
 23:14 DevC++ proje dosyası eklendi

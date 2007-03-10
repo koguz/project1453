@@ -117,6 +117,8 @@ class SDLWidget
 	/// \return Returns the height of the widget
 	int getHeight() { return h; }
 	
+	SDL_Surface* getWidget() { return widget; }
+	
 	protected:
 	/// \brief Widget surface, most likely an image
 	SDL_Surface *widget; 

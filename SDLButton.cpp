@@ -55,11 +55,10 @@ void SDLButton::handleEvent(int eventType, int button, int x, int y)
 			{
 				if (isMouseOver(x, y) && getState() == PRESSED)
 				{
-					setState(NORMAL);
 					if (clicked != 0)
 						clicked();
 				}
-				else setState(NORMAL);
+				setState(NORMAL);
 			}
 			break;
 	}

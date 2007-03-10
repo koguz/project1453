@@ -91,7 +91,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	
 	ui = new SDLScreen(screen);
 	
-	SDLWidget *arka = new SDLWidget("ui/arkaKirmizi.jpg");
+	SDLWidget *arka = new SDLWidget("ui/arkaOyun.jpg");
 	arka->setPosition(0, 0);
 	ui->addWidget(arka);
 	

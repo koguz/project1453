@@ -134,6 +134,7 @@ void Player::update()
 				int hy = uy1 - 10;
 				birim->healthBar->setPosition(hx, hy);
 				birim->healthBar->drawWidget(screen);
+				birim->komutlar->display();
 			}
 		}
 	}
@@ -146,6 +147,16 @@ void Player::update()
 
 void Player::eventHandler(SDL_Event *event)
 {
+	list<BaseObject*>::iterator iter;
+	for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+	{
+		if ((*iter)->getType() == BaseObject::UNIT)
+		{
+			BaseUnit* birim = (BaseUnit*)(*iter);
+			birim->komutlar->eventHandler(event);
+		}
+	}
+	
 	int mx, my, ux1, ux2, uy1, uy2;
 	bool empty = true;
 //	rsx1 = 0, rsx2 = 0, rsy1 = 0, rsy2 = 0;
