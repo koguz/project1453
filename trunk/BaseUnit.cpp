@@ -16,7 +16,6 @@ BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(
 	
 	waitingCommand = "yok";
 	waiting = false;
-	
 }
 
 SDL_Rect BaseUnit::getFrame()

@@ -30,5 +30,3 @@ bool SDLWidget::isMouseOver(int mx, int my)
 	else return false;
 }
 
-
-	

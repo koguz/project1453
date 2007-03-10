@@ -50,6 +50,30 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	setState("dur");
 	
 	healthBar = new SDLProgressBar(28, 4, GREEN, 0, hitpoints);
+	
+	komutlar = new SDLScreen(screen);
+	
+	SDL_Rect trect;
+	trect.x = trect.y = 0;
+	trect.w = trect.h = 44;
+	
+	Koylu *me = this;
+	
+	SDLCommandButton* yuru = new SDLCommandButton(screen, trect, "Yürü");
+	yuru->setPosition(648,195);
+	yuru->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandYuru);
+	komutlar->addWidget(yuru);
+	
+	trect.x = 44; trect.y = 0;
+	SDLCommandButton* dur = new SDLCommandButton(screen, trect, "Dur");
+	dur->setPosition(697,195);
+	dur->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::actionDur);
+	komutlar->addWidget(dur);
+	
+	trect.x = 88; trect.y = 0;
+	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev);
+	ev->setPosition(746, 195);
+	komutlar->addWidget(ev);
 }
 
 void Koylu::setCommandCalis()
