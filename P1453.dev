@@ -1,7 +1,7 @@
 [Project]
 FileName=P1453.dev
 Name=P1453
-UnitCount=60
+UnitCount=62
 Type=0
 Ver=1
 ObjFiles=
@@ -646,4 +646,24 @@ OriginalFilename=
 ProductName=p1453
 ProductVersion=
 AutoIncBuildNr=0
+
+[Unit61]
+FileName=SDLCommandButton.h
+CompileCpp=1
+Folder=P1453
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit62]
+FileName=SDLCommandButton.cpp
+CompileCpp=1
+Folder=P1453
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 
