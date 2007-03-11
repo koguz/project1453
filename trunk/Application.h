@@ -15,12 +15,11 @@ using namespace std;
 
 class Application
 {
-	// Application is an SDL application
 	private:
 	string appName;
 	string error;
 	int width, height, bpp;  
-	unsigned int flags; // for initializing
+	unsigned int flags; 
 	bool done;
 	SDLScreen *current;
 	ScreenMain *ana;
@@ -29,7 +28,7 @@ class Application
 	Game *game;
 	
 	public:
-	SDL_Surface* screen; // ana penceremiz
+	SDL_Surface* screen;
 	Application(string appName, int w, int h, int d, unsigned int f);
 	
 	bool Init();

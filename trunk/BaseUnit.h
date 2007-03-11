@@ -21,13 +21,20 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	void setYon(direction d) { yon = d; }
 	bool isWaiting() { return waiting; }
 	
-	virtual void issueCommand(int x, int y) { cout << "base unit issueCommand is called, err??" << endl; }
-	virtual void defaultAction(int tx, int ty) { cout << "base unit default action is called, err?" << endl; }
+	virtual void issueCommand(int x, int y) { cerr << "base unit issueCommand is called, err??" << endl; }
+	virtual void defaultAction(int tx, int ty) { cerr << "base unit default action is called, err?" << endl; }
 	
 	virtual SDL_Surface* getImg()
 	{
 		sprites[yon].setState(curState);
 		return sprites[yon].getImg();
+	}
+	
+	virtual SDL_Rect getFrame()
+	{
+		sprites[yon].setState(curState);
+		SDL_Rect r = sprites[yon].getFrame();
+		return r;
 	}
 	
 	void moveToTarget(int tx, int ty);
@@ -37,8 +44,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	list<string>commandList;
 	
 	void update();
-	SDL_Rect getFrame();
-	SDL_Rect hotspot;
+	
 
 	protected:
 	int armor;

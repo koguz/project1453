@@ -6,8 +6,6 @@ ScreenMain::ScreenMain(SDL_Surface *screen):SDLScreen(screen)
 	arka->setPosition(0, 0);
 	addWidget(arka);
 	
-	
-	//SDLButton *oyun, *ayarlar, *credits, *cikis, *yukle;
 	oyun = new SDLButton("ui/dugme.jpg", "Yeni Oyun");
 	oyun->setPosition(458, 400);
 	addWidget(oyun);

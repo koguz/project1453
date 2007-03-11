@@ -39,7 +39,7 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	lblHarita->setPosition(350, 250);
 	addWidget(lblHarita);
 	
-	haritalar = new SDLListView(4);
+	haritalar = new SDLListView(4); // NOTE bu liste database'den gelse?
 	haritalar->addItem("İstanbul.hrt");
 	haritalar->addItem("İzmir.hrt");
 	haritalar->addItem("Bursa.hrt");

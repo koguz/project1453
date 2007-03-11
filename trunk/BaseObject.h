@@ -7,6 +7,8 @@
 #include "Headers.h"
 #include "Cost.h"
 
+
+// temel olan 3 nesne: tech, bina, birim
 class BaseObject
 {
 	public:

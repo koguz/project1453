@@ -1,9 +1,12 @@
 #include "Units.h"
 
+// NOTE bu birimleri de ayırmak gerekecek sanki :(
+
 Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 {
+	// temel bileşenler
 	hitpoints = 20;
-	buildRate = 1000; // 1 saniyede 1 HP
+	buildRate = 1000; 
 	armor = 2;
 	damage = 10;
 	range = 1;
@@ -17,6 +20,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	cost = Cost(0, 400, 0);
 	
 	
+	// grafiksel bileşenler
 	hotspot.x = hotspot.y = 20;
 	hotspot.w = hotspot.h = 32;
 	cx = cy = 32; 
@@ -46,13 +50,11 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 		}		
 	}
 	yon = N;
-	komutlar = new SDLScreen(screen);
 	setState("dur");
-	
 	healthBar = new SDLProgressBar(28, 4, GREEN, 0, hitpoints);
 	
+	// alt ekran: komutlar
 	komutlar = new SDLScreen(screen);
-	
 	SDL_Rect trect;
 	trect.x = trect.y = 0;
 	trect.w = trect.h = 44;

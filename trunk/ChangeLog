@@ -7,6 +7,11 @@
 	- Az sonra kodu düzenleyip, derleyip, toplayıp tekrar atacağım, 
 	  bir şey bozulmasın diye yedekliyorum şimdi :)
 
+04:16	- Kodun tekrar kullanımı için BaseUnit için yapılanlar 
+	  BaseGraphicObject altına alındı. Binalarla ilgili bir şey 
+	  yok, onlar da yarın yazılacak. O zaman daha iyi bir 
+	  fikrimiz olacak...
+
 2007.03.08	
 
 23:14 DevC++ proje dosyası eklendi

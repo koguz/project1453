@@ -18,13 +18,6 @@ BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(
 	waiting = false;
 }
 
-SDL_Rect BaseUnit::getFrame()
-{
-	sprites[yon].setState(curState);
-	SDL_Rect r = sprites[yon].getFrame();
-	return r;
-}
-
 void BaseUnit::actionDur()
 {
 	target.clear();
