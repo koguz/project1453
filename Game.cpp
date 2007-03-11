@@ -18,16 +18,16 @@ bool operator==(BaseObject &a, BaseObject &b)
 Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 {
 	screen = scr;
-	// mapname ve ai parametreleri şimdilik yok
-	// userFaction'a göre ilk adamı Köylü ya da 
-	// Bizans'ın Köylü'ye denk birimi olarak
-	// başlatacağız..
-	
-	// önce haritayı şimdilik yaratalım
-	// 
-	// haritada aynı zamanda start position da olması lazım...
-	
 	/*
+	mapname ve ai parametreleri şimdilik yok
+	userFaction'a göre ilk adamı Köylü ya da 
+	Bizans'ın Köylü'ye denk birimi olarak
+	başlatacağız..
+	
+	önce haritayı şimdilik yaratalım
+	
+	haritada aynı zamanda start position da olması lazım...
+	
 	0 - çim
 	1 - sari çim
 	2 - agac
@@ -38,7 +38,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	*/
 	
 	
-	// öylesine
+	// öylesine harita
 	{
 		for(int i=0;i<20;i++)
 		{
@@ -78,7 +78,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	
 	
 	human = new Player(screen, userFaction, 1000, 1000, 1000);
-	human->buildStartingUnits(360, 450);
+	human->buildStartingUnits(360, 450); // FIXME sabit? haritadan al
 	
 	string cpuFaction;
 	if (userFaction == "Osmanlı")
@@ -87,7 +87,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 		cpuFaction = "Osmanlı";
 		
 	cpu = new Player(screen, cpuFaction, 1000, 1000, 1000);
-	cpu->buildStartingUnits(360, 75);
+	cpu->buildStartingUnits(360, 75); // FIXME sabit? haritadan al
 	
 	ui = new SDLScreen(screen);
 	
@@ -141,20 +141,13 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 void Game::update()
 {
 	human->update();
+	// TODO cpu->update() AI yazılınca
 }
 
 void Game::display()
 {
 	ui->display();
-	commands->display();
-	
-	
-	
-// 	if (SDL_GetTicks() > 10000)
-// 	{
-// 		human->addCost(Cost(10,0,0));
-// 		lblWood->setText(human->getWoodAmount());
-// 	}
+	commands->display(); // NOTE bu patladı mı?
 	
 	// harita
 	int px, py;
@@ -188,11 +181,7 @@ void Game::display()
 					break;
 			}
 		}
-	}
-	
-	//
-// 	asd
-	
+	}	
 }
 
 void Game::eventHandler(SDL_Event *event)
@@ -202,15 +191,4 @@ void Game::eventHandler(SDL_Event *event)
 	human->eventHandler(event);
 }
 
-
-
-// bool operator==(Tech &x, Tech &y)
-// {
-// 	return ( (x.techName == y.techName) && (x.techCost == y.techCost) );
-// }
-// 
-// bool operator==(BaseBuilding &x, BaseBuilding &y)
-// {
-// 	return ( (x.buildingName == y.buildingName) && (x.faction == y.faction) );
-// }
 

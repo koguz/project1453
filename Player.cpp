@@ -106,36 +106,7 @@ void Player::update()
 		{
 			BaseUnit* birim = (BaseUnit*)(*iter);
 			birim->update();
-			dest.x = birim->getX();
-			dest.y = birim->getY();
-			SDL_Rect src = birim->getFrame();
-			SDL_BlitSurface(birim->getImg(), &src, screen, &dest);
-			if (birim->isSelected())
-			{
-				int ux1 = birim->getX() + birim->hotspot.x;
-				int ux2 = ux1 + 4;
-				int ux3 = ux2 + 19;
-				int ux4 = ux3 + 4;
-				int uy1 = birim->getY() + birim->hotspot.y;
-				int uy2 = uy1 + 4;
-				int uy3 = uy2 + 19;
-				int uy4 = uy3 + 4;
-				lineColor(screen, ux1, uy1, ux2, uy1, 0x00FF00FF);
-				lineColor(screen, ux3, uy1, ux4, uy1, 0x00FF00FF);
-				lineColor(screen, ux1, uy4, ux2, uy4, 0x00FF00FF);
-				lineColor(screen, ux3, uy4, ux4, uy4, 0x00FF00FF);
-				lineColor(screen, ux1, uy1, ux1, uy2, 0x00FF00FF);
-				lineColor(screen, ux1, uy3, ux1, uy4, 0x00FF00FF);
-				lineColor(screen, ux4, uy1, ux4, uy2, 0x00FF00FF);
-				lineColor(screen, ux4, uy3, ux4, uy4, 0x00FF00FF);
-				
-				// bir de healthBar
-				int hx = ux1;
-				int hy = uy1 - 10;
-				birim->healthBar->setPosition(hx, hy);
-				birim->healthBar->drawWidget(screen);
-				birim->komutlar->display();
-			}
+			birim->draw();
 		}
 	}
 	if (isMultipleSelecting())
