@@ -141,6 +141,9 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 void Game::update()
 {
 	human->update();
+	lblWood->setText(human->getWoodAmount());
+	lblFood->setText(human->getFoodAmount());
+	lblStone->setText(human->getStoneAmount());
 	// TODO cpu->update() AI yazılınca
 }
 

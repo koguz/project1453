@@ -6,5 +6,4 @@
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_gfxPrimitives.h"
 
-
 #endif /*HEADERS_H_*/

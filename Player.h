@@ -5,7 +5,7 @@
 #include <string>
 #include <list>
 #include <vector>
-
+#include "callback.h"
 #include "Cost.h"
 #include "Buildings.h"
 #include "Units.h"
@@ -52,7 +52,8 @@ class Player
 	void eventHandler(SDL_Event *event);
 	
 // 	// osmanlı birimleri
-// 	void createKoylu();
+	void createKoylu();
+ 	void createKoylu(bool instant);
 // 	void createAzab();
 // 	void createPiyade();
 // 	

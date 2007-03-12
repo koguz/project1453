@@ -34,6 +34,20 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr):BaseBuilding(scr, "Şehir Merkezi (
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 	cost = Cost(400, 0, 400);
+	
+	// 
+	setResim("graphics/buildings/osmanli/sehirMerkezi1.png");
+	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
+	
+	komutlar = new SDLScreen(screen);
+	SDL_Rect trect;
+	trect.x = 176; trect.y = 0;
+	trect.w = trect.h = 44;
+	
+	createKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", new Koylu(screen));
+	createKoylu->setPosition(648, 195);
+	// createKoylu->dugme->clicked = 0;
+	komutlar->addWidget(createKoylu);
 }
 
 AskerOcagi::AskerOcagi(SDL_Surface *scr):BaseBuilding(scr, "Asker Ocağı")

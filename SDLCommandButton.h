@@ -38,10 +38,12 @@ class SDLCommandButton:public SDLWidget
 	}
 	SDLButton *dugme;
 	
+	static SDLWidget *ana;
+	
 	protected:
 	bool over;
 	SDL_Rect kare;
-	SDLWidget *ana, *woodIcon, *foodIcon, *stoneIcon;
+	SDLWidget *woodIcon, *foodIcon, *stoneIcon;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblCommand;
 	BaseObject *nesne;
 	string inf;

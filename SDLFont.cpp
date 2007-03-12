@@ -1,5 +1,8 @@
 #include "SDLFont.h"
 
+// TTF_Font* SDLFont::font = TTF_OpenFont("font.ttf", 14);
+TTF_Font* SDLFont::font = 0;
+
 SDLFont::SDLFont(string str, int size, SDL_Color color)
 {
 	if (!TTF_WasInit() && TTF_Init() == -1)
@@ -7,9 +10,13 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 		cout << "err at sdl_ttf init" << endl;
 		return;
 	}
-	TTF_Font *font;
+	
+	//TTF_Font *font;
 	/// Font used here is a constant value: font.ttf
-	font = TTF_OpenFont("font.ttf", size);
+	//font = TTF_OpenFont("font.ttf", size);
+	if (font == 0)
+		font = TTF_OpenFont("font.ttf", 14);
+	
 	if (!font)
 	{
 		cout << "err at loading font" << endl;

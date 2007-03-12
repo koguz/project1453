@@ -5,7 +5,6 @@
 #include "Technologies.h"
 #include "Buildings.h"
 
-
 class Koylu:public BaseUnit
 {
 	public:

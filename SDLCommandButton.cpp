@@ -1,5 +1,7 @@
 #include "SDLCommandButton.h"
 
+SDLWidget* SDLCommandButton::ana = 0;
+
 SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, BaseObject* nesne)
 {
 	screen = scr;
@@ -13,7 +15,8 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Ba
 	
 	dugme = new SDLButton("ui/commandButton.png", "");
 	dugme->clicked = 0;
-	ana = new SDLWidget("ui/commandList.png");
+	if (ana == 0)
+		ana = new SDLWidget("ui/commandList.png");
 	
 	aciklama = new SDLScreen(screen);
 	

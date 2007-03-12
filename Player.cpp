@@ -31,14 +31,13 @@ void Player::buildStartingUnits(int x, int y)
 {
 	if (faction == "Osmanlı")
 	{
-		Koylu* k = new Koylu(screen);
-		k->instantBuild();
-		k->setPosition(x, y);
-		nesneler.push_back(k);
+		createKoylu(true);
 		
-		Ev* e = new Ev(screen);
+		SehirMerkezi* e = new SehirMerkezi(screen);
 		e->instantBuild();
-		e->setPosition(100, 300);
+		e->setPosition(128, 320);
+		Player *me = this;
+		e->createKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::createKoylu);
 		nesneler.push_back(e);
 	}
 	else if (faction == "Bizans")
@@ -64,11 +63,10 @@ void Player::subtractCost(Cost a)
 	stone.setAmount(stone.getAmount() - a.getStoneAmount());
 }
 
-/*
 void Player::createKoylu()
 {
+	Koylu *temp = new Koylu(screen);
 	// öncelikle bakalim yapabiliyor muyuz...
-	Koylu *temp = new Koylu();
 	if (!haveReqs(temp))
 	{
 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
@@ -83,14 +81,27 @@ void Player::createKoylu()
 		return;
 	}
 	
-	// Bu ikisini geçtiyse, birimSirasina at... 
-	birimSirasi.push_back(temp);
 	// paradan kes
 	subtractCost(temp->getCost());
+	temp->setPosition(360, 450);
+	// 
+	nesneler.push_back(temp);
+}
+
+void Player::createKoylu(bool instant)
+{
+	Koylu *temp = new Koylu(screen);
+	if (instant) 
+	{
+		temp->instantBuild();
+		temp->setPosition(360, 450);
+		nesneler.push_back(temp);
+		return;
+	}
 	
 	
 }
-
+/*
 void Player::createPiyade()
 {
 	// sonra
@@ -107,6 +118,8 @@ void Player::update()
 	list<BaseObject*>::iterator iter;
 	for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 	{
+		if (!(*iter)->build())
+			break;
 		if ((*iter)->getType() == BaseObject::UNIT)
 		{
 			BaseUnit* birim = (BaseUnit*)(*iter);
