@@ -69,7 +69,7 @@ class SDLScreen
 {
 	public:
 	/**
-	 * Contructor.
+	 * Constructor.
 	 * \param scr is a pointer to the main screen surface
 	 */
 	SDLScreen(SDL_Surface *scr);
@@ -90,7 +90,7 @@ class SDLScreen
 	 * @see addWidget
 	 * 
 	 */
-	virtual void SDLScreen::display()
+	virtual void display()
 	{
 		// SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 120, 120, 120));
 		for (unsigned int i=0;i<widgets.size();i++)
