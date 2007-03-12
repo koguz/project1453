@@ -11,7 +11,7 @@ using namespace std;
 class Ev:public BaseBuilding
 {
 	public:
-	Ev();
+	Ev(SDL_Surface *screen);
 };
 
 
@@ -19,19 +19,19 @@ class SehirMerkezi:public BaseBuilding
 {
 	public:
 	int state;
-	SehirMerkezi();
+	SehirMerkezi(SDL_Surface *screen);
 };
 
 class AskerOcagi:public BaseBuilding
 {
 	public:
-	AskerOcagi();
+	AskerOcagi(SDL_Surface *screen);
 };
 
 class Demirci:public BaseBuilding
 {
 	public:
-	Demirci();
+	Demirci(SDL_Surface *screen);
 };
 
 #endif

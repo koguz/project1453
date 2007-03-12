@@ -35,6 +35,11 @@ void Player::buildStartingUnits(int x, int y)
 		k->instantBuild();
 		k->setPosition(x, y);
 		nesneler.push_back(k);
+		
+		Ev* e = new Ev(screen);
+		e->instantBuild();
+		e->setPosition(100, 300);
+		nesneler.push_back(e);
 	}
 	else if (faction == "Bizans")
 	{
@@ -108,6 +113,12 @@ void Player::update()
 			birim->update();
 			birim->draw();
 		}
+		else if ((*iter)->getType() == BaseObject::BUILDING)
+		{
+			BaseBuilding* b = (BaseBuilding*)(*iter);
+			b->update();
+			b->draw();
+		}
 	}
 	if (isMultipleSelecting())
 	{
@@ -124,7 +135,14 @@ void Player::eventHandler(SDL_Event *event)
 		if ((*iter)->getType() == BaseObject::UNIT)
 		{
 			BaseUnit* birim = (BaseUnit*)(*iter);
-			birim->komutlar->eventHandler(event);
+			if (birim->isSelected())
+				birim->komutlar->eventHandler(event);
+		}
+		else if ((*iter)->getType() == BaseObject::BUILDING)
+		{
+			BaseBuilding* b = (BaseBuilding*)(*iter);
+			if (b->isSelected())
+				b->komutlar->eventHandler(event);
 		}
 	}
 	
@@ -162,9 +180,9 @@ void Player::eventHandler(SDL_Event *event)
 				bool single = false;
 				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
 				{
-					if ((*iter)->getType() == BaseObject::UNIT)
+					if ((*iter)->getType() == BaseObject::UNIT || (*iter)->getType() == BaseObject::BUILDING)
 					{
-						BaseUnit* birim = (BaseUnit*)(*iter);
+						BaseGraphicObject* birim = (BaseUnit*)(*iter);
 						ux1 = birim->getX() + birim->hotspot.x;
 						ux2 = ux1 + birim->hotspot.w;
 						uy1 = birim->getY() + birim->hotspot.y;

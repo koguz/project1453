@@ -21,7 +21,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	
 	
 	// grafiksel bileşenler
-	hotspot.x = hotspot.y = 20;
+	hotspot.x = hotspot.y = 18;
 	hotspot.w = hotspot.h = 32;
 	cx = cy = 32; 
 	
@@ -51,7 +51,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	}
 	yon = N;
 	setState("dur");
-	healthBar = new SDLProgressBar(28, 4, GREEN, 0, hitpoints);
+	healthBar = new SDLProgressBar(32, 4, GREEN, 0, hitpoints);
 	
 	// alt ekran: komutlar
 	komutlar = new SDLScreen(screen);
@@ -73,7 +73,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	komutlar->addWidget(dur);
 	
 	trect.x = 88; trect.y = 0;
-	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev);
+	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev(screen));
 	ev->setPosition(746, 195);
 	komutlar->addWidget(ev);
 }
