@@ -1,5 +1,14 @@
 2007.03.12
 
+18:21
+	- Binadan birim çıkarma işlemi tamam. Ayrıca SDLFont ve 
+	  SDLCommandButton için static gereken değişkenler tamam, bu
+	  sayede SDLFont için font bir kere, SDLCommandButton için de
+	  komut listesi resmi bir kere okunacak. 
+
+	- Hatalar: Oyun başladığında seçim olarak başlıyor. Sınıflar 
+	  arasında iletişim kurulamıyor :(
+
 04:13
 	- Binalar için de aynı birimler gibi alt yapı hazırlandı. 
 	  Artık binaya basınca etrafında düzgün olarak seçili 

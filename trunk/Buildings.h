@@ -5,6 +5,7 @@
 #include <string>
 #include "BaseBuilding.h"
 #include "Technologies.h"
+#include "Units.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class SehirMerkezi:public BaseBuilding
 	public:
 	int state;
 	SehirMerkezi(SDL_Surface *screen);
+	SDLCommandButton* createKoylu;
 };
 
 class AskerOcagi:public BaseBuilding

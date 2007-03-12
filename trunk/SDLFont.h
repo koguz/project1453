@@ -44,10 +44,13 @@ class SDLFont
 	/// \param y is the y-coordinate to be drawn
 	void drawMe(SDL_Surface* screen, int x, int y);
 	
+	static TTF_Font* font;
+	
 	private:
 	int w; 
 	int h;
 	SDL_Surface *s;
+	
 };
 
 
