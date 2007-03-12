@@ -1,3 +1,13 @@
+2007.03.12
+
+04:13
+	- Binalar için de aynı birimler gibi alt yapı hazırlandı. 
+	  Artık binaya basınca etrafında düzgün olarak seçili 
+	  çıkıyor, sağlık çubuğu vs. ve elbette alt menüleri eklenebilir
+	  durumda. Biraz akrabalık ilişkileriyle ilgilenmem, bir de
+	  kürsörlere bakmam lazım. En azından evden adam üretmem daha 
+	  basit olacak...
+
 2007.03.11
 
 01:38
@@ -7,7 +17,8 @@
 	- Az sonra kodu düzenleyip, derleyip, toplayıp tekrar atacağım, 
 	  bir şey bozulmasın diye yedekliyorum şimdi :)
 
-04:16	- Kodun tekrar kullanımı için BaseUnit için yapılanlar 
+04:16	
+	- Kodun tekrar kullanımı için BaseUnit için yapılanlar 
 	  BaseGraphicObject altına alındı. Binalarla ilgili bir şey 
 	  yok, onlar da yarın yazılacak. O zaman daha iyi bir 
 	  fikrimiz olacak...

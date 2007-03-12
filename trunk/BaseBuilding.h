@@ -4,22 +4,28 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Headers.h"
 #include "BaseObject.h"
+#include "BaseGraphicObject.h"
 
 // NOTE - bu binaların "build queue'su olabilir...
 
 using namespace std;
 
-class BaseBuilding:public BaseObject
+class BaseBuilding:public BaseObject, public BaseGraphicObject
 {
 	protected:
-	int hitpoints;
-	int currentHp;
 	int sight;
 	int size;
+	SDLWidget *resim;
 	
 	public:
-	BaseBuilding(string n);
+	BaseBuilding(SDL_Surface *scr, string n);
+	virtual SDL_Surface* getImg() { return resim->getWidget(); }
+	
+	void setResim(char* path);
+	
+	void update();
 };
 
 
