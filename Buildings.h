@@ -6,13 +6,15 @@
 #include "BaseBuilding.h"
 #include "Technologies.h"
 #include "Units.h"
+#include "Player.h"
 
 using namespace std;
 
 class Ev:public BaseBuilding
 {
 	public:
-	Ev(SDL_Surface *screen);
+	Ev();
+	Ev(SDL_Surface *screen, Player *p);
 };
 
 
@@ -20,20 +22,23 @@ class SehirMerkezi:public BaseBuilding
 {
 	public:
 	int state;
-	SehirMerkezi(SDL_Surface *screen);
+	SehirMerkezi();
+	SehirMerkezi(SDL_Surface *screen, Player *p);
 	SDLCommandButton* createKoylu;
 };
 
 class AskerOcagi:public BaseBuilding
 {
 	public:
-	AskerOcagi(SDL_Surface *screen);
+	AskerOcagi();
+	AskerOcagi(SDL_Surface *screen, Player *p);
 };
 
 class Demirci:public BaseBuilding
 {
 	public:
-	Demirci(SDL_Surface *screen);
+	Demirci();
+	Demirci(SDL_Surface *screen, Player *p);
 };
 
 #endif

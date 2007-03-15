@@ -6,4 +6,6 @@
 #include "SDL/SDL_ttf.h"
 #include "SDL/SDL_gfxPrimitives.h"
 
+class Player;
+
 #endif /*HEADERS_H_*/

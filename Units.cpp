@@ -73,7 +73,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	komutlar->addWidget(dur);
 	
 	trect.x = 88; trect.y = 0;
-	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev(screen));
+	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev());
 	ev->setPosition(746, 195);
 	komutlar->addWidget(ev);
 }

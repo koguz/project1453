@@ -17,7 +17,8 @@ struct Coordinates
 class BaseGraphicObject
 {
 	public:
-	BaseGraphicObject(SDL_Surface *scr);
+	BaseGraphicObject();
+	BaseGraphicObject(SDL_Surface *scr, Player *p);
 	
 	void setPosition(int x, int y);
 	int getX() { return posx; }
@@ -35,6 +36,7 @@ class BaseGraphicObject
 	virtual SDL_Rect getFrame() { return hotspot; }
 	
 	void draw();
+	Player *parent;
 	
 	SDL_Rect hotspot;
 	

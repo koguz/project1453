@@ -1,6 +1,11 @@
 #include "BaseUnit.h"
 
-BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(scr)
+BaseUnit::BaseUnit()
+{
+	
+}
+
+BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(scr, 0)
 {
 	hitpoints = 20; // hit points
 	armor = 1; // over 10

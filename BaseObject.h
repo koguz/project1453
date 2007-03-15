@@ -11,6 +11,7 @@
 class BaseObject
 {
 	public:
+	BaseObject();
 	BaseObject(string n);
 	enum ObjectType { UNIT, BUILDING, TECH };
 	ObjectType getType() { return tip; }

@@ -1,14 +1,19 @@
 #include "Buildings.h"
 
-Ev::Ev(SDL_Surface *scr):BaseBuilding(scr, "Ev")
+Ev::Ev()
 {
+	cost = Cost(200, 0, 200);
+}
+
+Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
+{
+	Ev::Ev();
 	hitpoints = 400;
 	buildRate = 50;
 	sight = 4;
 	size = 2;
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
-	cost = Cost(200, 0, 200);
 		
 	// 
 	setResim("graphics/buildings/osmanli/ev.png");
@@ -25,7 +30,7 @@ Ev::Ev(SDL_Surface *scr):BaseBuilding(scr, "Ev")
 	komutlar->addWidget(dur);
 }
 
-SehirMerkezi::SehirMerkezi(SDL_Surface *scr):BaseBuilding(scr, "Şehir Merkezi (I)")
+SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
 {
 	state = 1;
 	hitpoints = 1000;
@@ -46,11 +51,11 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr):BaseBuilding(scr, "Şehir Merkezi (
 	
 	createKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", new Koylu(screen));
 	createKoylu->setPosition(648, 195);
-	// createKoylu->dugme->clicked = 0;
+	createKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *p, &Player::createKoylu);
 	komutlar->addWidget(createKoylu);
 }
 
-AskerOcagi::AskerOcagi(SDL_Surface *scr):BaseBuilding(scr, "Asker Ocağı")
+AskerOcagi::AskerOcagi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Asker Ocağı")
 {
 	hitpoints = 800;
 	sight= 6;
@@ -60,7 +65,7 @@ AskerOcagi::AskerOcagi(SDL_Surface *scr):BaseBuilding(scr, "Asker Ocağı")
 	cost = Cost(200, 0, 400);
 }
 
-Demirci::Demirci(SDL_Surface *scr):BaseBuilding(scr, "Demirci")
+Demirci::Demirci(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Demirci")
 {
 	hitpoints = 600;
 	sight = 4;

@@ -20,7 +20,8 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	SDLWidget *resim;
 	
 	public:
-	BaseBuilding(SDL_Surface *scr, string n);
+	BaseBuilding();
+	BaseBuilding(SDL_Surface *scr, Player *p, string n);
 	virtual SDL_Surface* getImg() { return resim->getWidget(); }
 	
 	void setResim(char* path);
