@@ -1,7 +1,12 @@
 #include "BaseGraphicObject.h"
 
-BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr)
+BaseGraphicObject::BaseGraphicObject()
 {
+}
+
+BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
+{
+	parent = p;
 	screen = scr;
 	komutlar = 0;
 }

@@ -1,6 +1,11 @@
 #include "BaseBuilding.h"
 
-BaseBuilding::BaseBuilding(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(scr)
+BaseBuilding::BaseBuilding()
+{
+	
+}
+
+BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGraphicObject(scr, p)
 {
 	hitpoints = 400;
 	buildRate = 50;

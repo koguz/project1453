@@ -33,11 +33,11 @@ void Player::buildStartingUnits(int x, int y)
 	{
 		createKoylu(true);
 		
-		SehirMerkezi* e = new SehirMerkezi(screen);
+		SehirMerkezi* e = new SehirMerkezi(screen, this);
 		e->instantBuild();
 		e->setPosition(128, 320);
 		Player *me = this;
-		e->createKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::createKoylu);
+// 		e->createKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::createKoylu);
 		nesneler.push_back(e);
 	}
 	else if (faction == "Bizans")
