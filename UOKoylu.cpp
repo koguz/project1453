@@ -1,6 +1,4 @@
-#include "Units.h"
-
-// NOTE bu birimleri de ayırmak gerekecek sanki :(
+#include "UOKoylu.h"
 
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 {
@@ -82,66 +80,6 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 void Koylu::setCommandCalis()
 {
 	setState("calis");
-}
-
-Azab::Azab(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Azab")
-{
-	addReq("Asker Ocağı");
-	faction = "Osmanlı";
-	cost = Cost(0, 600, 0);
-	if (scr == 0 && p == 0) return;
-	
-	
-	hitpoints = 30;
-	armor = 3;
-	damage = 20;
-	range = 1;
-	sight = 4;
-	speed = 15;
-	morale = 50;
-	xp = 0;
-	kills = 0;
-}
-
-
-Piyade::Piyade(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Piyade")
-{
-	addReq("Asker Ocağı");
-	addReq("Demirci");
-	faction = "Osmanlı";
-	cost = Cost(200, 600, 0);
-	if (scr == 0 && p == 0) return;
-	
-	
-	hitpoints = 40;
-	armor = 5;
-	damage = 30;
-	range = 1;
-	sight = 4;
-	speed = 15;
-	morale = 70;
-	xp = 10;
-	kills = 0;
-}
-
-Serf::Serf(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Serf")
-{
-	addReq("Temel Teknoloji");
-	faction = "Bizans";
-	cost = Cost(0, 300, 0);
-	if (scr == 0 && p == 0) return;
-	
-	
-	hitpoints = 20;
-	buildRate = 1000;
-	armor = 2;
-	damage = 10;
-	range = 1;
-	sight = 3;
-	speed = 10;
-	morale = 40;
-	xp = 0;
-	kills = 0;
 }
 
 

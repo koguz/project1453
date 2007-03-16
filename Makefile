@@ -29,11 +29,13 @@ g1453: main.o \
 	BaseObject.o \
 	BaseGraphicObject.o \
 	BaseUnit.o \
-	Units.o \
+	UOKoylu.o \
+	UBSerf.o \
 	BaseBuilding.o \
-	Buildings.o \
+	BOEv.o \
+	BOSehirMerkezi.o \
 	Tech.o \
-	Technologies.o \
+	TTemelTech.o \
 	Sprite.o 
 	
 	$(CC) $(LIBS) main.o \
@@ -59,11 +61,13 @@ g1453: main.o \
 	BaseObject.o \
 	BaseGraphicObject.o \
 	BaseUnit.o \
-	Units.o \
+	UOKoylu.o \
+	UBSerf.o \
 	BaseBuilding.o \
-	Buildings.o \
+	BOEv.o \
+	BOSehirMerkezi.o \
 	Tech.o \
-	Technologies.o \
+	TTemelTech.o \
 	Sprite.o -o g1453
 	
 main.o: main.cpp
@@ -95,14 +99,14 @@ BaseGraphicObject.o: BaseGraphicObject.cpp
 BaseUnit.o: BaseUnit.cpp
 	$(CC) $(FLAGS) BaseUnit.cpp
 
-Units.o: Units.cpp
-	$(CC) $(FLAGS) Units.cpp
+# Units.o: Units.cpp
+# 	$(CC) $(FLAGS) Units.cpp
 
 BaseBuilding.o: BaseBuilding.cpp
 	$(CC) $(FLAGS) BaseBuilding.cpp
 
-Buildings.o: Buildings.cpp
-	$(CC) $(FLAGS) Buildings.cpp
+# Buildings.o: Buildings.cpp
+# 	$(CC) $(FLAGS) Buildings.cpp
 
 Resource.o: Resource.cpp
 	$(CC) $(FLAGS) Resource.cpp
@@ -116,9 +120,30 @@ Cost.o: Cost.cpp
 Tech.o: Tech.cpp
 	$(CC) $(FLAGS) Tech.cpp
 	
-Technologies.o: Technologies.cpp
-	$(CC) $(FLAGS) Technologies.cpp
+# Technologies.o: Technologies.cpp
+# 	$(CC) $(FLAGS) Technologies.cpp
 
+# ortak
+
+TTemelTech.o: TTemelTech.cpp
+	$(CC) $(FLAGS) TTemelTech.cpp
+
+# Osmanli birimleri
+
+BOEv.o: BOEv.cpp
+	$(CC) $(FLAGS) BOEv.cpp
+
+BOSehirMerkezi.o: BOSehirMerkezi.cpp
+	$(CC) $(FLAGS) BOSehirMerkezi.cpp
+	
+UOKoylu.o: UOKoylu.cpp
+	$(CC) $(FLAGS) UOKoylu.cpp
+
+
+# Bizans Birimleri
+
+UBSerf.o: UBSerf.cpp
+	$(CC) $(FLAGS) UBSerf.cpp
 
 # Additional 
 

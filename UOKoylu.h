@@ -1,9 +1,8 @@
-#ifndef UNITS__H__
-#define UNITS__H__
+#ifndef UO__KOYLU__H__
+#define UO__KOYLU__H__
 
 #include "BaseUnit.h"
-#include "Technologies.h"
-#include "Buildings.h"
+#include "BOEv.h"
 
 class Koylu:public BaseUnit
 {
@@ -25,24 +24,6 @@ class Koylu:public BaseUnit
 	}
 	
 	void setCommandCalis();
-};
-
-class Azab:public BaseUnit
-{
-	public:
-	Azab(SDL_Surface *scr=0, Player *p=0);
-};
-
-class Piyade:public BaseUnit
-{
-	public:
-	Piyade(SDL_Surface *scr=0, Player *p=0);
-};
-
-class Serf:public BaseUnit
-{
-	public:
-	Serf(SDL_Surface *scr=0, Player *p=0);
 };
 
 #endif

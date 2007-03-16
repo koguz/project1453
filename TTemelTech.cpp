@@ -1,4 +1,4 @@
-#include "Technologies.h"
+#include "TTemelTech.h"
 
 TemelTech::TemelTech():Tech("Temel Teknoloji")
 {
