@@ -8,7 +8,7 @@
 #include "ScreenMain.h"
 #include "ScreenGameType.h"
 #include "Game.h"
-#include "Player.h"
+// #include "Player.h"
 #include "callback.h"
 
 using namespace std;

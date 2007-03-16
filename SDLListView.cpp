@@ -13,13 +13,30 @@ SDLListViewItem::SDLListViewItem(SDLListView *p, string str)
 		w = yazi->getWidth() + 12;
 	else w = parent->getWidth(); 
 	h = 20; // fixed?
+	show = true;
 }
+
+void SDLListViewItem::setSelected() { selected = true; }
+void SDLListViewItem::deSelect() { selected = false; }
+bool SDLListViewItem::isSelected() { return selected; }
+string SDLListViewItem::getValue() { return value; }
+void SDLListViewItem::setState(itemState it) { durum = it; }
+SDLListViewItem::itemState SDLListViewItem::getState() { return durum; }
+void SDLListViewItem::setWidth(int pw)
+{
+	w = pw; 
+	px2 = px1 + w;
+}
+
+
+
+//////////////
 
 SDLListView::SDLListView(int rows)
 {
 	tip = LIST;
 	lineHeight = 20;
-	
+	show = true;
 	w = 0; 
 	this->rows = rows;
 	h = lineHeight*rows;

@@ -1,6 +1,5 @@
 #include "SDLFont.h"
 
-// TTF_Font* SDLFont::font = TTF_OpenFont("font.ttf", 14);
 TTF_Font* SDLFont::font = 0;
 
 SDLFont::SDLFont(string str, int size, SDL_Color color)
@@ -11,9 +10,6 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 		return;
 	}
 	
-	//TTF_Font *font;
-	/// Font used here is a constant value: font.ttf
-	//font = TTF_OpenFont("font.ttf", size);
 	if (font == 0)
 		font = TTF_OpenFont("font.ttf", 14);
 	
@@ -35,6 +31,10 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 		return;
 	}
 }
+
+int SDLFont::getWidth() { return w; }
+int SDLFont::getHeight() { return h; }
+SDL_Surface* SDLFont::getString() { return s; }
 
 void SDLFont::drawMe(SDL_Surface* screen, int x, int y)
 {

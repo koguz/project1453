@@ -23,3 +23,13 @@ bool Cost::compare(Wood wc, Food fc, Stone sc)
 	return ( (WoodCost.getAmount() <= wc.getAmount()) && (FoodCost.getAmount() <= fc.getAmount()) && (StoneCost.getAmount() <= sc.getAmount()) );
 }
 
+
+Wood Cost::getWood() { return WoodCost; }
+Food Cost::getFood() { return FoodCost; }
+Stone Cost::getStone() { return StoneCost; }
+int Cost::getWoodAmount() { return WoodCost.getAmount(); }
+int Cost::getFoodAmount() { return FoodCost.getAmount(); }
+int Cost::getStoneAmount() { return StoneCost.getAmount(); }
+
+
+

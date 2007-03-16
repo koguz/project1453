@@ -4,6 +4,14 @@ BaseObject::BaseObject()
 {
 }
 
+BaseObject::ObjectType BaseObject::getType()  { return tip; }
+Cost BaseObject::getCost() { return cost; }
+string BaseObject::getName() { return name; }
+string BaseObject::getFaction() { return faction; }
+vector<string> BaseObject::getReqs() { return reqList; }
+int BaseObject::getCurHp() { return currentHp; }
+int BaseObject::getMaxHp() { return hitpoints; }
+
 BaseObject::BaseObject(string n)
 {
 	name = n;

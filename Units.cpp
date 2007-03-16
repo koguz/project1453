@@ -2,8 +2,13 @@
 
 // NOTE bu birimleri de ayırmak gerekecek sanki :(
 
-Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
+Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 {
+	cost = Cost(0, 400, 0); 
+	addReq("Temel Teknoloji");
+	faction = "Osmanlı";
+	if (scr==0 && p==0) return;
+	
 	// temel bileşenler
 	hitpoints = 20;
 	buildRate = 1000; 
@@ -15,10 +20,6 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	morale = 60;
 	xp = 0;
 	kills = 0;
-	addReq("Temel Teknoloji");
-	faction = "Osmanlı";
-	cost = Cost(0, 400, 0);
-	
 	
 	// grafiksel bileşenler
 	hotspot.x = hotspot.y = 18;
@@ -73,7 +74,7 @@ Koylu::Koylu(SDL_Surface *scr):BaseUnit(scr, "Köylü")
 	komutlar->addWidget(dur);
 	
 	trect.x = 88; trect.y = 0;
-	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev());
+	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev);
 	ev->setPosition(746, 195);
 	komutlar->addWidget(ev);
 }
@@ -83,8 +84,14 @@ void Koylu::setCommandCalis()
 	setState("calis");
 }
 
-Azab::Azab(SDL_Surface *scr):BaseUnit(scr, "Azab")
+Azab::Azab(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Azab")
 {
+	addReq("Asker Ocağı");
+	faction = "Osmanlı";
+	cost = Cost(0, 600, 0);
+	if (scr == 0 && p == 0) return;
+	
+	
 	hitpoints = 30;
 	armor = 3;
 	damage = 20;
@@ -94,14 +101,18 @@ Azab::Azab(SDL_Surface *scr):BaseUnit(scr, "Azab")
 	morale = 50;
 	xp = 0;
 	kills = 0;
-	addReq("Asker Ocağı");
-	faction = "Osmanlı";
-	cost = Cost(0, 600, 0);
 }
 
 
-Piyade::Piyade(SDL_Surface *scr):BaseUnit(scr, "Piyade")
+Piyade::Piyade(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Piyade")
 {
+	addReq("Asker Ocağı");
+	addReq("Demirci");
+	faction = "Osmanlı";
+	cost = Cost(200, 600, 0);
+	if (scr == 0 && p == 0) return;
+	
+	
 	hitpoints = 40;
 	armor = 5;
 	damage = 30;
@@ -111,14 +122,16 @@ Piyade::Piyade(SDL_Surface *scr):BaseUnit(scr, "Piyade")
 	morale = 70;
 	xp = 10;
 	kills = 0;
-	addReq("Asker Ocağı");
-	addReq("Demirci");
-	faction = "Osmanlı";
-	cost = Cost(200, 600, 0);
 }
 
-Serf::Serf(SDL_Surface *scr):BaseUnit(scr, "Serf")
+Serf::Serf(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Serf")
 {
+	addReq("Temel Teknoloji");
+	faction = "Bizans";
+	cost = Cost(0, 300, 0);
+	if (scr == 0 && p == 0) return;
+	
+	
 	hitpoints = 20;
 	buildRate = 1000;
 	armor = 2;
@@ -129,9 +142,6 @@ Serf::Serf(SDL_Surface *scr):BaseUnit(scr, "Serf")
 	morale = 40;
 	xp = 0;
 	kills = 0;
-	addReq("Temel Teknoloji");
-	faction = "Bizans";
-	cost = Cost(0, 300, 0);
 }
 
 

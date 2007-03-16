@@ -1,3 +1,22 @@
+2007.03.16
+
+21:47
+	- Header dosyaları artık doğru düzgün include ediliyor. Eski
+	  sorunlar artık yok. Gereksiz ve fazla "include"lar kaldırıldı.
+	  Dosyalar bölünmeye devam edilecek, hazır derleniyorken bir
+	  commit yapmak istedim.
+
+	- SDLGUI'deki widget'lara setShow(bool) bir fonksiyon eklendi.
+	  Böylece istendiği zaman SDLWidget ve akrabaları kendilerini 
+	  gizleyebilecekler. Bu aşağıda anlatacağım SDLProgressBar
+	  için işe yaradı.
+
+	- Binada birim üretilirken bir SDLProgressBar ile birimin ne 
+	  kadarının üretildiği gösteriliyor. Bu bar her zaman olmayacağı
+	  ve her seferinde yeni bir SDLProgressBar istemek yerine eskisini
+	  kullanmak istediğimden dolayı yukarıdaki setShow(bool) fonk.
+	  eklendi.
+
 2007.03.15
 
 04:15

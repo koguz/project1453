@@ -5,7 +5,7 @@ BaseUnit::BaseUnit()
 	
 }
 
-BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(scr, 0)
+BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGraphicObject(scr, p)
 {
 	hitpoints = 20; // hit points
 	armor = 1; // over 10
@@ -22,6 +22,11 @@ BaseUnit::BaseUnit(SDL_Surface *scr, string n):BaseObject(n), BaseGraphicObject(
 	waitingCommand = "yok";
 	waiting = false;
 }
+
+
+void BaseUnit::setState(string state) { curState = state; }
+void BaseUnit::setYon(direction d) { yon = d; }
+bool BaseUnit::isWaiting() { return waiting; }
 
 void BaseUnit::actionDur()
 {

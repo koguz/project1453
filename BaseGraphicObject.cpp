@@ -11,6 +11,12 @@ BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
 	komutlar = 0;
 }
 
+int BaseGraphicObject::getX() { return posx; }
+int BaseGraphicObject::getY()  { return posy; }
+void BaseGraphicObject::select() { selected = true; }
+void BaseGraphicObject::unselect() { selected = false; }
+bool BaseGraphicObject::isSelected() { return selected; }
+SDLScreen* BaseGraphicObject::getScreen() { return komutlar; } 
 
 void BaseGraphicObject::setPosition(int x, int y)
 {

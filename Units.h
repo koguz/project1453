@@ -8,7 +8,7 @@
 class Koylu:public BaseUnit
 {
 	public:
-	Koylu(SDL_Surface *scr);
+	Koylu(SDL_Surface *scr=0, Player *p=0);
 	
 	virtual void defaultAction(int tx, int ty)
 	{
@@ -30,19 +30,19 @@ class Koylu:public BaseUnit
 class Azab:public BaseUnit
 {
 	public:
-	Azab(SDL_Surface *scr);
+	Azab(SDL_Surface *scr=0, Player *p=0);
 };
 
 class Piyade:public BaseUnit
 {
 	public:
-	Piyade(SDL_Surface *scr);
+	Piyade(SDL_Surface *scr=0, Player *p=0);
 };
 
 class Serf:public BaseUnit
 {
 	public:
-	Serf(SDL_Surface *scr);
+	Serf(SDL_Surface *scr=0, Player *p=0);
 };
 
 #endif

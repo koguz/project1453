@@ -15,6 +15,7 @@ SDLWidget::SDLWidget(char *f)
 	h = widget->h;
 	px1 = px2 = py1 = py2 = 0;
 	tip = WIDGET;
+	show = true;
 }
 
 
@@ -29,4 +30,14 @@ bool SDLWidget::isMouseOver(int mx, int my)
 		return true;
 	else return false;
 }
+
+
+SDLWidget::WidgetType SDLWidget::getType() { return tip; }
+bool SDLWidget::isShown() { return show; }
+void SDLWidget::setShow(bool b) { show = b; }
+
+int SDLWidget::getWidth() { return w; }
+int SDLWidget::getHeight() { return h; }
+SDL_Surface* SDLWidget::getWidget() { return widget; }
+
 
