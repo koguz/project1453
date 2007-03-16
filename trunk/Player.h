@@ -5,7 +5,13 @@
 #include <string>
 #include <list>
 #include <vector>
-#include "Buildings.h"
+
+#include "BOEv.h"
+#include "BOSehirMerkezi.h"
+#include "TTemelTech.h"
+#include "UOKoylu.h"
+#include "UBSerf.h"
+
 // #include "callback.h"
 // #include "Headers.h"
 // #include "Cost.h"
@@ -15,7 +21,10 @@
 
 using namespace std;
 
-class Koylu;
+// class Koylu;
+// class Serf;
+// class Ev;
+// class SehirMerkezi;
 
 class Player
 {

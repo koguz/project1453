@@ -1,5 +1,17 @@
 2007.03.16
 
+23:39
+	- Units.cpp, Buildings.cpp ve Technologies.cpp artık ayrı ayrı
+	  bilgileri içerecekler. Böylece Koylu, Serf gibi sınıfların
+	  kendi sınıfları olacak. Bunun nedeni, her sınıfın giderek
+	  büyümesi. İsimlendirmede rahatlık için önce birim tipi
+	  B(uilding), U(nit), T(echnology), arkasından ülke O(smanlı),
+	  B(izans) ve arkasından birim adı; UOKoylu.h ve UOKoylu.cpp
+	  Osmanlı Köylü birimini gösteriyor... Teknolojilerden ortak
+	  olanlar var (mesela Temel Teknoloji) - bu durumda sadece 
+	  tipi koydum: TTemelTech diye... Eski dosyaları svn'den de 
+	  siliyorum, kalabalık yapmasınlar...
+
 21:47
 	- Header dosyaları artık doğru düzgün include ediliyor. Eski
 	  sorunlar artık yok. Gereksiz ve fazla "include"lar kaldırıldı.
