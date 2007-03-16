@@ -4,23 +4,26 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "Headers.h"
+// #include "Headers.h"
 #include "BaseObject.h"
 #include "BaseGraphicObject.h"
-#include "SDLScreen.h"
+// #include "SDLScreen.h"
 #include "Sprite.h"
+// #include "Player.h"
 
 using namespace std;
+
+// class Player;
 
 class BaseUnit:public BaseObject, public BaseGraphicObject
 {
 	public: 
 	BaseUnit();
-	BaseUnit(SDL_Surface *scr, string n);
+	BaseUnit(SDL_Surface *scr, Player *p, string n);
 	enum direction { N=0, NE=1, E=2, SE=3, S=4, SW=5, W=6, NW=7 };
-	void setState(string state) { curState = state; }
-	void setYon(direction d) { yon = d; }
-	bool isWaiting() { return waiting; }
+	void setState(string state);
+	void setYon(direction d);
+	bool isWaiting();
 	
 	virtual void issueCommand(int x, int y) { cerr << "base unit issueCommand is called, err??" << endl; }
 	virtual void defaultAction(int tx, int ty) { cerr << "base unit default action is called, err?" << endl; }

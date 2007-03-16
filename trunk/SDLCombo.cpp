@@ -18,9 +18,21 @@ SDLComboOption::SDLComboOption(
 	yazi = new SDLLabel(option);
 	if (yazi->getWidth() > parent->getWidth())
 		w = yazi->getWidth() + 12;
-	else w = parent->getWidth();//  + 6; // spacing
+	else w = parent->getWidth();
 	h = 20;
+	show = true;
 }
+
+void SDLComboOption::deSelect() { selected = false; }
+void SDLComboOption::setSelected() { selected = true; }
+bool SDLComboOption::isSelected() { return selected; }
+string SDLComboOption::getOption() { return option; }
+string SDLComboOption::getValue() { return value; }
+SDLComboOption::optionState SDLComboOption::getState() { return durum; }
+void SDLComboOption::setState(optionState s) { durum = s; }
+void SDLComboOption::setWidth(int pw) { w = pw; px2 = px1 + w; }
+
+///////////////////
 
 SDLCombo::SDLCombo()
 {
@@ -32,14 +44,12 @@ SDLCombo::SDLCombo()
 	yazi = 0;
 	w = 0;
 	h = button->getHeight();
+	show = true;
 }
 
-/**
- * Adds an SDLComboOption to the SDLCombo. If the size of the 
- * SDLComboOption is larger, then all the widgets are set up
- * accordingly. All the other SDLComboOptions grow to the new size,
- * SDLButton and SDLLabel are also repositioned.
- */
+void SDLCombo::showOptions() { durum = OPEN; }
+void SDLCombo::hideOptions() { durum = CLOSED; }
+
 void SDLCombo::addOption(string option, string value, bool def)
 {
 	SDLComboOption temp(this, option, value, def);
@@ -64,9 +74,7 @@ void SDLCombo::addOption(string option, string value, bool def)
 	options.push_back(temp);
 }
 
-/**
- * Toggles options, this is executed via the SDLButton
- */
+
 void SDLCombo::toggleOptions()
 {
 	if (durum == OPEN)

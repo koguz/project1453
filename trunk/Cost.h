@@ -20,13 +20,13 @@ class Cost
 	Cost(int wc, int fc, int sc);
 	bool compare(Wood wc, Food fc, Stone sc);
 	
-	Wood getWood() { return WoodCost; }
-	Food getFood() { return FoodCost; }
-	Stone getStone() { return StoneCost; }
+	Wood getWood();
+	Food getFood();
+	Stone getStone();
 	
-	int getWoodAmount() { return WoodCost.getAmount(); }
-	int getFoodAmount() { return FoodCost.getAmount(); }
-	int getStoneAmount() { return StoneCost.getAmount(); }
+	int getWoodAmount();
+	int getFoodAmount();
+	int getStoneAmount();
 	
 	friend bool operator==(Cost &x, Cost &y);
 };

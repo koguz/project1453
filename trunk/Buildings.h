@@ -3,18 +3,21 @@
 
 #include <iostream>
 #include <string>
+// #include "Headers.h"
 #include "BaseBuilding.h"
-#include "Technologies.h"
+// #include "Technologies.h"
 #include "Units.h"
 #include "Player.h"
+#include "SDLCommandButton.h"
+
+// class Player;
 
 using namespace std;
 
 class Ev:public BaseBuilding
 {
 	public:
-	Ev();
-	Ev(SDL_Surface *screen, Player *p);
+	Ev(SDL_Surface *screen=0, Player *p=0);
 };
 
 
@@ -22,22 +25,20 @@ class SehirMerkezi:public BaseBuilding
 {
 	public:
 	int state;
-	SehirMerkezi();
-	SehirMerkezi(SDL_Surface *screen, Player *p);
-	SDLCommandButton* createKoylu;
+	SehirMerkezi(SDL_Surface *screen=0, Player *p=0);
+	SDLCommandButton* btnKoylu;
+	void createKoylu();
 };
 
 class AskerOcagi:public BaseBuilding
 {
 	public:
-	AskerOcagi();
-	AskerOcagi(SDL_Surface *screen, Player *p);
+	AskerOcagi(SDL_Surface *screen=0, Player *p=0);
 };
 
 class Demirci:public BaseBuilding
 {
 	public:
-	Demirci();
 	Demirci(SDL_Surface *screen, Player *p);
 };
 

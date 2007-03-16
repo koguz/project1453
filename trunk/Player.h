@@ -5,13 +5,17 @@
 #include <string>
 #include <list>
 #include <vector>
-#include "callback.h"
-#include "Cost.h"
 #include "Buildings.h"
-#include "Units.h"
-#include "Technologies.h"
+// #include "callback.h"
+// #include "Headers.h"
+// #include "Cost.h"
+
+// #include "Units.h"
+// #include "Technologies.h"
 
 using namespace std;
+
+class Koylu;
 
 class Player
 {
@@ -31,36 +35,25 @@ class Player
 	Player(SDL_Surface *scr, string faction, int w, int f, int s);
 	
 	int rsx1, rsx2, rsy1, rsy2;
-	bool isMultipleSelecting() { return (drawing && dragging); }
+	bool isMultipleSelecting();
 	bool isValidSelection();
 	
-	// 
 	void update();
 	void buildStartingUnits(int x, int y);
 	
-	string getFaction() { return faction; }
-	int getWoodAmount() { return wood.getAmount(); }
-	int getFoodAmount() { return food.getAmount(); }
-	int getStoneAmount() { return stone.getAmount(); }
+	string getFaction();
+	int getWoodAmount();
+	int getFoodAmount();
+	int getStoneAmount();
 	
-	// 
 	bool haveReqs(BaseObject* o);
-	
 	void addCost(Cost a);
 	void subtractCost(Cost a);
-	
 	void eventHandler(SDL_Event *event);
+	void addObject(BaseObject* b);
 	
-// 	// osmanlı birimleri
-	void createKoylu();
+	Koylu* yeniKoylu();
  	void createKoylu(bool instant);
-// 	void createAzab();
-// 	void createPiyade();
-// 	
-// 	// osmanlı binaları
-// 	
-// 	// bizans birimleri
-// 	void createSerf();
 };
 
 #endif

@@ -11,7 +11,14 @@ SDLCheckBox::SDLCheckBox(string label)
 	yazi = new SDLLabel(label);
 	w = button->getWidth() + 10 + yazi->getWidth();
 	h = button->getHeight();
+	show = true;
 }
+
+
+bool SDLCheckBox::isChecked() { return on; }
+void SDLCheckBox::setOn() { on = true; }
+void SDLCheckBox::setOff() { on = false; }
+
 
 void SDLCheckBox::toggle()
 {

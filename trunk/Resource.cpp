@@ -12,3 +12,6 @@ Resource::Resource(string n, int a)
 	amount = a;
 }
 
+void Resource::setAmount(int a) { amount = a; }
+string Resource::getName() { return resourceName; }
+int Resource::getAmount() { return amount; }

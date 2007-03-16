@@ -10,6 +10,8 @@ SDLTextView::SDLTextView(string text, int w, int r)
 	width = w;
 	rows = r;
 	
+	show = true;
+	
 	stringstream ss(text);
 	string buf;
 	SDLLabel *temp;
@@ -34,6 +36,10 @@ SDLTextView::SDLTextView(string text, int w, int r)
 		downpos = lines;
 	else downpos = r;
 }
+
+
+string SDLTextView::getText() { return metin; }
+
 
 void SDLTextView::repositionLabels()
 {

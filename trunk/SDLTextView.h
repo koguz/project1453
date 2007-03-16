@@ -11,38 +11,11 @@
 
 using namespace std;
 
-/** \brief TextView Widget
- * 
- * SDLTextView displays a string of long text by splitting
- * it to lines. It has a fixed number of rows and lets the
- * user to scroll the text via two buttons. 
- * 
- * SDLTextView uses SDLLabel and SDLButton to display the text.
- * 
- * \author Kaya Oguz
- * \date 2007.02
- */
 class SDLTextView:public SDLWidget
 {
 	public:
-	/** \brief Constructor
-	 *
-	 * This is the contructor which sets the text, size and rows of the
-	 * widget.
-	 * 
-	 * \param text is the text which will be displayed. It will be splitted by new lines (\\n)
-	 * \param width is the width of the widget in pixels
-	 * \param rows is the number of rows of the widget
-	 */
 	SDLTextView(string text, int width, int rows);
-	
-	/// \return The text of the widget
-	string getText() { return metin; }
-	
-	/**
-	 * drawWidget draws only the lines which will be displayed. It
-	 * also draws the widgets...
-	 */
+	string getText();
 	virtual void drawWidget(SDL_Surface* screen)
 	{
 		boxColor(screen, px1, py1, px2, py2, DARKERGRAY);
@@ -62,7 +35,6 @@ class SDLTextView:public SDLWidget
 		}
 	}
 	
-	/// Positions all widgets
 	virtual void setPosition(int x, int y)
 	{
 		px1 = x;
@@ -78,42 +50,20 @@ class SDLTextView:public SDLWidget
 		repositionLabels();
 	}
 	
-	/// Handles mouse events
 	virtual void handleMouseEvent(int eventType, int button, int x, int y)
 	{
 		handleEvent(eventType, button, x, y);
 	}
 	
 	protected:
-	int width /** Width of the SDLTextArea */,
-		rows /** Number of rows */,
-		uppos /** Upper position of the lines */,
-		downpos /** Lower position of the lines */,
-		lines /** Number of lines */,
-		lineHeight  /** Height of each line */;
-	
-	/// Text of the widget
+	int width, rows, uppos, downpos, lines, lineHeight;
 	string metin;
-	
-	/// Button for scrolling up
 	SDLButton *up;
-	
-	/// Button for scrolling down
 	SDLButton *down;
-	
-	/// Vector for lines, which are SDLLabel widgets
 	vector<SDLLabel> satirlar;
-	
-	/// Moves the lines up
 	void moveUp();
-	
-	/// Moves the lines down
 	void moveDown();
-	
-	/// After moving, the labels are repositioned
 	void repositionLabels();
-	
-	/// Handles events
 	void handleEvent(int eventType, int button, int x, int y);
 };
 

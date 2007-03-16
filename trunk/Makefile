@@ -6,8 +6,65 @@ all: g1453
 
 again: clean all
 
-g1453: main.o Application.o SDLScreen.o SDLButton.o SDLWidget.o SDLFont.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o BaseObject.o Sprite.o BaseGraphicObject.o SDLCommandButton.o 
-	$(CC) $(LIBS) main.o Application.o SDLScreen.o SDLButton.o SDLFont.o SDLWidget.o SDLCombo.o SDLLabel.o SDLCheckBox.o SDLTextView.o SDLListView.o SDLProgressBar.o ScreenMain.o ScreenGameType.o Resource.o Resources.o Cost.o Tech.o BaseUnit.o BaseBuilding.o Game.o Units.o Buildings.o Technologies.o Player.o  BaseObject.o Sprite.o BaseGraphicObject.o SDLCommandButton.o -o g1453
+g1453: main.o \
+	Application.o \
+	Game.o \
+	Player.o \
+	SDLWidget.o \
+	SDLButton.o \
+	SDLFont.o \
+	SDLCombo.o \
+	SDLLabel.o \
+	SDLCheckBox.o \
+	SDLTextView.o \
+	SDLListView.o \
+	SDLProgressBar.o \
+	SDLCommandButton.o \
+	SDLScreen.o \
+	ScreenMain.o \
+	ScreenGameType.o \
+	Resource.o \
+	Resources.o \
+	Cost.o \
+	BaseObject.o \
+	BaseGraphicObject.o \
+	BaseUnit.o \
+	Units.o \
+	BaseBuilding.o \
+	Buildings.o \
+	Tech.o \
+	Technologies.o \
+	Sprite.o 
+	
+	$(CC) $(LIBS) main.o \
+	Application.o \
+	Game.o \
+	Player.o \
+	SDLWidget.o \
+	SDLButton.o \
+	SDLFont.o \
+	SDLCombo.o \
+	SDLLabel.o \
+	SDLCheckBox.o \
+	SDLTextView.o \
+	SDLListView.o \
+	SDLProgressBar.o \
+	SDLCommandButton.o \
+	SDLScreen.o \
+	ScreenMain.o \
+	ScreenGameType.o \
+	Resource.o \
+	Resources.o \
+	Cost.o \
+	BaseObject.o \
+	BaseGraphicObject.o \
+	BaseUnit.o \
+	Units.o \
+	BaseBuilding.o \
+	Buildings.o \
+	Tech.o \
+	Technologies.o \
+	Sprite.o -o g1453
 	
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp

@@ -4,11 +4,12 @@ SDLWidget* SDLCommandButton::ana = 0;
 
 SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, BaseObject* nesne)
 {
+	tip = COMBUTTON;
 	screen = scr;
 	kare = k;
 	inf = info;
 	this->nesne = nesne;
-	
+	show = true;
 	over = false;
 	
 	w = h = 48;

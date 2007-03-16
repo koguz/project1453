@@ -2,6 +2,11 @@
 #define SCREENGAMETYPE__H__
 
 #include "SDLScreen.h"
+#include "SDLWidget.h"
+#include "SDLCombo.h"
+#include "SDLListView.h"
+#include "SDLLabel.h"
+#include "SDLButton.h"
 
 class ScreenGameType:public SDLScreen
 {

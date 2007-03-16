@@ -14,14 +14,14 @@ class BaseObject
 	BaseObject();
 	BaseObject(string n);
 	enum ObjectType { UNIT, BUILDING, TECH };
-	ObjectType getType() { return tip; }
-	Cost getCost() { return cost; }
-	string getName() { return name; }
-	string getFaction() { return faction; }
-	vector<string> getReqs() { return reqList; }
+	ObjectType getType();
+	Cost getCost();
+	string getName();
+	string getFaction();
+	vector<string> getReqs();
 	void addReq(string r);
-	int getCurHp() { return currentHp; }
-	int getMaxHp() { return hitpoints; }
+	int getCurHp();
+	int getMaxHp();
 	bool build();
 	void instantBuild();
 	

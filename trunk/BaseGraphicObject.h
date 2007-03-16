@@ -4,9 +4,13 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "Headers.h"
+// #include "Headers.h"
+// #include "Player.h"
 #include "SDLScreen.h"
 #include "SDLCommandButton.h"
+#include "SDLProgressBar.h"
+
+class Player;
 
 struct Coordinates
 {
@@ -21,13 +25,13 @@ class BaseGraphicObject
 	BaseGraphicObject(SDL_Surface *scr, Player *p);
 	
 	void setPosition(int x, int y);
-	int getX() { return posx; }
-	int getY() { return posy; }
+	int getX();
+	int getY();
 	Coordinates getCenter();
 	
-	void select() { selected = true; }
-	void unselect() { selected = false; }
-	bool isSelected() { return selected; }
+	void select(); 
+	void unselect();
+	bool isSelected(); 
 	
 	bool isMouseOver(int x, int y);
 	
@@ -40,7 +44,7 @@ class BaseGraphicObject
 	
 	SDL_Rect hotspot;
 	
-	SDLScreen* getScreen() { return komutlar; } 
+	SDLScreen* getScreen();
 	SDLProgressBar *healthBar;
 	SDLScreen *komutlar;
 	SDLScreen *komutTanim;

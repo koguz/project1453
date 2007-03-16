@@ -27,6 +27,13 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	stone.setAmount(s);
 }
 
+bool Player::isMultipleSelecting() { return (drawing && dragging); }
+string Player::getFaction() { return faction; }
+int Player::getWoodAmount() { return wood.getAmount(); }
+int Player::getFoodAmount() { return food.getAmount(); }
+int Player::getStoneAmount() { return stone.getAmount(); }
+void Player::addObject(BaseObject* b) { nesneler.push_back(b); }
+
 void Player::buildStartingUnits(int x, int y)
 {
 	if (faction == "Osmanlı")
@@ -42,7 +49,7 @@ void Player::buildStartingUnits(int x, int y)
 	}
 	else if (faction == "Bizans")
 	{
-		Serf *s = new Serf(screen);
+		Serf *s = new Serf(screen, this);
 		s->instantBuild();
 		s->setPosition(x, y);
 		nesneler.push_back(s);
@@ -63,34 +70,40 @@ void Player::subtractCost(Cost a)
 	stone.setAmount(stone.getAmount() - a.getStoneAmount());
 }
 
-void Player::createKoylu()
+Koylu* Player::yeniKoylu()
 {
-	Koylu *temp = new Koylu(screen);
+	Koylu *temp = new Koylu();
 	// öncelikle bakalim yapabiliyor muyuz...
 	if (!haveReqs(temp))
 	{
 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
 		delete temp;
-		return;
+		return 0;
 	}
 	
 	if (!temp->getCost().compare(wood, food, stone))
 	{
 		cout << "Bu birim için kaynaklar yetersiz..." << endl;
 		delete temp;
-		return;
+		return 0;
 	}
+	
+	delete temp;
+	
+	temp = new Koylu(screen, this);
 	
 	// paradan kes
 	subtractCost(temp->getCost());
-	temp->setPosition(360, 450);
+	
+	//( temp->setPosition(360, 450); // FIXME fixed point?
 	// 
-	nesneler.push_back(temp);
+	// nesneler.push_back(temp);
+	return temp;
 }
 
 void Player::createKoylu(bool instant)
 {
-	Koylu *temp = new Koylu(screen);
+	Koylu *temp = new Koylu(screen, this);
 	if (instant) 
 	{
 		temp->instantBuild();

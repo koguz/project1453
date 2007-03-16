@@ -16,9 +16,9 @@ class Resource
 	Resource(string n);
 	Resource(string n, int a);
 	
-	void setAmount(int a) { amount = a; }
-	int getAmount() { return amount; }
-	string getName() { return resourceName; }
+	void setAmount(int a);
+	int getAmount();
+	string getName();
 	
 	friend bool operator==(Resource &x, Resource &y);
 };

@@ -2,6 +2,8 @@
 #define SCREENMAIN___H_
 
 #include "SDLScreen.h"
+#include "SDLWidget.h"
+#include "SDLButton.h"
 
 class ScreenMain:public SDLScreen
 {

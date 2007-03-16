@@ -3,6 +3,7 @@
 SDLLabel::SDLLabel()
 {
 	widget = 0;
+	show = true;
 }
 
 
@@ -10,6 +11,7 @@ SDLLabel::SDLLabel(string lbl)
 {
 	size = 14;
 	setText(lbl);
+	show = true;
 }
 
 SDLLabel::SDLLabel(int lbl)
@@ -20,6 +22,7 @@ SDLLabel::SDLLabel(int lbl)
 	ss << lbl;
 	ss >> tmp;
 	setText(tmp);
+	show = true;
 }
 
 void SDLLabel::setText(int lbl)
@@ -45,4 +48,7 @@ void SDLLabel::setText(string lbl)
 	w = widget->w;
 	h = widget->h;
 }
+
+
+string SDLLabel::getText() { return label; }
 

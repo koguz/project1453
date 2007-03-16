@@ -23,7 +23,13 @@ SDLButton::SDLButton(string f, string label=string())
 	}
 	else metin = 0;
 	clicked = 0;
+	show = true;
 }
+
+
+void SDLButton::setState(ButtonState s) { bState = s; }
+SDLButton::ButtonState SDLButton::getState() { return bState; }
+
 
 void SDLButton::handleEvent(int eventType, int button, int x, int y)
 {
