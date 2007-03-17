@@ -16,6 +16,8 @@ class SDLListViewItem:public SDLWidget
 {
 	public:
 	SDLListViewItem(SDLListView* p, string str);
+	~SDLListViewItem();
+	
 	enum itemState { NORMAL, OVER };
 	
 	virtual void drawWidget(SDL_Surface* screen)
@@ -58,6 +60,8 @@ class SDLListView:public SDLWidget
 {
 	public:
 	SDLListView(int rows);
+	~SDLListView();
+	
 	string getValue();
 	void addItem(string item);
 	virtual void drawWidget(SDL_Surface* screen)
@@ -66,7 +70,7 @@ class SDLListView:public SDLWidget
 		boxColor(screen, px1+1, py1+1, px2-1, py2-1, DARKERGRAY);
 		for(int i=uppos;i<downpos;i++)
 		{
-			items[i].drawWidget(screen);
+			items[i]->drawWidget(screen);
 		}
 		boxColor(screen, px2+1, py1, px2+up->getWidth() , py2, GRAY);
 		up->drawWidget(screen);
@@ -101,7 +105,7 @@ class SDLListView:public SDLWidget
 	}
 	
 	protected:
-	vector<SDLListViewItem> items;
+	vector<SDLListViewItem*> items;
 	int rows, uppos, downpos, lines, lineHeight;
 	SDLButton *up;
 	SDLButton *down;

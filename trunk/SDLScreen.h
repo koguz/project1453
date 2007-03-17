@@ -18,6 +18,8 @@ class SDLScreen
 {
 	public:
 	SDLScreen(SDL_Surface *scr);
+	~SDLScreen();
+	
 	void addWidget(SDLWidget *w);
 	virtual void display()
 	{

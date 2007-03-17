@@ -4,36 +4,50 @@
 #include <iostream>
 #include <string>
 #include <vector>
-// #include "Headers.h"
 #include "BaseObject.h"
 #include "BaseGraphicObject.h"
-// #include "SDLScreen.h"
-// #include "Player.h"
+#include "Sprite.h"
 
 using namespace std;
 
-// class Player;
-// class SDLWidget;
-// struct Coordinates;
-// class SDLProgressBar;
-
 class BaseBuilding:public BaseObject, public BaseGraphicObject
 {
-	protected:
-	int sight;
-	int size;
-	SDLWidget *resim;
-	
 	public:
 	BaseBuilding();
 	BaseBuilding(SDL_Surface *scr, Player *p, string n);
-	virtual SDL_Surface* getImg() { return resim->getWidget(); }
+	~BaseBuilding();
+	
+	void setState(string state);
+	
+	virtual SDL_Surface* getImg() 
+	{ 
+		sprite.setState(curState);
+		return sprite.getImg();
+	}
+	
+	virtual SDL_Rect getFrame()
+	{
+		sprite.setState(curState);
+		SDL_Rect r = sprite.getFrame();
+		return r;
+	}
+	
 	BaseObject* nowBuilding;
 	SDLProgressBar* nowBuildingBar;
 	
-	void setResim(char* path);
+	
+	
+// 	void setResim();/*char* path*/
 	
 	void update();
+	
+	protected:
+	int sight;
+	int size;
+	
+	// grafikler
+	string curState;
+	Sprite sprite;
 };
 
 

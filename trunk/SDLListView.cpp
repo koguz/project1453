@@ -29,6 +29,11 @@ void SDLListViewItem::setWidth(int pw)
 }
 
 
+SDLListViewItem::~SDLListViewItem()
+{
+	delete yazi;
+}
+
 
 //////////////
 
@@ -54,22 +59,36 @@ SDLListView::SDLListView(int rows)
 	
 }
 
+SDLListView::~SDLListView()
+{
+	for(int i=0;i<items.size();i++)
+	{
+		SDLListViewItem *temp = items[i];
+		items[i] = 0;
+		delete temp;
+	}
+	items.clear();
+	delete up;
+	delete down;
+}
+
 void SDLListView::addItem(string item)
 {
-	SDLListViewItem temp(this, item);
+	SDLListViewItem *temp = new SDLListViewItem(this, item);
+	
 	items.push_back(temp);
 	lines = items.size();
 	
-	if (temp.getWidth() > w)
+	if (temp->getWidth() > w)
 	{
-		w = temp.getWidth();
+		w = temp->getWidth();
 		px2 = px1 + w;
 		up->setPosition(px1+w+1, py1);
 		down->setPosition(px1+w+1, py2-down->getHeight()+1);
 	}
 	
 	for (int i=0;i<items.size();i++)
-		items[i].setWidth(w);
+		items[i]->setWidth(w);
 	
 	uppos = 0;
 	if (lines < rows)
@@ -84,7 +103,7 @@ void SDLListView::repositionItems()
 	int j = 0;
 	for (int i=uppos;i<downpos;i++)
 	{
-		items[i].setPosition(px1, py1 + (lineHeight*j));
+		items[i]->setPosition(px1, py1 + (lineHeight*j));
 		j++;
 	}
 }
@@ -113,9 +132,9 @@ string SDLListView::getValue()
 {
 	for (int i=0;i<items.size();i++)
 	{
-		if (items[i].isSelected())
+		if (items[i]->isSelected())
 		{
-			return items[i].getValue();
+			return items[i]->getValue();
 		}
 	}
 	return "NONE";
@@ -130,19 +149,19 @@ void SDLListView::handleEvent(int eventType, int button, int x, int y)
 		switch(eventType)
 		{
 			case SDL_MOUSEMOTION:
-				if (items[i].isMouseOver(x, y) && !items[i].isSelected())
-					items[i].setState(SDLListViewItem::OVER);
-				else if(!items[i].isSelected())
-					items[i].setState(SDLListViewItem::NORMAL);
+				if (items[i]->isMouseOver(x, y) && !items[i]->isSelected())
+					items[i]->setState(SDLListViewItem::OVER);
+				else if(!items[i]->isSelected())
+					items[i]->setState(SDLListViewItem::NORMAL);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (button == SDL_BUTTON_LEFT)
 				{
-					if(items[i].isMouseOver(x, y))
+					if(items[i]->isMouseOver(x, y))
 					{
 						for (int j=0;j<items.size();j++)
-							items[j].deSelect();
-						items[i].setSelected();
+							items[j]->deSelect();
+						items[i]->setSelected();
 						return;
 					}
 				}

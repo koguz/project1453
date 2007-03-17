@@ -15,6 +15,8 @@ class SDLTextView:public SDLWidget
 {
 	public:
 	SDLTextView(string text, int width, int rows);
+	~SDLTextView();
+	
 	string getText();
 	virtual void drawWidget(SDL_Surface* screen)
 	{

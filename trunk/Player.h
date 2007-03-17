@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <list>
 #include <vector>
 
 #include "BOEv.h"
@@ -12,36 +11,14 @@
 #include "UOKoylu.h"
 #include "UBSerf.h"
 
-// #include "callback.h"
-// #include "Headers.h"
-// #include "Cost.h"
-
-// #include "Units.h"
-// #include "Technologies.h"
-
 using namespace std;
-
-// class Koylu;
-// class Serf;
-// class Ev;
-// class SehirMerkezi;
 
 class Player
 {
-	private:
-	list<BaseObject*> nesneler;
-	string faction;
-	SDL_Surface *screen;
-	bool drawing;
-	bool dragging;
-	
-	Wood wood;
-	Food food;
-	Stone stone;
-	
 	public:
 	Player();
 	Player(SDL_Surface *scr, string faction, int w, int f, int s);
+	~Player();
 	
 	int rsx1, rsx2, rsy1, rsy2;
 	bool isMultipleSelecting();
@@ -62,7 +39,17 @@ class Player
 	void addObject(BaseObject* b);
 	
 	Koylu* yeniKoylu();
- 	void createKoylu(bool instant);
+ 	
+ 	private:
+	vector<BaseObject*> nesneler;
+	string faction;
+	SDL_Surface *screen;
+	bool drawing;
+	bool dragging;
+	
+	Wood wood;
+	Food food;
+	Stone stone;
 };
 
 #endif

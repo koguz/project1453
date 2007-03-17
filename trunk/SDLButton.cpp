@@ -27,6 +27,11 @@ SDLButton::SDLButton(string f, string label=string())
 }
 
 
+SDLButton::~SDLButton()
+{
+	delete metin;
+}
+
 void SDLButton::setState(ButtonState s) { bState = s; }
 SDLButton::ButtonState SDLButton::getState() { return bState; }
 

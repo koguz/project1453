@@ -15,6 +15,13 @@ SDLCheckBox::SDLCheckBox(string label)
 }
 
 
+SDLCheckBox::~SDLCheckBox()
+{
+	delete button;
+	delete check;
+	delete yazi;
+}
+
 bool SDLCheckBox::isChecked() { return on; }
 void SDLCheckBox::setOn() { on = true; }
 void SDLCheckBox::setOff() { on = false; }

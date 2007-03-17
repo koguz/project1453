@@ -14,6 +14,8 @@ class SDLCommandButton:public SDLWidget
 {
 	public:
 	SDLCommandButton(SDL_Surface *screen, SDL_Rect kare, string info, BaseObject* nesne=0);
+	~SDLCommandButton();
+	
 	
 	virtual void drawWidget(SDL_Surface *screen)
 	{

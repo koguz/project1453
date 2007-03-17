@@ -24,12 +24,13 @@ class Application
 	SDLScreen *current;
 	ScreenMain *ana;
 	ScreenGameType *gt;
-	SDLProgressBar *pb;
+// 	SDLProgressBar *pb;
 	Game *game;
 	
 	public:
 	SDL_Surface* screen;
 	Application(string appName, int w, int h, int d, unsigned int f);
+	~Application();
 	
 	bool Init();
 	int Run();

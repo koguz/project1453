@@ -37,6 +37,12 @@ SDLTextView::SDLTextView(string text, int w, int r)
 	else downpos = r;
 }
 
+SDLTextView::~SDLTextView()
+{
+	delete up;
+	delete down;
+}
+
 
 string SDLTextView::getText() { return metin; }
 

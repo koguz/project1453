@@ -137,6 +137,21 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	
 }
 
+Game::~Game()
+{
+	delete ui;
+	delete commands;
+	
+	delete human;
+	delete cpu;
+	
+	delete tileCim;
+	delete tileSari;
+	delete tileAgac;
+	delete tileToprak;
+	delete tileDeniz;
+}
+
 
 void Game::update()
 {

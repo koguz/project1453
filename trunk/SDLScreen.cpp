@@ -7,6 +7,17 @@ SDLScreen::SDLScreen(SDL_Surface *scr)
 	screen = scr;
 }
 
+SDLScreen::~SDLScreen()
+{
+	for(int i=0;i<widgets.size();i++)
+	{
+		SDLWidget* temp = (SDLWidget*) widgets[i];
+		widgets[i] = 0;
+		delete temp;
+	}
+	widgets.clear();
+}
+
 void SDLScreen::addWidget(SDLWidget *w)
 {
 	widgets.push_back(w);

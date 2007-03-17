@@ -1,6 +1,9 @@
 #include "SDLWidget.h"
 
-SDLWidget::SDLWidget() {}
+SDLWidget::SDLWidget() 
+{
+	widget = 0;
+}
 
 SDLWidget::SDLWidget(char *f)
 {
@@ -18,6 +21,10 @@ SDLWidget::SDLWidget(char *f)
 	show = true;
 }
 
+SDLWidget::~SDLWidget()
+{
+	SDL_FreeSurface(widget);
+}
 
 bool SDLWidget::isMouseOver(int mx, int my)
 {

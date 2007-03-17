@@ -1,6 +1,5 @@
 #include "Player.h"
 
-
 Player::Player()
 {
 	Tech* t = new TemelTech();
@@ -25,6 +24,12 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	wood.setAmount(w);
 	food.setAmount(f);
 	stone.setAmount(s);
+	drawing = dragging = false;
+}
+
+Player::~Player()
+{
+	nesneler.clear();
 }
 
 bool Player::isMultipleSelecting() { return (drawing && dragging); }
@@ -38,13 +43,14 @@ void Player::buildStartingUnits(int x, int y)
 {
 	if (faction == "Osmanlı")
 	{
-		createKoylu(true);
+		Koylu *temp = new Koylu(screen, this);
+		temp->instantBuild();
+		temp->setPosition(360, 450);
+		nesneler.push_back(temp);
 		
 		SehirMerkezi* e = new SehirMerkezi(screen, this);
 		e->instantBuild();
 		e->setPosition(128, 320);
-		Player *me = this;
-// 		e->createKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::createKoylu);
 		nesneler.push_back(e);
 	}
 	else if (faction == "Bizans")
@@ -73,75 +79,39 @@ void Player::subtractCost(Cost a)
 Koylu* Player::yeniKoylu()
 {
 	Koylu *temp = new Koylu();
-	// öncelikle bakalim yapabiliyor muyuz...
 	if (!haveReqs(temp))
 	{
 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
 		delete temp;
 		return 0;
 	}
-	
 	if (!temp->getCost().compare(wood, food, stone))
 	{
 		cout << "Bu birim için kaynaklar yetersiz..." << endl;
 		delete temp;
 		return 0;
 	}
-	
 	delete temp;
-	
 	temp = new Koylu(screen, this);
-	
-	// paradan kes
 	subtractCost(temp->getCost());
-	
-	//( temp->setPosition(360, 450); // FIXME fixed point?
-	// 
-	// nesneler.push_back(temp);
 	return temp;
 }
 
-void Player::createKoylu(bool instant)
-{
-	Koylu *temp = new Koylu(screen, this);
-	if (instant) 
-	{
-		temp->instantBuild();
-		temp->setPosition(360, 450);
-		nesneler.push_back(temp);
-		return;
-	}
-	
-	
-}
-/*
-void Player::createPiyade()
-{
-	// sonra
-	return;
-}
-
-*/
-
 void Player::update()
 {
-	SDL_Rect dest;
-	dest.w = dest.h = 64;
-	
-	list<BaseObject*>::iterator iter;
-	for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+	for(int i=0;i<nesneler.size();i++)
 	{
-		if (!(*iter)->build())
+		if (!nesneler[i]->build())
 			break;
-		if ((*iter)->getType() == BaseObject::UNIT)
+		if (nesneler[i]->getType() == BaseObject::UNIT)
 		{
-			BaseUnit* birim = (BaseUnit*)(*iter);
+			BaseUnit* birim = (BaseUnit*)nesneler[i];
 			birim->update();
 			birim->draw();
 		}
-		else if ((*iter)->getType() == BaseObject::BUILDING)
+		else if (nesneler[i]->getType() == BaseObject::BUILDING)
 		{
-			BaseBuilding* b = (BaseBuilding*)(*iter);
+			BaseBuilding* b = (BaseBuilding*)nesneler[i];
 			b->update();
 			b->draw();
 		}
@@ -155,18 +125,17 @@ void Player::update()
 
 void Player::eventHandler(SDL_Event *event)
 {
-	list<BaseObject*>::iterator iter;
-	for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+	for(int i=0;i<nesneler.size();i++)
 	{
-		if ((*iter)->getType() == BaseObject::UNIT)
+		if (nesneler[i]->getType() == BaseObject::UNIT)
 		{
-			BaseUnit* birim = (BaseUnit*)(*iter);
+			BaseUnit* birim = (BaseUnit*)nesneler[i];
 			if (birim->isSelected())
 				birim->komutlar->eventHandler(event);
 		}
-		else if ((*iter)->getType() == BaseObject::BUILDING)
+		else if (nesneler[i]->getType() == BaseObject::BUILDING)
 		{
-			BaseBuilding* b = (BaseBuilding*)(*iter);
+			BaseBuilding* b = (BaseBuilding*)nesneler[i];
 			if (b->isSelected())
 				b->komutlar->eventHandler(event);
 		}
@@ -182,18 +151,17 @@ void Player::eventHandler(SDL_Event *event)
 		case SDL_MOUSEBUTTONDOWN:
 			mx = event->motion.x;
 			my = event->motion.y;
-			if (mx > 600)
+			if (mx > 600) // FIXME -- HARITA EKRANININ GENİŞLİĞİ!!
 				break;
 			if (event->button.button == SDL_BUTTON_LEFT) 
 			{
 				// önce seçilen birine bir komut verilmişmi
 				bool tmm = false;
-				list<BaseObject*>::iterator iter;
-				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+				for(int i=0;i<nesneler.size();i++)
 				{
-					if ((*iter)->getType() == BaseObject::UNIT)
+					if (nesneler[i]->getType() == BaseObject::UNIT)
 					{
-						BaseUnit* birim = (BaseUnit*)(*iter);
+						BaseUnit* birim = (BaseUnit*)nesneler[i];
 						if (birim->isWaiting())
 						{
 							birim->issueCommand(mx, my);
@@ -204,11 +172,11 @@ void Player::eventHandler(SDL_Event *event)
 				if (tmm)
 					break;
 				bool single = false;
-				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+				for(int i=0;i<nesneler.size();i++)
 				{
-					if ((*iter)->getType() == BaseObject::UNIT || (*iter)->getType() == BaseObject::BUILDING)
+					if (nesneler[i]->getType() == BaseObject::UNIT || nesneler[i]->getType() == BaseObject::BUILDING)
 					{
-						BaseGraphicObject* birim = (BaseUnit*)(*iter);
+						BaseGraphicObject* birim = (BaseUnit*)nesneler[i];
 						ux1 = birim->getX() + birim->hotspot.x;
 						ux2 = ux1 + birim->hotspot.w;
 						uy1 = birim->getY() + birim->hotspot.y;
@@ -236,11 +204,11 @@ void Player::eventHandler(SDL_Event *event)
 				{
 					// current = birimler;
 					
-					for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+					for(int i=0;i<nesneler.size();i++)
 					{
-						if ((*iter)->getType() == BaseObject::UNIT)
+						if (nesneler[i]->getType() == BaseObject::UNIT)
 						{
-							BaseUnit* birim = (BaseUnit*)(*iter);
+							BaseUnit* birim = (BaseUnit*)nesneler[i];
 							birim->unselect();
 						}
 					}
@@ -253,12 +221,11 @@ void Player::eventHandler(SDL_Event *event)
 			}
 			else if (event->button.button == SDL_BUTTON_RIGHT)
 			{
-				list<BaseObject*>::iterator iter;
-				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+				for(int i=0;i<nesneler.size();i++)
 				{
-					if ((*iter)->getType() == BaseObject::UNIT)
+					if (nesneler[i]->getType() == BaseObject::UNIT)
 					{
-						BaseUnit* birim = (BaseUnit*)(*iter);
+						BaseUnit* birim = (BaseUnit*)nesneler[i];
 						if (birim->isSelected())
 							birim->defaultAction(mx, my);
 					}
@@ -270,12 +237,11 @@ void Player::eventHandler(SDL_Event *event)
 			// bakalim kimleri sectik
 			if (event->button.button = SDL_BUTTON_LEFT && drawing)
 			{
-				list<BaseObject*>::iterator iter;
-				for(iter=nesneler.begin();iter!=nesneler.end();iter++)
+				for(int i=0;i<nesneler.size();i++)
 				{
-					if ((*iter)->getType() == BaseObject::UNIT)
+					if (nesneler[i]->getType() == BaseObject::UNIT)
 					{
-						BaseUnit* birim = (BaseUnit*)(*iter);
+						BaseUnit* birim = (BaseUnit*)nesneler[i];
 						int smx = birim->getCenter().x;
 						int smy = birim->getCenter().y;
 						if  (
@@ -347,10 +313,9 @@ bool Player::haveReqs(BaseObject *u)
 	for (int i=0;i<t.size();i++)
 	{
 		have = false;
-		list<BaseObject*>::iterator j;
-		for (j=nesneler.begin();j!=nesneler.end();j++)
+		for (int j=0;j<nesneler.size();j++)
 		{
-			if ((*j)->getName() == t[i])
+			if (nesneler[j]->getName() == t[i])
 				have = true;
 		}
 		if (!have) return false;

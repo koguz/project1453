@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 #include <list>
-// #include "Headers.h"
-// #include "Player.h"
 #include "SDLScreen.h"
 #include "SDLCommandButton.h"
 #include "SDLProgressBar.h"
@@ -23,6 +21,7 @@ class BaseGraphicObject
 	public:
 	BaseGraphicObject();
 	BaseGraphicObject(SDL_Surface *scr, Player *p);
+	virtual ~BaseGraphicObject();
 	
 	void setPosition(int x, int y);
 	int getX();
@@ -33,9 +32,9 @@ class BaseGraphicObject
 	void unselect();
 	bool isSelected(); 
 	
-	bool isMouseOver(int x, int y);
+// 	bool isMouseOver(int x, int y);
 	
-	virtual SDL_Surface* getImg() { return img1; }
+	virtual SDL_Surface* getImg() { return 0; }
 	
 	virtual SDL_Rect getFrame() { return hotspot; }
 	
@@ -51,9 +50,7 @@ class BaseGraphicObject
 	protected:
 	int posx, posy, cx, cy; // cx ve cy merkez noktaları
 	SDL_Surface* screen;
-	SDL_Surface* img1;
-	
-	SDLWidget *commandList;
+	SDL_Surface* loadImg(char *f);
 	bool selected;
 };
 

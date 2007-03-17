@@ -9,6 +9,7 @@ class Ev:public BaseBuilding
 {
 	public:
 	Ev(SDL_Surface *screen=0, Player *p=0);
+	static SDL_Surface* spriteImg;
 };
 
 #endif

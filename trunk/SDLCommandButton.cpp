@@ -57,6 +57,18 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Ba
 	
 }
 
+SDLCommandButton::~SDLCommandButton()
+{
+	delete aciklama;
+// 	delete woodIcon;
+// 	delete foodIcon;
+// 	delete stoneIcon;
+// 	delete lblWood;
+// 	delete lblFood;
+// 	delete lblStone;
+// 	delete lblCommand;
+}
+
 void SDLCommandButton::handleEvent(int eventType, int button, int x, int y)
 {
 	switch(eventType)

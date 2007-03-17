@@ -21,7 +21,7 @@ class Game
 	SDLScreen *ui;
 	SDLScreen *commands;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
-	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz, *commandList;
+	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;//, *commandList;
 	
 	Player *human, *cpu;
 	
@@ -29,6 +29,7 @@ class Game
 	int map[20][18];
 	
 	Game(SDL_Surface *scr, string userFaction, short ai, string mapName);
+	~Game();
 	
 	void display();
 	void eventHandler(SDL_Event *event);

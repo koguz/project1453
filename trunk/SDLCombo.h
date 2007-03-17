@@ -17,6 +17,7 @@ class SDLComboOption:public SDLWidget
 {
 	public:
 	SDLComboOption(SDLCombo* pp, string po, string pv, bool pd);
+	~SDLComboOption();
 	
 	enum optionState { NORMAL, OVER };
 	
@@ -58,6 +59,8 @@ class SDLCombo:public SDLWidget
 {
 	public:
 	SDLCombo();
+	~SDLCombo();
+	
 	enum comboState{ CLOSED, OPEN };
 	string getValue();
 	string getSelectedString();
@@ -73,7 +76,7 @@ class SDLCombo:public SDLWidget
 		{
 			for(int i=0;i<options.size();i++)
 			{
-				options[i].drawWidget(screen);
+				options[i]->drawWidget(screen);
 			}
 		}
 	}
@@ -89,7 +92,7 @@ class SDLCombo:public SDLWidget
 	SDLButton *button;
 	comboState durum;
 	SDLLabel *yazi;
-	vector<SDLComboOption> options;
+	vector<SDLComboOption*> options;
 	void showOptions();
 	void hideOptions();
 	void toggleOptions();

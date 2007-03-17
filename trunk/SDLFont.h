@@ -11,6 +11,8 @@ class SDLFont
 {
 	public:
 	SDLFont(string str, int size, SDL_Color color);
+	~SDLFont();
+	
 	SDL_Surface* getString();
 	
 	int getWidth();

@@ -8,21 +8,28 @@ Application::Application(string name, int w, int h, int d, unsigned int f)
 	done = true;
 }
 
+Application::~Application()
+{
+	delete ana;
+	delete gt;
+	SDL_FreeSurface(screen);
+	delete game;
+}
 
 bool Application::Init()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		error = "SDL Init was unsuccessful";
+		error = "SDL Başlatılamadı";
 		return false;
 	}
 	screen = SDL_SetVideoMode(width, height, bpp, flags);
 	if (screen == 0)
 	{
-		error = "Window could not be opened";
+		error = "Pencere açılamadı";
 		return false;
 	}
-	SDL_WM_SetCaption(appName.c_str(), "SDL_App Icon");
+	SDL_WM_SetCaption(appName.c_str(), "SDL Simgesi");
 	
 	Application *me = this;
 	
@@ -75,7 +82,6 @@ int Application::Run()
 		cout << error << endl;
 		return -1;
 	}
-	
 	SDL_Event event;
 	done = true;
 	while(done)

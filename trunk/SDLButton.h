@@ -15,6 +15,9 @@ class SDLButton:public SDLWidget
 	enum ButtonState { NORMAL, OVER, PRESSED };
 	
 	SDLButton(string f, string label);
+	~SDLButton();
+	
+	
 	CBFunctor0 clicked; 
 	virtual void drawWidget(SDL_Surface *screen)
 	{

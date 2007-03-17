@@ -1,5 +1,5 @@
 CC=g++
-FLAGS=`sdl-config --cflags` -c 
+FLAGS=`sdl-config --cflags` -c  -g -O0 # bu ikisi debug icin
 LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf
 
 all: g1453
