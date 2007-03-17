@@ -4,6 +4,7 @@ SDLLabel::SDLLabel()
 {
 	widget = 0;
 	show = true;
+	tip = LABEL;
 }
 
 
@@ -12,6 +13,7 @@ SDLLabel::SDLLabel(string lbl)
 	size = 14;
 	setText(lbl);
 	show = true;
+	tip = LABEL;
 }
 
 SDLLabel::SDLLabel(int lbl)
@@ -23,6 +25,12 @@ SDLLabel::SDLLabel(int lbl)
 	ss >> tmp;
 	setText(tmp);
 	show = true;
+	tip = LABEL;
+}
+
+SDLLabel::~SDLLabel()
+{
+	
 }
 
 void SDLLabel::setText(int lbl)

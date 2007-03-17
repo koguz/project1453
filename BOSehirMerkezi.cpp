@@ -1,5 +1,7 @@
 #include "BOSehirMerkezi.h"
 
+SDL_Surface* SehirMerkezi::spriteImg = 0;
+
 SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
 {
 	cost = Cost(400, 0, 400); 
@@ -13,7 +15,26 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	sight = 8;
 	size = 4;
 	
-	setResim("graphics/buildings/osmanli/sehirMerkezi1.png");
+	hotspot.x = hotspot.y = 0;
+	hotspot.w = hotspot.h = 128;
+	
+	if (spriteImg == 0)
+	{
+		spriteImg = loadImg("graphics/buildings/osmanli/sehirMerkezi1.png");
+	}
+	
+	sprite = Sprite(spriteImg);
+	sprite.addState("saglam");
+	
+	SDL_Rect t;
+	t.x = t.y = 0;
+	t.w = spriteImg->w;
+	t.h = spriteImg->h;
+	
+	sprite.addFrameToState("saglam", t, 1000);
+	
+	setState("saglam");
+	
 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
 	
 	komutlar = new SDLScreen(screen);
@@ -34,8 +55,19 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	komutlar->addWidget(btnKoylu);
 }
 
+SehirMerkezi::~SehirMerkezi()
+{
+	delete btnKoylu;
+}
+
 void SehirMerkezi::createKoylu()
 {
+	if (nowBuilding != 0)
+	{
+		cerr << "Şu an başka bir birim üretiliyor, daha sonra tekrar deneyin!" << endl;
+		return;
+	}
+	
 	Koylu* yeni = parent->yeniKoylu();
 	if (yeni == 0)
 		return;

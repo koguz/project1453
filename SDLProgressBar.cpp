@@ -10,7 +10,11 @@ SDLProgressBar::SDLProgressBar(int pw, int ph, Uint32 color, int pmin, int pmax)
 	min = pmin;
 	max = pmax;
 	show = true;
+	tip = PROGRESSBAR;
 }
+
+SDLProgressBar::~SDLProgressBar()
+{ }
 
 void SDLProgressBar::setValue(int p)
 {

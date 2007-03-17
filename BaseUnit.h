@@ -4,22 +4,19 @@
 #include <iostream>
 #include <string>
 #include <list>
-// #include "Headers.h"
 #include "BaseObject.h"
 #include "BaseGraphicObject.h"
-// #include "SDLScreen.h"
 #include "Sprite.h"
-// #include "Player.h"
 
 using namespace std;
-
-// class Player;
 
 class BaseUnit:public BaseObject, public BaseGraphicObject
 {
 	public: 
 	BaseUnit();
 	BaseUnit(SDL_Surface *scr, Player *p, string n);
+	virtual ~BaseUnit();
+	
 	enum direction { N=0, NE=1, E=2, SE=3, S=4, SW=5, W=6, NW=7 };
 	void setState(string state);
 	void setYon(direction d);

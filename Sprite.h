@@ -42,6 +42,9 @@ class Sprite
 	Sprite();
 	Sprite(char* f);
 	Sprite(SDL_Surface *i);
+	
+	~Sprite();
+	
 	SDL_Rect getFrame();
 	SDL_Surface* getImg();
 	string getCurState();

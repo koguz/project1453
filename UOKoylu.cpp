@@ -1,5 +1,7 @@
 #include "UOKoylu.h"
 
+SDL_Surface* Koylu::spriteImg = 0;
+
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 {
 	cost = Cost(0, 400, 0); 
@@ -29,24 +31,28 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	SDL_Rect t;
 	t.w = t.h = 64;
 	
-	Sprite t2("graphics/units/osmanli/koylu.png");
+	if (spriteImg == 0)
+	{
+		spriteImg = loadImg("graphics/units/osmanli/koylu.png");
+	}
 	
 	for(int i=0;i<8;i++)
 	{
-		sprites[i] = t2;
-		sprites[i].addState("dur");
-		sprites[i].addState("yuru");
+		Sprite *temp = new Sprite(spriteImg);
+		temp->addState("dur");
+		temp->addState("yuru");
 		
 		t.x = i*64;
 		t.y = 0;
-		sprites[i].addFrameToState("dur", t, 1000);
+		temp->addFrameToState("dur", t, 1000);
 		
 		for (int j=0;j<2;j++)
 		{
 			t.x = i*64;
 			t.y = 64 + (j*64);
-			sprites[i].addFrameToState("yuru", t, 100);
-		}		
+			temp->addFrameToState("yuru", t, 100);
+		}
+		sprites[i] = *temp;
 	}
 	yon = N;
 	setState("dur");
@@ -75,6 +81,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	SDLCommandButton* ev = new SDLCommandButton(screen, trect, "Ev Yap", new Ev);
 	ev->setPosition(746, 195);
 	komutlar->addWidget(ev);
+}
+
+Koylu::~Koylu()
+{
 }
 
 void Koylu::setCommandCalis()

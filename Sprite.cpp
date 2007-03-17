@@ -64,6 +64,11 @@ Sprite::Sprite(SDL_Surface *i)
 	img = i;
 }
 
+Sprite::~Sprite()
+{
+// 	SDL_FreeSurface(img);
+}
+
 void Sprite::addState(string sName)
 {
 	states[sName] = State(sName);

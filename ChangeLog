@@ -1,3 +1,19 @@
+2007.03.18
+
+00:47
+	- 10 kata kadar memory leak engellendi. Bol bol delete yazıldı.
+	  BaseUnit ve BaseBuilding iki sınıftan türüyorlar; BaseObject
+	  ve BaseGraphicObject- bu yüzden sanırsam, list ya da vector
+	  içine konunca pointer'ları değişiyor. Onları silemedim bir 
+	  türlü. İnternette de çözüm bulamadım. O yüzden şimdilik 
+	  bıraktım.
+
+	- Bir iki basit hata düzeltildi, daha çok ilk değer verilmediği
+	  için hata çıkaran değişkenler, bellek temizleme sırasında 
+	  kaçamadılar. 
+
+	- Oyun ilk başladığında kare seçim yapıyordu, bu da giderildi.
+
 2007.03.16
 
 23:39

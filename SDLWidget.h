@@ -20,8 +20,8 @@ class SDLWidget
 	public:
 	SDLWidget();
 	SDLWidget(char *fileName);
-	enum WidgetType { WIDGET, BUTTON, COMBO, COMBOOPTION, CHECKBOX, TEXTVIEW, LISTITEM, LIST, COMBUTTON };
-	
+	enum WidgetType { WIDGET, LABEL, BUTTON, COMBO, COMBOOPTION, CHECKBOX, TEXTVIEW, LIST, LISTITEM, COMBUTTON, PROGRESSBAR };
+	virtual ~SDLWidget();
 	
 	WidgetType getType();
 	bool isMouseOver(int x, int y);
@@ -54,7 +54,7 @@ class SDLWidget
 	
 	virtual void handleMouseEvent (int eventType, int button, int x, int y)
 	{
-		/// This function does nothing for base widget
+		// This function does nothing for base widget
 	}
 	
 	int getWidth();

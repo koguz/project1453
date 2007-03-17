@@ -15,9 +15,9 @@ class SDLLabel:public SDLWidget
 {
 	public: 
 	SDLLabel(); 
-	
 	SDLLabel(string lbl); 
 	SDLLabel(int lbl);
+	~SDLLabel();
 	
 	virtual void drawWidget(SDL_Surface *screen)
 	{

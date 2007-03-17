@@ -20,6 +20,9 @@ BaseObject::BaseObject(string n)
 	currentHp = 0;
 }
 
+BaseObject::~BaseObject() {}
+
+
 void BaseObject::addReq(string r)
 {
 	reqList.push_back(r);

@@ -17,13 +17,25 @@ BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n),
 	tip = BUILDING;
 }
 
-void BaseBuilding::setResim(char* path)
+void BaseBuilding::setState(string state) { curState = state; }
+
+BaseBuilding::~BaseBuilding()
+{
+	if (nowBuilding != 0)
+		delete nowBuilding;
+	delete nowBuildingBar;
+// 	delete resim;
+}
+
+/*
+void BaseBuilding::setResim(char* path) // char* path 
 {
 	resim = new SDLWidget(path);
 	hotspot.w = resim->getWidth();
 	hotspot.h = resim->getHeight();
 	hotspot.x = hotspot.y = 0;
-}
+}*/
+
 
 void BaseBuilding::update() 
 {

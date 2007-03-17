@@ -13,8 +13,11 @@ class SehirMerkezi:public BaseBuilding
 	public:
 	int state;
 	SehirMerkezi(SDL_Surface *screen=0, Player *p=0);
+	~SehirMerkezi();
 	SDLCommandButton* btnKoylu;
 	void createKoylu();
+	
+	static SDL_Surface* spriteImg;
 };
 
 #endif

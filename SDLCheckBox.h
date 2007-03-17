@@ -14,6 +14,7 @@ class SDLCheckBox:public SDLWidget
 {
 	public:
 	SDLCheckBox(string label);
+	~SDLCheckBox();
 	
 	void toggle();
 	bool isChecked();

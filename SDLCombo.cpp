@@ -23,6 +23,11 @@ SDLComboOption::SDLComboOption(
 	show = true;
 }
 
+SDLComboOption::~SDLComboOption()
+{
+	delete yazi;
+}
+
 void SDLComboOption::deSelect() { selected = false; }
 void SDLComboOption::setSelected() { selected = true; }
 bool SDLComboOption::isSelected() { return selected; }
@@ -45,6 +50,20 @@ SDLCombo::SDLCombo()
 	w = 0;
 	h = button->getHeight();
 	show = true;
+// 	widget = 0;
+}
+
+SDLCombo::~SDLCombo()
+{
+	delete button;
+	delete yazi;
+	for(int i=0;i<options.size();i++)
+	{
+		SDLComboOption* temp = options[i];
+		options[i] = 0;
+		delete temp;
+	}
+	options.clear();
 }
 
 void SDLCombo::showOptions() { durum = OPEN; }
@@ -52,18 +71,18 @@ void SDLCombo::hideOptions() { durum = CLOSED; }
 
 void SDLCombo::addOption(string option, string value, bool def)
 {
-	SDLComboOption temp(this, option, value, def);
+	SDLComboOption *temp = new SDLComboOption(this, option, value, def);
 	
-	if (temp.getWidth() > w)
+	if (temp->getWidth() > w)
 	{
-		w = temp.getWidth();
+		w = temp->getWidth();
 		px2 = px1 + w; // update for the new width
 	}
 	
 	for (int i=0;i<options.size();i++)
-		options[i].setWidth(w);
+		options[i]->setWidth(w);
 	
-	temp.setPosition(px1, (py2 + 1) + (temp.getHeight()*options.size()));
+	temp->setPosition(px1, (py2 + 1) + (temp->getHeight()*options.size()));
 	if (def)
 	{
 		yazi = new SDLLabel(option);
@@ -87,8 +106,8 @@ string SDLCombo::getValue()
 {
 	for(int i=0;i<options.size();i++)
 	{
-		if (options[i].isSelected())
-			return options[i].getValue();
+		if (options[i]->isSelected())
+			return options[i]->getValue();
 	}
 	return "";
 }
@@ -97,8 +116,8 @@ string SDLCombo::getSelectedString()
 {
 	for(int i=0;i<options.size();i++)
 	{
-		if (options[i].isSelected())
-			return options[i].getOption();
+		if (options[i]->isSelected())
+			return options[i]->getOption();
 	}
 	return "";
 }
@@ -125,9 +144,9 @@ void SDLCombo::handleEvent(int eventType, int button, int x, int y)
 			switch(eventType)
 			{
 				case SDL_MOUSEMOTION:
-					if (options[i].isMouseOver(x, y))
-						options[i].setState(SDLComboOption::OVER);
-					else options[i].setState(SDLComboOption::NORMAL);
+					if (options[i]->isMouseOver(x, y))
+						options[i]->setState(SDLComboOption::OVER);
+					else options[i]->setState(SDLComboOption::NORMAL);
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					if (button == SDL_BUTTON_LEFT)
@@ -136,13 +155,13 @@ void SDLCombo::handleEvent(int eventType, int button, int x, int y)
 						{
 							toggleOptions();
 						}
-						if(options[i].isMouseOver(x, y))
+						if(options[i]->isMouseOver(x, y))
 						{
 							for (int j=0;j<options.size();j++)
-								options[j].deSelect();
-							options[i].setSelected();
+								options[j]->deSelect();
+							options[i]->setSelected();
 							delete(yazi);
-							yazi = new SDLLabel(options[i].getOption());
+							yazi = new SDLLabel(options[i]->getOption());
 							toggleOptions();
 							return;
 						}

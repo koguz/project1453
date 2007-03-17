@@ -6,7 +6,7 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 {
 	if (!TTF_WasInit() && TTF_Init() == -1)
 	{
-		cout << "err at sdl_ttf init" << endl;
+		cout << "Yazı karakteri sistemi başlatılamadı" << endl;
 		return;
 	}
 	
@@ -15,21 +15,26 @@ SDLFont::SDLFont(string str, int size, SDL_Color color)
 	
 	if (!font)
 	{
-		cout << "err at loading font" << endl;
+		cout << "Yazı karakteri yüklenemedi" << endl;
 		return;
 	}
 	
 	TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
 	if (TTF_SizeUTF8(font, str.c_str(), &w, &h))
 	{
-		cout << "err at size" << endl;
+		cout << "Yazı karakterine boyut verilemedi" << endl;
 		return;
 	}
 	if (!(s=TTF_RenderUTF8_Blended(font, str.c_str(), color)))
 	{
-		cout << "err at render" << endl;
+		cout << "Yazı karakteri görüntülenemedi" << endl;
 		return;
 	}
+}
+
+SDLFont::~SDLFont()
+{
+// 	SDL_FreeSurface(s);
 }
 
 int SDLFont::getWidth() { return w; }

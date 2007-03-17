@@ -13,6 +13,7 @@ class BaseObject
 	public:
 	BaseObject();
 	BaseObject(string n);
+	~BaseObject();
 	enum ObjectType { UNIT, BUILDING, TECH };
 	ObjectType getType();
 	Cost getCost();

@@ -9,6 +9,16 @@ BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
 	parent = p;
 	screen = scr;
 	komutlar = 0;
+	komutTanim = 0;
+	selected = false;
+	healthBar = 0;
+}
+
+BaseGraphicObject::~BaseGraphicObject()
+{
+	delete komutlar;
+	delete komutTanim;
+	delete healthBar;
 }
 
 int BaseGraphicObject::getX() { return posx; }
@@ -33,23 +43,30 @@ Coordinates BaseGraphicObject::getCenter()
 	return t;
 }
 
-bool BaseGraphicObject::isMouseOver(int mx, int my)
-{
-	return true;
-// 	if (
-// 		(mx > px1) &&
-// 		(mx < px2) &&
-// 		(my > py1) &&
-// 		(my < py2)
-// 		)
-// 		return true;
-// 	else return false;
-}
+// bool BaseGraphicObject::isMouseOver(int mx, int my)
+// {
+// 	return true;
+// // 	if (
+// // 		(mx > px1) &&
+// // 		(mx < px2) &&
+// // 		(my > py1) &&
+// // 		(my < py2)
+// // 		)
+// // 		return true;
+// // 	else return false;
+// }
 
+SDL_Surface* BaseGraphicObject::loadImg(char* f)
+{
+	SDL_Surface *t = IMG_Load(f);
+	SDL_SetAlpha(t, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE);
+	SDL_Surface *toRet = SDL_DisplayFormatAlpha(t);
+	delete t;
+	return toRet;
+}
 
 void BaseGraphicObject::draw()
 {
-	// TODO - burada hala sabit sayılar var :( UNUTMA!
 	SDL_Rect dest;
 	dest.w = dest.h = getImg()->w;
 	dest.x = posx;

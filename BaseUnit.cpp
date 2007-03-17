@@ -23,6 +23,7 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	waiting = false;
 }
 
+BaseUnit::~BaseUnit() {}
 
 void BaseUnit::setState(string state) { curState = state; }
 void BaseUnit::setYon(direction d) { yon = d; }

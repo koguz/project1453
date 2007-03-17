@@ -13,6 +13,7 @@ class SDLProgressBar:public SDLWidget
 {
 	public:
 	SDLProgressBar(int w, int h, Uint32 c=BLUE, int minimum=0, int maximum=100);
+	~SDLProgressBar();
 	
 	virtual void drawWidget(SDL_Surface *screen)
 	{
