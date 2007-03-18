@@ -171,6 +171,7 @@ void Player::eventHandler(SDL_Event *event)
 					if(units[i]->isWaiting())
 					{
 						units[i]->issueCommand(mx, my);
+						units[i]->playConfirmed();
 						tmm = true;
 					}
 				}
@@ -182,6 +183,7 @@ void Player::eventHandler(SDL_Event *event)
 					if (units[i]->isMouseOver(mx, my) && !single)
 					{
 						units[i]->select();
+						units[i]->playSelected();
 						single = true;
 						empty = false;
 					}
@@ -193,6 +195,7 @@ void Player::eventHandler(SDL_Event *event)
 					if (buildings[i]->isMouseOver(mx, my) && !single)
 					{
 						buildings[i]->select();
+						buildings[i]->playSelected();
 						single = true;
 						empty = false;
 					}
@@ -215,7 +218,10 @@ void Player::eventHandler(SDL_Event *event)
 				for(int i=0;i<units.size();i++)
 				{
 					if (units[i]->isSelected())
+					{
 						units[i]->defaultAction(mx, my);
+						units[i]->playConfirmed();
+					}
 				}
 			}
 			break;

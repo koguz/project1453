@@ -1,6 +1,7 @@
 #ifndef UO__KOYLU__H__
 #define UO__KOYLU__H__
 
+#include "SDLMixer.h"
 #include "BaseUnit.h"
 #include "BOEv.h"
 
@@ -23,8 +24,17 @@ class Koylu:public BaseUnit
 			moveToTarget(x, y);
 		}
 	}
+	
+	virtual void playSelected()
+	{ sndSelected->play(); }
+	
+	virtual void playConfirmed()
+	{ sndConfirmed->play(); }
+	
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
+	SDLMixer *sndSelected;
+	SDLMixer *sndConfirmed;
 };
 
 #endif

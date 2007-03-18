@@ -58,6 +58,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	setState("dur");
 	healthBar = new SDLProgressBar(32, 4, GREEN, 0, hitpoints);
 	
+	// sesler
+	sndSelected = new SDLMixer("wavs/ottoman/koylu01.ogg", false);
+	sndConfirmed = new SDLMixer("wavs/ottoman/koylu02.ogg", false);
+	
 	// alt ekran: komutlar
 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;

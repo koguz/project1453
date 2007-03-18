@@ -1,5 +1,11 @@
 2007.03.18
 
+03:16
+	- Şule'nin yazdığı SDLMixerı dahil ettim. Artık ses veriyor 
+	  komutları verince (şimdilik sadece köylü)... :) 
+	  Hadi hayırlı olsun!
+
+
 02:39
 	- BaseUnit ve BaseBuilding ayrı ayrı işleniyor artık. Vector ile
 	  rahatlıkla siliniyorlar artık.
