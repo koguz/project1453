@@ -1,6 +1,6 @@
 CC=g++
 FLAGS=`sdl-config --cflags` -c  -g -O0 # bu ikisi debug icin
-LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf
+LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf -lSDL_mixer
 
 all: g1453
 
@@ -10,6 +10,7 @@ g1453: main.o \
 	Application.o \
 	Game.o \
 	Player.o \
+	SDLMixer.o \
 	SDLWidget.o \
 	SDLButton.o \
 	SDLFont.o \
@@ -42,6 +43,7 @@ g1453: main.o \
 	Application.o \
 	Game.o \
 	Player.o \
+	SDLMixer.o \
 	SDLWidget.o \
 	SDLButton.o \
 	SDLFont.o \
@@ -98,6 +100,9 @@ BaseGraphicObject.o: BaseGraphicObject.cpp
 
 BaseUnit.o: BaseUnit.cpp
 	$(CC) $(FLAGS) BaseUnit.cpp
+
+SDLMixer.o: SDLMixer.cpp
+	$(CC) $(FLAGS) SDLMixer.cpp
 
 # Units.o: Units.cpp
 # 	$(CC) $(FLAGS) Units.cpp

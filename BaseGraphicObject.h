@@ -35,8 +35,9 @@ class BaseGraphicObject
 	bool isMouseOver(int x, int y);
 	
 	virtual SDL_Surface* getImg() { return 0; }
-	
 	virtual SDL_Rect getFrame() { return hotspot; }
+	virtual void playSelected() {}
+	virtual void playConfirmed() {}
 	
 	void draw();
 	Player *parent;
