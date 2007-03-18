@@ -16,6 +16,7 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	
 	hotspot.x = hotspot.y = 0;
 	hotspot.w = hotspot.h = 64;
+	cx = cy = 32;
 	
 	if (spriteImg == 0)
 	{
@@ -33,7 +34,5 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	sprite.addFrameToState("saglam", t, 1000);
 	
 	setState("saglam");
-	
-// 	setResim("graphics/buildings/osmanli/ev.png");
 }
 

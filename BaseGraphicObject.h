@@ -32,7 +32,7 @@ class BaseGraphicObject
 	void unselect();
 	bool isSelected(); 
 	
-// 	bool isMouseOver(int x, int y);
+	bool isMouseOver(int x, int y);
 	
 	virtual SDL_Surface* getImg() { return 0; }
 	

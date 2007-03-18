@@ -36,12 +36,16 @@ class Player
 	void addCost(Cost a);
 	void subtractCost(Cost a);
 	void eventHandler(SDL_Event *event);
-	void addObject(BaseObject* b);
+	void addUnit(BaseUnit* b);
+	void addTech(Tech* t);
+	void addBuilding(BaseBuilding* b);
 	
 	Koylu* yeniKoylu();
  	
  	private:
-	vector<BaseObject*> nesneler;
+ 	vector<BaseUnit*> units;
+ 	vector<BaseBuilding*> buildings;
+	vector<Tech*> techs;
 	string faction;
 	SDL_Surface *screen;
 	bool drawing;

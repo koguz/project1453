@@ -4,7 +4,7 @@ Player::Player()
 {
 	Tech* t = new TemelTech();
 	t->instantBuild();
-	nesneler.push_back(t);
+	addTech(t);
 	screen = 0;
 	
 	wood.setAmount(1000);
@@ -18,7 +18,7 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	screen = scr;
 	Tech* t = new TemelTech;
 	t->instantBuild();
-	nesneler.push_back(t);
+	addTech(t);
 	
 	faction = p_faction;
 	wood.setAmount(w);
@@ -29,7 +29,27 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 
 Player::~Player()
 {
-	nesneler.clear();
+	for (int i=0;i<units.size();i++)
+	{
+		BaseUnit* u = units[i];
+		units[i] = 0;
+		delete u;
+	}
+	units.clear();
+	for (int i=0;i<buildings.size();i++)
+	{
+		BaseBuilding* b = buildings[i];
+		buildings[i] = 0;
+		delete b;
+	}
+	buildings.clear();
+	for (int i=0;i<techs.size();i++)
+	{
+		Tech* t = techs[i];
+		techs[i] = 0;
+		delete t;
+	}
+	techs.clear();
 }
 
 bool Player::isMultipleSelecting() { return (drawing && dragging); }
@@ -37,7 +57,9 @@ string Player::getFaction() { return faction; }
 int Player::getWoodAmount() { return wood.getAmount(); }
 int Player::getFoodAmount() { return food.getAmount(); }
 int Player::getStoneAmount() { return stone.getAmount(); }
-void Player::addObject(BaseObject* b) { nesneler.push_back(b); }
+void Player::addUnit(BaseUnit* b) { units.push_back(b); }
+void Player::addTech(Tech* t) { techs.push_back(t); }
+void Player::addBuilding(BaseBuilding* b) { buildings.push_back(b); }
 
 void Player::buildStartingUnits(int x, int y)
 {
@@ -46,19 +68,19 @@ void Player::buildStartingUnits(int x, int y)
 		Koylu *temp = new Koylu(screen, this);
 		temp->instantBuild();
 		temp->setPosition(360, 450);
-		nesneler.push_back(temp);
+		addUnit(temp);
 		
 		SehirMerkezi* e = new SehirMerkezi(screen, this);
 		e->instantBuild();
 		e->setPosition(128, 320);
-		nesneler.push_back(e);
+		addBuilding(e);
 	}
 	else if (faction == "Bizans")
 	{
 		Serf *s = new Serf(screen, this);
 		s->instantBuild();
 		s->setPosition(x, y);
-		nesneler.push_back(s);
+		addUnit(s);
 	}
 }
 
@@ -99,22 +121,15 @@ Koylu* Player::yeniKoylu()
 
 void Player::update()
 {
-	for(int i=0;i<nesneler.size();i++)
+	for(int i=0;i<units.size();i++)
 	{
-		if (!nesneler[i]->build())
-			break;
-		if (nesneler[i]->getType() == BaseObject::UNIT)
-		{
-			BaseUnit* birim = (BaseUnit*)nesneler[i];
-			birim->update();
-			birim->draw();
-		}
-		else if (nesneler[i]->getType() == BaseObject::BUILDING)
-		{
-			BaseBuilding* b = (BaseBuilding*)nesneler[i];
-			b->update();
-			b->draw();
-		}
+		units[i]->update();
+		units[i]->draw();
+	}
+	for(int i=0;i<buildings.size();i++)
+	{
+		buildings[i]->update();
+		buildings[i]->draw();
 	}
 	if (isMultipleSelecting())
 	{
@@ -125,22 +140,16 @@ void Player::update()
 
 void Player::eventHandler(SDL_Event *event)
 {
-	for(int i=0;i<nesneler.size();i++)
+	for(int i=0;i<units.size();i++)
 	{
-		if (nesneler[i]->getType() == BaseObject::UNIT)
-		{
-			BaseUnit* birim = (BaseUnit*)nesneler[i];
-			if (birim->isSelected())
-				birim->komutlar->eventHandler(event);
-		}
-		else if (nesneler[i]->getType() == BaseObject::BUILDING)
-		{
-			BaseBuilding* b = (BaseBuilding*)nesneler[i];
-			if (b->isSelected())
-				b->komutlar->eventHandler(event);
-		}
+		if(units[i]->isSelected())
+			units[i]->komutlar->eventHandler(event);
 	}
-	
+	for(int i=0;i<buildings.size();i++)
+	{
+		if (buildings[i]->isSelected())
+			buildings[i]->komutlar->eventHandler(event);
+	}
 	int mx, my, ux1, ux2, uy1, uy2;
 	bool empty = true;
 //	rsx1 = 0, rsx2 = 0, rsy1 = 0, rsy2 = 0;
@@ -157,62 +166,44 @@ void Player::eventHandler(SDL_Event *event)
 			{
 				// önce seçilen birine bir komut verilmişmi
 				bool tmm = false;
-				for(int i=0;i<nesneler.size();i++)
+				for(int i=0;i<units.size();i++)
 				{
-					if (nesneler[i]->getType() == BaseObject::UNIT)
+					if(units[i]->isWaiting())
 					{
-						BaseUnit* birim = (BaseUnit*)nesneler[i];
-						if (birim->isWaiting())
-						{
-							birim->issueCommand(mx, my);
-							tmm = true;
-						}
+						units[i]->issueCommand(mx, my);
+						tmm = true;
 					}
 				}
 				if (tmm)
 					break;
 				bool single = false;
-				for(int i=0;i<nesneler.size();i++)
+				for(int i=0;i<units.size();i++)
 				{
-					if (nesneler[i]->getType() == BaseObject::UNIT || nesneler[i]->getType() == BaseObject::BUILDING)
+					if (units[i]->isMouseOver(mx, my) && !single)
 					{
-						BaseGraphicObject* birim = (BaseUnit*)nesneler[i];
-						ux1 = birim->getX() + birim->hotspot.x;
-						ux2 = ux1 + birim->hotspot.w;
-						uy1 = birim->getY() + birim->hotspot.y;
-						uy2 = uy1 + birim->hotspot.h;
-						if (
-							(mx > ux1) &&
-							(mx < ux2) &&
-							(my > uy1) &&
-							(my < uy2)
-							)
-						{
-							if (!single)
-							{
-								// sadece bir adam seciliyor (olur da ust uste gelirlerse)
-								birim->select();
-								// current = birim->getEkran();
-								single = true;
-								empty = false;
-							}
-						}
-						else birim->unselect();
+						units[i]->select();
+						single = true;
+						empty = false;
 					}
+					else units[i]->unselect();
+				}
+				
+				for(int i=0;i<buildings.size();i++)
+				{
+					if (buildings[i]->isMouseOver(mx, my) && !single)
+					{
+						buildings[i]->select();
+						single = true;
+						empty = false;
+					}
+					else buildings[i]->unselect();
 				}
 				if (empty)
 				{
-					// current = birimler;
-					
-					for(int i=0;i<nesneler.size();i++)
-					{
-						if (nesneler[i]->getType() == BaseObject::UNIT)
-						{
-							BaseUnit* birim = (BaseUnit*)nesneler[i];
-							birim->unselect();
-						}
-					}
-					
+					for(int i=0;i<units.size();i++)
+						units[i]->unselect();
+					for(int i=0;i<buildings.size();i++)
+						buildings[i]->unselect();
 					// bir kare seçim başlıyor o zaman...
 					drawing = true;
 					rsx1 = event->motion.x;
@@ -221,14 +212,10 @@ void Player::eventHandler(SDL_Event *event)
 			}
 			else if (event->button.button == SDL_BUTTON_RIGHT)
 			{
-				for(int i=0;i<nesneler.size();i++)
+				for(int i=0;i<units.size();i++)
 				{
-					if (nesneler[i]->getType() == BaseObject::UNIT)
-					{
-						BaseUnit* birim = (BaseUnit*)nesneler[i];
-						if (birim->isSelected())
-							birim->defaultAction(mx, my);
-					}
+					if (units[i]->isSelected())
+						units[i]->defaultAction(mx, my);
 				}
 			}
 			break;
@@ -237,43 +224,39 @@ void Player::eventHandler(SDL_Event *event)
 			// bakalim kimleri sectik
 			if (event->button.button = SDL_BUTTON_LEFT && drawing)
 			{
-				for(int i=0;i<nesneler.size();i++)
+				for(int i=0;i<units.size();i++)
 				{
-					if (nesneler[i]->getType() == BaseObject::UNIT)
-					{
-						BaseUnit* birim = (BaseUnit*)nesneler[i];
-						int smx = birim->getCenter().x;
-						int smy = birim->getCenter().y;
-						if  (
-							(
-								(smx > rsx1) &&
-								(smx < rsx2) &&
-								(smy > rsy1) &&
-								(smy < rsy2)
-							) ||
-							(
-								(smx < rsx1) &&
-								(smx > rsx2) &&
-								(smy < rsy1) &&
-								(smy > rsy2)
-							) ||
-							(
-								(smx > rsx1) &&
-								(smx < rsx2) &&
-								(smy < rsy1) &&
-								(smy > rsy2)
-							) ||
-							(
-								(smx < rsx1) &&
-								(smx > rsx2) &&
-								(smy > rsy1) &&
-								(smy < rsy2)
-							)
+					int smx = units[i]->getCenter().x;
+					int smy = units[i]->getCenter().y;
+					if  (
+						(
+							(smx > rsx1) &&
+							(smx < rsx2) &&
+							(smy > rsy1) &&
+							(smy < rsy2)
+						) ||
+						(
+							(smx < rsx1) &&
+							(smx > rsx2) &&
+							(smy < rsy1) &&
+							(smy > rsy2)
+						) ||
+						(
+							(smx > rsx1) &&
+							(smx < rsx2) &&
+							(smy < rsy1) &&
+							(smy > rsy2)
+						) ||
+						(
+							(smx < rsx1) &&
+							(smx > rsx2) &&
+							(smy > rsy1) &&
+							(smy < rsy2)
 						)
-						{
-							if (isValidSelection())
-								birim->select();
-						}
+					)
+					{
+						if (isValidSelection())
+							units[i]->select();
 					}
 				}
 				drawing = dragging = false;
@@ -313,9 +296,21 @@ bool Player::haveReqs(BaseObject *u)
 	for (int i=0;i<t.size();i++)
 	{
 		have = false;
-		for (int j=0;j<nesneler.size();j++)
+		for (int j=0;j<units.size();j++)
 		{
-			if (nesneler[j]->getName() == t[i])
+			if (units[j]->getName() == t[i])
+				have = true;
+		}
+		
+		for (int j=0;j<buildings.size();j++)
+		{
+			if (buildings[j]->getName() == t[i])
+				have = true;
+		}
+		
+		for (int j=0;j<techs.size();j++)
+		{
+			if (techs[j]->getName() == t[i])
 				have = true;
 		}
 		if (!have) return false;

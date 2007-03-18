@@ -1,5 +1,13 @@
 2007.03.18
 
+02:39
+	- BaseUnit ve BaseBuilding ayrı ayrı işleniyor artık. Vector ile
+	  rahatlıkla siliniyorlar artık.
+
+	- Bu bellek işlemlerini yaparken fazlalıkları da temizledim.
+
+	- Bu gece biraz daha :)
+
 00:47
 	- 10 kata kadar memory leak engellendi. Bol bol delete yazıldı.
 	  BaseUnit ve BaseBuilding iki sınıftan türüyorlar; BaseObject

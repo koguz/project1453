@@ -19,23 +19,7 @@ BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n),
 
 void BaseBuilding::setState(string state) { curState = state; }
 
-BaseBuilding::~BaseBuilding()
-{
-	if (nowBuilding != 0)
-		delete nowBuilding;
-	delete nowBuildingBar;
-// 	delete resim;
-}
-
-/*
-void BaseBuilding::setResim(char* path) // char* path 
-{
-	resim = new SDLWidget(path);
-	hotspot.w = resim->getWidth();
-	hotspot.h = resim->getHeight();
-	hotspot.x = hotspot.y = 0;
-}*/
-
+BaseBuilding::~BaseBuilding() { }
 
 void BaseBuilding::update() 
 {
@@ -44,7 +28,22 @@ void BaseBuilding::update()
 	{
 		if (nowBuilding->build())
 		{
-			parent->addObject(nowBuilding);
+			switch(nowBuilding->getType())
+			{
+				case BaseObject::UNIT:
+					parent->addUnit((BaseUnit*)nowBuilding);
+					break;
+				case BaseObject::BUILDING:
+					parent->addBuilding((BaseBuilding*)nowBuilding);
+					break;
+				case BaseObject::TECH:
+					parent->addTech((Tech*)nowBuilding);
+					break;
+				default:
+					cerr << "Yapılan nesne eklenemedi..." << endl;
+					break;
+			}
+// 			parent->addObject(nowBuilding);
 			nowBuilding = 0;
 			nowBuildingBar->setShow(false);
 		}

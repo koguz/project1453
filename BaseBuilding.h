@@ -34,11 +34,7 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	
 	BaseObject* nowBuilding;
 	SDLProgressBar* nowBuildingBar;
-	
-	
-	
-// 	void setResim();/*char* path*/
-	
+		
 	void update();
 	
 	protected:
