@@ -43,18 +43,21 @@ Coordinates BaseGraphicObject::getCenter()
 	return t;
 }
 
-// bool BaseGraphicObject::isMouseOver(int mx, int my)
-// {
-// 	return true;
-// // 	if (
-// // 		(mx > px1) &&
-// // 		(mx < px2) &&
-// // 		(my > py1) &&
-// // 		(my < py2)
-// // 		)
-// // 		return true;
-// // 	else return false;
-// }
+bool BaseGraphicObject::isMouseOver(int mx, int my)
+{
+	int ux1 = getX() + hotspot.x;
+	int ux2 = ux1 + hotspot.w;
+	int uy1 = getY() + hotspot.y;
+	int uy2 = uy1 + hotspot.h;
+	if (
+		(mx > ux1) &&
+		(mx < ux2) &&
+		(my > uy1) &&
+		(my < uy2)
+	)
+		return true;
+	else return false;
+}
 
 SDL_Surface* BaseGraphicObject::loadImg(char* f)
 {

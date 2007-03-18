@@ -17,6 +17,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	hotspot.x = hotspot.y = 0;
 	hotspot.w = hotspot.h = 128;
+	cx = cy = 64;
 	
 	if (spriteImg == 0)
 	{
@@ -57,7 +58,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 
 SehirMerkezi::~SehirMerkezi()
 {
-	delete btnKoylu;
+// 	delete btnKoylu;
 }
 
 void SehirMerkezi::createKoylu()
