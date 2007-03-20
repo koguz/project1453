@@ -1,12 +1,17 @@
 #include "UBSerf.h"
 
+Serf::Serf()
+{
+	addReq("Temel Teknoloji");
+	faction = "Bizans";
+	cost.set(0, 300, 0);
+}
+
 Serf::Serf(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Serf")
 {
 	addReq("Temel Teknoloji");
 	faction = "Bizans";
-	cost = Cost(0, 300, 0);
-	if (scr == 0 && p == 0) return;
-	
+	cost.set(0, 300, 0);
 	
 	hitpoints = 20;
 	buildRate = 1000;
@@ -20,3 +25,7 @@ Serf::Serf(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Serf")
 	kills = 0;
 }
 
+Serf::~Serf()
+{
+	
+}

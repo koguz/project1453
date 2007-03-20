@@ -2,12 +2,18 @@
 
 SDL_Surface* Ev::spriteImg = 0;
 
-Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
+Ev::Ev()
 {
-	cost = Cost(200, 0, 200); 
+	cost.set(200, 0, 200); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
-	if (scr==0 && p==0) return;
+}
+
+Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
+{
+	cost.set(200, 0, 200); 
+	addReq("Temel Teknoloji");
+	faction = "Osmanlı";
 	
 	hitpoints = 400;
 	buildRate = 50;
@@ -36,3 +42,8 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	setState("saglam");
 }
 
+
+Ev::~Ev()
+{
+	
+}

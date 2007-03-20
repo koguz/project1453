@@ -12,7 +12,8 @@ class SehirMerkezi:public BaseBuilding
 {
 	public:
 	int state;
-	SehirMerkezi(SDL_Surface *screen=0, Player *p=0);
+	SehirMerkezi();
+	SehirMerkezi(SDL_Surface *screen, Player *p);
 	~SehirMerkezi();
 	SDLCommandButton* btnKoylu;
 	void createKoylu();

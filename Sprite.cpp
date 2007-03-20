@@ -50,16 +50,15 @@ SDL_Rect State::getCurFrame()
 Sprite::Sprite()
 {
 	curState = "Not set";
-}
-
-Sprite::Sprite(char* f)
-{
-	SDL_Surface *t = IMG_Load(f);
-	SDL_SetAlpha(t, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE);
-	img = SDL_DisplayFormatAlpha(t);
+	img = 0;
 }
 
 Sprite::Sprite(SDL_Surface *i)
+{
+	setImg(i);
+}
+
+void Sprite::setImg(SDL_Surface *i)
 {
 	img = i;
 }

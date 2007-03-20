@@ -134,7 +134,6 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	tileDeniz = new SDLWidget("graphics/terrain/deniz.png");
 	
 	commands = new SDLScreen(screen);
-	
 }
 
 Game::~Game()
@@ -165,7 +164,7 @@ void Game::update()
 void Game::display()
 {
 	ui->display();
-	commands->display(); // NOTE bu patladı mı?
+	commands->display(); // NOTE oyun içi menüsü belki?
 	
 	// harita
 	int px, py;

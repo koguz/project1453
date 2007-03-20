@@ -144,7 +144,8 @@ void SDLListView::handleEvent(int eventType, int button, int x, int y)
 {
 	up->handleMouseEvent(eventType, button, x, y);
 	down->handleMouseEvent(eventType, button, x, y);
-	for (int i=0;i<items.size();i++)
+// 	for (int i=0;i<items.size();i++)
+	for (int i=uppos;i<downpos;i++)
 	{
 		switch(eventType)
 		{

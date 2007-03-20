@@ -40,11 +40,7 @@ void SDLLabel::setText(int lbl)
 	ss << lbl;
 	ss >> tmp;
 	label = tmp;
-	SDL_Color c = { 255, 255, 255 };
-	SDLFont t(label, size, c);
-	widget = t.getString();
-	w = widget->w;
-	h = widget->h;
+	setText(label);
 }
 
 void SDLLabel::setText(string lbl)

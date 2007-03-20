@@ -19,6 +19,7 @@ class Cost
 	Cost(Wood wc, Food fc, Stone sc);
 	Cost(int wc, int fc, int sc);
 	bool compare(Wood wc, Food fc, Stone sc);
+	bool compare(int w, int f, int s);
 	
 	Wood getWood();
 	Food getFood();
@@ -27,6 +28,8 @@ class Cost
 	int getWoodAmount();
 	int getFoodAmount();
 	int getStoneAmount();
+	
+	void set(int w, int f, int s);
 	
 	friend bool operator==(Cost &x, Cost &y);
 };

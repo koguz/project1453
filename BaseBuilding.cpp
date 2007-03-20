@@ -3,7 +3,8 @@
 
 BaseBuilding::BaseBuilding()
 {
-	
+	nowBuilding = 0;
+	nowBuildingBar = 0;
 }
 
 BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGraphicObject(scr, p)

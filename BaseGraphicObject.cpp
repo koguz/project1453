@@ -2,6 +2,9 @@
 
 BaseGraphicObject::BaseGraphicObject()
 {
+	komutlar = 0;
+	komutTanim = 0;
+	healthBar = 0;
 }
 
 BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
@@ -64,7 +67,7 @@ SDL_Surface* BaseGraphicObject::loadImg(char* f)
 	SDL_Surface *t = IMG_Load(f);
 	SDL_SetAlpha(t, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE);
 	SDL_Surface *toRet = SDL_DisplayFormatAlpha(t);
-	delete t;
+	SDL_FreeSurface(t);
 	return toRet;
 }
 
