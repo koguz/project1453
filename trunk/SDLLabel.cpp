@@ -48,6 +48,7 @@ void SDLLabel::setText(string lbl)
 	label = lbl;
 	SDL_Color c = { 255, 255, 255 };
 	SDLFont t(label, size, c);
+	SDL_FreeSurface(widget);
 	widget = t.getString();
 	w = widget->w;
 	h = widget->h;
