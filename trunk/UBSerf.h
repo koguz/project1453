@@ -6,7 +6,9 @@
 class Serf:public BaseUnit
 {
 	public:
-	Serf(SDL_Surface *scr=0, Player *p=0);
+	Serf();
+	Serf(SDL_Surface *scr, Player *p);
+	~Serf();
 };
 
 #endif

@@ -8,7 +8,9 @@ using namespace std;
 class Ev:public BaseBuilding
 {
 	public:
-	Ev(SDL_Surface *screen=0, Player *p=0);
+	Ev();
+	Ev(SDL_Surface *screen, Player *p);
+	~Ev();
 	static SDL_Surface* spriteImg;
 };
 

@@ -40,7 +40,7 @@ class Player
 	void addTech(Tech* t);
 	void addBuilding(BaseBuilding* b);
 	
-	Koylu* yeniKoylu();
+	bool yeniKoylu();
  	
  	private:
  	vector<BaseUnit*> units;

@@ -101,7 +101,6 @@ int Application::Run()
 		}
 		if (game != 0)
 		{
-			
 			game->display();
 			game->update();
 		}

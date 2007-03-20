@@ -8,7 +8,8 @@
 class Koylu:public BaseUnit
 {
 	public:
-	Koylu(SDL_Surface *scr=0, Player *p=0);
+	Koylu();
+	Koylu(SDL_Surface *scr, Player *p);
 	~Koylu();
 	
 	virtual void defaultAction(int tx, int ty)
@@ -33,8 +34,10 @@ class Koylu:public BaseUnit
 	
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
+	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;
+	SDLCommandButton *yuru, *dur, *evbtn;
 };
 
 #endif

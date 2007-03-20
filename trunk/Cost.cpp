@@ -6,21 +6,29 @@ Cost::Cost()
 
 Cost::Cost(Wood wc, Food fc, Stone sc)
 {
-	WoodCost = wc;
-	FoodCost = fc;
-	StoneCost = sc;
+	set(wc.getAmount(), fc.getAmount(), sc.getAmount());
 }
 
 Cost::Cost(int wc, int fc, int sc)
 {
-	WoodCost = Wood(wc);
-	FoodCost = Food(fc);
-	StoneCost = Stone(sc);
+	set(wc, fc, sc);
+}
+
+void Cost::set(int w, int f, int s)
+{
+	WoodCost.setAmount(w);// = Wood(wc);
+	FoodCost.setAmount(f);// = Food(fc);
+	StoneCost.setAmount(s); // = Stone(sc);
 }
 
 bool Cost::compare(Wood wc, Food fc, Stone sc)
 {
 	return ( (WoodCost.getAmount() <= wc.getAmount()) && (FoodCost.getAmount() <= fc.getAmount()) && (StoneCost.getAmount() <= sc.getAmount()) );
+}
+
+bool Cost::compare(int wc, int fc, int sc)
+{
+	return ( (WoodCost.getAmount() <= wc) && (FoodCost.getAmount() <= fc) && (StoneCost.getAmount() <= sc) );
 }
 
 

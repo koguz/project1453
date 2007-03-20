@@ -1,3 +1,11 @@
+2007.03.20
+
+04:03
+	- Daha fazla memory leak giderildi. Ama hala çalışırken kaçırıyor.
+	  Şimdilik değerler en son committen bir iki kat daha aşağıda...
+	  Bu memory leak giderilme çabaları sırasında bir sürü değişiklik
+	  oluyor; sınıflara yeni metodlar ekleniyor vs.
+
 2007.03.18
 
 03:16

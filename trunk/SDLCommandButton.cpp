@@ -2,13 +2,12 @@
 
 SDLWidget* SDLCommandButton::ana = 0;
 
-SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, BaseObject* nesne)
+SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Cost c)
 {
 	tip = COMBUTTON;
 	screen = scr;
 	kare = k;
 	inf = info;
-	this->nesne = nesne;
 	show = true;
 	over = false;
 	
@@ -20,14 +19,12 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Ba
 		ana = new SDLWidget("ui/commandList.png");
 	
 	aciklama = new SDLScreen(screen);
-	
 	lblCommand = new SDLLabel(inf);
 	lblCommand->setPosition(648, 450);
 	aciklama->addWidget(lblCommand);
 	
-	if (nesne != 0)
+	if (!c.compare(0,0,0))
 	{
-		
 		woodIcon = new SDLWidget("ui/wood.jpg");
 		woodIcon->setPosition(648, 470);
 		aciklama->addWidget(woodIcon);
@@ -40,26 +37,25 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Ba
 		stoneIcon->setPosition(648, 510);
 		aciklama->addWidget(stoneIcon);
 		
-		Cost nc = nesne->getCost();
-		
-		lblWood = new SDLLabel(nc.getWoodAmount());
+		lblWood = new SDLLabel(c.getWoodAmount());
 		lblWood->setPosition(668, 470);
 		aciklama->addWidget(lblWood);
 		
-		lblFood = new SDLLabel(nc.getFoodAmount());
+		lblFood = new SDLLabel(c.getFoodAmount());
 		lblFood->setPosition(668, 490);
 		aciklama->addWidget(lblFood);
 		
-		lblStone = new SDLLabel(nc.getStoneAmount());
+		lblStone = new SDLLabel(c.getStoneAmount());
 		lblStone->setPosition(668, 510);
 		aciklama->addWidget(lblStone);
 	}
-	
+	else woodIcon = foodIcon = stoneIcon = lblWood = lblFood = lblStone = 0;
 }
 
 SDLCommandButton::~SDLCommandButton()
 {
 	delete aciklama;
+	delete dugme; // saklanmış bu :P
 // 	delete woodIcon;
 // 	delete foodIcon;
 // 	delete stoneIcon;

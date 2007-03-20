@@ -11,6 +11,7 @@ Player::Player()
 	food.setAmount(1000);
 	stone.setAmount(1000);
 	faction = "Osmanlı";
+	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 }
 
 Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
@@ -25,6 +26,7 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	food.setAmount(f);
 	stone.setAmount(s);
 	drawing = dragging = false;
+	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 }
 
 Player::~Player()
@@ -98,25 +100,27 @@ void Player::subtractCost(Cost a)
 	stone.setAmount(stone.getAmount() - a.getStoneAmount());
 }
 
-Koylu* Player::yeniKoylu()
+bool Player::yeniKoylu()
 {
 	Koylu *temp = new Koylu();
 	if (!haveReqs(temp))
 	{
 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
 		delete temp;
-		return 0;
+		return false;
 	}
 	if (!temp->getCost().compare(wood, food, stone))
 	{
 		cout << "Bu birim için kaynaklar yetersiz..." << endl;
 		delete temp;
-		return 0;
+		return false;
 	}
-	delete temp;
-	temp = new Koylu(screen, this);
+// 	delete temp;
 	subtractCost(temp->getCost());
-	return temp;
+// 	temp = new Koylu(screen, this);
+	delete temp;
+// 	return new Koylu(screen, this);
+	return true;
 }
 
 void Player::update()

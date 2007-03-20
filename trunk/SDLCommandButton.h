@@ -13,7 +13,7 @@ using namespace std;
 class SDLCommandButton:public SDLWidget
 {
 	public:
-	SDLCommandButton(SDL_Surface *screen, SDL_Rect kare, string info, BaseObject* nesne=0);
+	SDLCommandButton(SDL_Surface *screen, SDL_Rect kare, string info, Cost c=Cost(0,0,0));
 	~SDLCommandButton();
 	
 	
@@ -47,7 +47,6 @@ class SDLCommandButton:public SDLWidget
 	SDL_Rect kare;
 	SDLWidget *woodIcon, *foodIcon, *stoneIcon;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblCommand;
-	BaseObject *nesne;
 	string inf;
 	void handleEvent(int eventType, int button, int x, int y);
 	

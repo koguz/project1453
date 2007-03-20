@@ -2,13 +2,18 @@
 
 SDL_Surface* SehirMerkezi::spriteImg = 0;
 
-SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
+SehirMerkezi::SehirMerkezi()
 {
-	cost = Cost(400, 0, 400); 
+	cost.set(400, 0, 400); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
-	
-	if (scr == 0 && p == 0) return;
+}
+
+SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
+{
+	cost.set(400, 0, 400); 
+	addReq("Temel Teknoloji");
+	faction = "Osmanlı";
 	
 	state = 1;
 	hitpoints = 1000;
@@ -50,7 +55,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	nowBuildingBar->setShow(false);
 	komutlar->addWidget(nowBuildingBar);
 	
-	btnKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", new Koylu());
+	btnKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", Koylu().getCost());
 	btnKoylu->setPosition(648, 195);
 	btnKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &SehirMerkezi::createKoylu);
 	komutlar->addWidget(btnKoylu);
@@ -69,14 +74,14 @@ void SehirMerkezi::createKoylu()
 		return;
 	}
 	
-	Koylu* yeni = parent->yeniKoylu();
-	if (yeni == 0)
+	if (!parent->yeniKoylu())
 		return;
 	
-	yeni->setPosition(200, 200);
+	Koylu *ykoylu = new Koylu(screen, parent);
+	ykoylu->setPosition(200, 200);
 	
-	nowBuilding = (BaseObject*) yeni;
-	nowBuildingBar->setMax(yeni->getMaxHp());
+	nowBuilding = (BaseObject*) ykoylu;
+	nowBuildingBar->setMax(ykoylu->getMaxHp());
 	nowBuildingBar->setShow(true);
 }
 

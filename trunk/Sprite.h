@@ -40,7 +40,6 @@ class Sprite
 	
 	public:
 	Sprite();
-	Sprite(char* f);
 	Sprite(SDL_Surface *i);
 	
 	~Sprite();
@@ -49,6 +48,7 @@ class Sprite
 	SDL_Surface* getImg();
 	string getCurState();
 	
+	void setImg(SDL_Surface *i);
 	void addState(string sName);
 	void setState(string sName);
 	void addFrameToState(string sName, SDL_Rect f, int d); 
