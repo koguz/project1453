@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 
 #include "BOEv.h"
 #include "BOSehirMerkezi.h"
@@ -39,6 +40,7 @@ class Player
 	void addUnit(BaseUnit* b);
 	void addTech(Tech* t);
 	void addBuilding(BaseBuilding* b);
+	void addMessage(string m);
 	
 	bool yeniKoylu();
  	
@@ -46,6 +48,8 @@ class Player
  	vector<BaseUnit*> units;
  	vector<BaseBuilding*> buildings;
 	vector<Tech*> techs;
+	deque<string> messages;
+	Uint32 lastMsgTime;
 	string faction;
 	SDL_Surface *screen;
 	bool drawing;
