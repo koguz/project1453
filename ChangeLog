@@ -1,4 +1,9 @@
 2007.03.20
+23:22
+	- Basit bir mesaj gösterici eklendi. Şimdilik konsola yazılanları
+	  ekrana yazdırıyor. Yani cout yerine onu kullanırsak; Player
+	  sınıfında addMessage() diye bir metod. Bu metod üste ekleyip
+	  alttan çıkarıyor... 
 
 15:22
 	- Leak kalmadı! En azından process'leri listeleyen programda artık

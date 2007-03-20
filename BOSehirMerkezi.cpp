@@ -70,7 +70,7 @@ void SehirMerkezi::createKoylu()
 {
 	if (nowBuilding != 0)
 	{
-		cerr << "Şu an başka bir birim üretiliyor, daha sonra tekrar deneyin!" << endl;
+		parent->addMessage("Şu an başka bir birim üretiliyor!");
 		return;
 	}
 	

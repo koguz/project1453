@@ -12,6 +12,7 @@ Player::Player()
 	stone.setAmount(1000);
 	faction = "Osmanlı";
 	rsx1 = rsx2 = rsy1 = rsy2 = -1;
+	lastMsgTime = 0;
 }
 
 Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
@@ -27,6 +28,7 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	stone.setAmount(s);
 	drawing = dragging = false;
 	rsx1 = rsx2 = rsy1 = rsy2 = -1;
+	lastMsgTime = 0;
 }
 
 Player::~Player()
@@ -62,6 +64,7 @@ int Player::getStoneAmount() { return stone.getAmount(); }
 void Player::addUnit(BaseUnit* b) { units.push_back(b); }
 void Player::addTech(Tech* t) { techs.push_back(t); }
 void Player::addBuilding(BaseBuilding* b) { buildings.push_back(b); }
+void Player::addMessage(string m) { lastMsgTime = SDL_GetTicks(); messages.push_front(m); }
 
 void Player::buildStartingUnits(int x, int y)
 {
@@ -105,13 +108,15 @@ bool Player::yeniKoylu()
 	Koylu *temp = new Koylu();
 	if (!haveReqs(temp))
 	{
-		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
+		addMessage("Bu birim için gereksinimler karşılanmamış...");
+// 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
 		delete temp;
 		return false;
 	}
 	if (!temp->getCost().compare(wood, food, stone))
 	{
-		cout << "Bu birim için kaynaklar yetersiz..." << endl;
+		addMessage("Bu birim için kaynaklar yetersiz...");
+// 		cout << << endl;
 		delete temp;
 		return false;
 	}
@@ -125,6 +130,15 @@ bool Player::yeniKoylu()
 
 void Player::update()
 {
+	int top = 26;
+	for(int i=0;i<5/*messages.size()*/;i++) // NOTE 5 burada sabit olsun, şişmesin 
+	{
+		if (i == messages.size()) break;
+		SDLLabel *temp = new SDLLabel(messages[i]);
+		temp->setPosition(10, top+(i*20));
+		temp->drawWidget(screen);
+		delete temp;
+	}
 	for(int i=0;i<units.size();i++)
 	{
 		units[i]->update();
@@ -138,6 +152,11 @@ void Player::update()
 	if (isMultipleSelecting())
 	{
 		rectangleColor(screen, rsx1, rsy1, rsx2, rsy2, 0x00FF00FF);
+	}
+	if ( ((SDL_GetTicks()-lastMsgTime) > 2000) && !messages.empty() )
+	{
+		messages.pop_back();
+		lastMsgTime = SDL_GetTicks();
 	}
 }
 
