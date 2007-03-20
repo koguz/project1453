@@ -14,6 +14,7 @@ Application::~Application()
 	delete gt;
 	SDL_FreeSurface(screen);
 	delete game;
+	TTF_Quit();
 }
 
 bool Application::Init()

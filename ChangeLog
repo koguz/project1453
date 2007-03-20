@@ -1,5 +1,13 @@
 2007.03.20
 
+15:22
+	- Leak kalmadı! En azından process'leri listeleyen programda artık
+	  bellek yavaş yavaş şişmiyor, yani hiç şişmiyor. Valgrind kayıp
+	  gösteriyor hala, ama şimdilik önemli olan durduk yere gitgide
+	  artmaması. SDLLabel'ın setText() fonksiyonunda widget değişkenini
+	  güncellerken, eski tuttuğu alanı SDL_FreeSurface() ile boş
+	  bırakmadığımız için oluyormuş hepsi... 
+
 04:03
 	- Daha fazla memory leak giderildi. Ama hala çalışırken kaçırıyor.
 	  Şimdilik değerler en son committen bir iki kat daha aşağıda...
