@@ -1,4 +1,10 @@
 2007.03.30
+19:22
+	- Issue 2 giderildi:
+	SDLTextView artık genişliğine göre kendisi bölüyor metni. 
+	Eğer alt satıra geçmek istenirse [br], yeni bir paragraf
+	için [p] etiketleri kullanılabilir... 
+
 11:37
 	- Issue 1 giderildi: 
 	http://code.google.com/p/project1453/issues/detail?id=1&can=2&q=
