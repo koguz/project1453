@@ -7,6 +7,7 @@
 #include "SDLListView.h"
 #include "SDLLabel.h"
 #include "SDLButton.h"
+#include "SDLTextView.h"
 
 class ScreenGameType:public SDLScreen
 {
@@ -16,6 +17,7 @@ class ScreenGameType:public SDLScreen
 	SDLListView *haritalar;
 	SDLLabel *title, *lblUlke, *lblRakip, *lblHarita, *err;
 	SDLButton *anaEkranaDon, *baslat;
+	SDLTextView *aciklama;
 	
 	ScreenGameType(SDL_Surface* screen);
 };

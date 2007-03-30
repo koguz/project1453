@@ -94,6 +94,30 @@ void SDLCombo::addOption(string option, string value, bool def)
 }
 
 
+void SDLCombo::setSelected(string val)
+{
+	bool changed = false;
+	int d = 0;
+	for(int i=0;i<options.size();i++)
+	{
+		if( (options[i]->getValue() == val) || (options[i]->getOption() == val) )
+		{
+			d = i;
+			changed = true;
+		}
+	}
+	
+	if (changed)
+	{
+		for(int i=0;i<options.size();i++)
+			options[i]->deSelect();
+		options[d]->setSelected();
+	}
+	
+	delete yazi;
+	yazi = new SDLLabel(options[d]->getOption());
+}
+
 void SDLCombo::toggleOptions()
 {
 	if (durum == OPEN)
@@ -160,7 +184,7 @@ void SDLCombo::handleEvent(int eventType, int button, int x, int y)
 							for (int j=0;j<options.size();j++)
 								options[j]->deSelect();
 							options[i]->setSelected();
-							delete(yazi);
+							delete yazi;
 							yazi = new SDLLabel(options[i]->getOption());
 							toggleOptions();
 							return;

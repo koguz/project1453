@@ -22,12 +22,12 @@ class SDLListViewItem:public SDLWidget
 	
 	virtual void drawWidget(SDL_Surface* screen)
 	{
-		if (durum == NORMAL)
-			boxColor(screen, px1, py1, px2, py2, DARKERGRAY);
+		if (selected)
+			boxColor(screen, px1, py1, px2, py2, BLACK);
 		else if (durum == OVER)
 			boxColor(screen, px1, py1, px2, py2, 0x330000FF);
-		else if (selected)
-			boxColor(screen, px1, py1, px2, py2, DARKGRAY);
+		else if (durum == NORMAL)
+			boxColor(screen, px1, py1, px2, py2, DARKERGRAY);
 		
 		yazi->drawWidget(screen);
 	}
@@ -64,6 +64,9 @@ class SDLListView:public SDLWidget
 	
 	string getValue();
 	void addItem(string item);
+	
+	void setSelected(string val);
+	
 	virtual void drawWidget(SDL_Surface* screen)
 	{
 		rectangleColor(screen, px1, py1, px2, py2, BLUE);
