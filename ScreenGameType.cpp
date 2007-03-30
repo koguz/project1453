@@ -51,9 +51,13 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	haritalar->setPosition(350, 280);
 	addWidget(haritalar);
 	
-	string desc = "Bu oyun türünde amaç rakibi tamamen\nortadan kaldırmaktır...";
+	lblAciklama = new SDLLabel("Açıklama:");
+	lblAciklama->setPosition(30, 400);
+	addWidget(lblAciklama);
+	
+	string desc = "Tek Görev [p] Bu oyun türünde amaç rakibin bütün birimlerini ve binalarını ortadan kaldırmaktır.";
 	aciklama = new SDLTextView(desc, 300, 4);
-	aciklama->setPosition(30, 400);
+	aciklama->setPosition(30, 430);
 	addWidget(aciklama);
 	
 	baslat = new SDLButton("ui/kucukDugme.jpg", "Oyunu Başlat");

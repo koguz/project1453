@@ -49,16 +49,51 @@ void SDLTextView::setText(string text)
 	satirlar.clear();
 	
 	stringstream ss(text);
+	stringstream st(text);
 	string buf;
-	SDLLabel *temp;
+	SDLLabel *temp = new SDLLabel(" "); 
+	SDLLabel *t2;
+	string satir = ""; // just to init...
 	lines = 0;
 	
-	while(getline(ss, buf, '\n'))
+	vector<string> parcalar;
+	
+	int kon = 0;
+	while(st >> buf)
 	{
-		temp = new SDLLabel(buf);
-		satirlar.push_back(temp);
-		lines++;
+		if ( buf == "[p]")
+		{
+			satirlar.push_back(temp);
+			satirlar.push_back(new SDLLabel(" "));
+			satir = "";
+			temp = t2 = 0;
+			continue;
+		}
+		else if ( buf == "[br]" )
+		{
+			satirlar.push_back(temp);
+			satir = "";
+			temp = t2 = 0;
+			continue;
+		}
+		
+		buf = buf + " ";
+		t2 = new SDLLabel(satir + buf);
+		if (t2->getWidth() > width)
+		{
+			satirlar.push_back(temp);
+			temp = new SDLLabel(buf);
+			satir = buf;
+		}
+		else
+		{
+			delete temp;
+			temp = t2;
+			satir = satir + buf;
+		}
 	}
+	satirlar.push_back(temp);
+	lines = satirlar.size();
 }
 
 void SDLTextView::repositionLabels()
