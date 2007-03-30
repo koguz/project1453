@@ -12,21 +12,14 @@ SDLTextView::SDLTextView(string text, int w, int r)
 	
 	show = true;
 	
-	stringstream ss(text);
-	string buf;
-	SDLLabel *temp;
+	satirlar.clear();
 	lines = 0;
-		
-	while(getline(ss, buf, '\n'))
-	{
-		temp = new SDLLabel(buf);
-		satirlar.push_back(*temp);
-		lines++;
-	}
+	setText(text);
+	
 	SDLTextView *me = this;
 	
-	up = new SDLButton("img/up.png", "");
-	down = new SDLButton("img/down.png", "");
+	up = new SDLButton("ui/up.png", "");
+	down = new SDLButton("ui/down.png", "");
 	
 	up->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLTextView::moveUp);
 	down->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLTextView::moveDown);
@@ -41,11 +34,32 @@ SDLTextView::~SDLTextView()
 {
 	delete up;
 	delete down;
+	for(int i=0;i<satirlar.size();i++)
+		delete satirlar[i];
 }
 
 
 string SDLTextView::getText() { return metin; }
 
+void SDLTextView::setText(string text)
+{
+	for(int i=0;i<satirlar.size();i++)
+		delete satirlar[i];
+	
+	satirlar.clear();
+	
+	stringstream ss(text);
+	string buf;
+	SDLLabel *temp;
+	lines = 0;
+	
+	while(getline(ss, buf, '\n'))
+	{
+		temp = new SDLLabel(buf);
+		satirlar.push_back(temp);
+		lines++;
+	}
+}
 
 void SDLTextView::repositionLabels()
 {
@@ -53,7 +67,7 @@ void SDLTextView::repositionLabels()
 	for (int i=uppos;i<downpos;i++)
 	{
 		// sağdan 4 piksel içe- bir de satir boyuna göre ortalama...
-		satirlar[i].setPosition(px1+4, py1+(lineHeight*j)+((lineHeight-satirlar[i].getHeight()) / 2));
+		satirlar[i]->setPosition(px1+4, py1+(lineHeight*j)+((lineHeight-satirlar[i]->getHeight()) / 2));
 		j++;
 	}
 }

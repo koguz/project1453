@@ -1,3 +1,11 @@
+2007.03.30
+11:37
+	- Issue 1 giderildi: 
+	http://code.google.com/p/project1453/issues/detail?id=1&can=2&q=
+	SDLCombo - setSelected
+	SDLTextView setText
+	SDLListView setSelected...
+
 2007.03.20
 23:22
 	- Basit bir mesaj gösterici eklendi. Şimdilik konsola yazılanları

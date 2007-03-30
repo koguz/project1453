@@ -87,6 +87,7 @@ class SDLCombo:public SDLWidget
 	}
 	
 	void addOption(string option, string value, bool def=false);
+	void setSelected(string val);
 	
 	protected:
 	SDLButton *button;

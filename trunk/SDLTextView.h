@@ -18,12 +18,14 @@ class SDLTextView:public SDLWidget
 	~SDLTextView();
 	
 	string getText();
+	void setText(string text);
+	
 	virtual void drawWidget(SDL_Surface* screen)
 	{
 		boxColor(screen, px1, py1, px2, py2, DARKERGRAY);
 		for(int i=uppos;i<downpos;i++)
 		{
-			satirlar[i].drawWidget(screen);
+			satirlar[i]->drawWidget(screen);
 		}
 		boxColor(screen, px2+1, py1, px2+up->getWidth() , py2, GRAY);
 		up->drawWidget(screen);
@@ -62,7 +64,7 @@ class SDLTextView:public SDLWidget
 	string metin;
 	SDLButton *up;
 	SDLButton *down;
-	vector<SDLLabel> satirlar;
+	vector<SDLLabel*> satirlar;
 	void moveUp();
 	void moveDown();
 	void repositionLabels();

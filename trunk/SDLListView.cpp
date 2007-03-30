@@ -140,6 +140,27 @@ string SDLListView::getValue()
 	return "NONE";
 }
 
+void SDLListView::setSelected(string val)
+{
+	bool changed = false;
+	int d = 0;
+	for(int i=0;i<items.size();i++)
+	{
+		if (items[i]->getValue() == val)
+		{
+			changed = true;
+			d = i;
+		}
+	}
+	
+	if(changed)
+	{
+		for(int i=0;i<items.size();i++)
+			items[i]->deSelect();
+		items[d]->setSelected();
+	}
+}
+
 void SDLListView::handleEvent(int eventType, int button, int x, int y)
 {
 	up->handleMouseEvent(eventType, button, x, y);
