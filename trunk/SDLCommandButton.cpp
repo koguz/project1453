@@ -11,7 +11,7 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Co
 	show = true;
 	over = false;
 	
-	w = h = 48;
+	w = h = 34;
 	
 	dugme = new SDLButton("ui/commandButton.png", "");
 	dugme->clicked = 0;
@@ -19,34 +19,34 @@ SDLCommandButton::SDLCommandButton(SDL_Surface *scr, SDL_Rect k, string info, Co
 		ana = new SDLWidget("ui/commandList.png");
 	
 	aciklama = new SDLScreen(screen);
-	lblCommand = new SDLLabel(inf);
-	lblCommand->setPosition(648, 450);
+	lblCommand = new SDLLabel(inf, 12);
+	lblCommand->setPosition(655, 450);
 	aciklama->addWidget(lblCommand);
 	
 	if (!c.compare(0,0,0))
 	{
 		woodIcon = new SDLWidget("ui/wood.jpg");
-		woodIcon->setPosition(648, 470);
+		woodIcon->setPosition(655, 470);
 		aciklama->addWidget(woodIcon);
 		
 		foodIcon = new SDLWidget("ui/food.jpg");
-		foodIcon->setPosition(648, 490);
+		foodIcon->setPosition(655, 490);
 		aciklama->addWidget(foodIcon);
 		
 		stoneIcon = new SDLWidget("ui/stone.jpg");
-		stoneIcon->setPosition(648, 510);
+		stoneIcon->setPosition(655, 510);
 		aciklama->addWidget(stoneIcon);
 		
-		lblWood = new SDLLabel(c.getWoodAmount());
-		lblWood->setPosition(668, 470);
+		lblWood = new SDLLabel(c.getWoodAmount(), 12);
+		lblWood->setPosition(675, 470);
 		aciklama->addWidget(lblWood);
 		
-		lblFood = new SDLLabel(c.getFoodAmount());
-		lblFood->setPosition(668, 490);
+		lblFood = new SDLLabel(c.getFoodAmount(), 12);
+		lblFood->setPosition(675, 490);
 		aciklama->addWidget(lblFood);
 		
-		lblStone = new SDLLabel(c.getStoneAmount());
-		lblStone->setPosition(668, 510);
+		lblStone = new SDLLabel(c.getStoneAmount(), 12);
+		lblStone->setPosition(675, 510);
 		aciklama->addWidget(lblStone);
 	}
 	else woodIcon = foodIcon = stoneIcon = lblWood = lblFood = lblStone = 0;
@@ -56,13 +56,6 @@ SDLCommandButton::~SDLCommandButton()
 {
 	delete aciklama;
 	delete dugme; // saklanmış bu :P
-// 	delete woodIcon;
-// 	delete foodIcon;
-// 	delete stoneIcon;
-// 	delete lblWood;
-// 	delete lblFood;
-// 	delete lblStone;
-// 	delete lblCommand;
 }
 
 void SDLCommandButton::handleEvent(int eventType, int button, int x, int y)

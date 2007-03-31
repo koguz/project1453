@@ -20,8 +20,8 @@ class SDLCommandButton:public SDLWidget
 	virtual void drawWidget(SDL_Surface *screen)
 	{
 		SDL_Rect dest;
-		dest.x = px1 + 2; dest.y = py1 + 2;
-		dest.h = dest.w = 44;
+		dest.x = px1 + 1; dest.y = py1 + 1;
+		dest.h = dest.w = 34; // NOTE - bu değer de fix :(
 		dugme->drawWidget(screen);
 		SDL_BlitSurface(ana->getWidget(), &kare, screen, &dest);
 		if (over) 

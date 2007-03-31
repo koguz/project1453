@@ -72,28 +72,32 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	sndConfirmed = new SDLMixer("wavs/ottoman/koylu02.ogg");
 	
 	// alt ekran: komutlar
-	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;
 	trect.x = trect.y = 0;
-	trect.w = trect.h = 44;
+	trect.w = trect.h = 32;
 	
 	Koylu *me = this;
 	
 	yuru = new SDLCommandButton(screen, trect, "Yürü");
-	yuru->setPosition(648,195);
+	yuru->setPosition(665,295);
 	yuru->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandYuru);
 	komutlar->addWidget(yuru);
 	
-	trect.x = 44; trect.y = 0;
+	trect.x = 32; trect.y = 0;
 	dur = new SDLCommandButton(screen, trect, "Dur");
-	dur->setPosition(697,195);
+	dur->setPosition(705,295);
 	dur->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::actionDur);
 	komutlar->addWidget(dur);
 	
-	trect.x = 88; trect.y = 0;
+	trect.x = 64; trect.y = 0;
 	evbtn = new SDLCommandButton(screen, trect, "Ev Yap", Ev().getCost());
-	evbtn->setPosition(746, 195);
+	evbtn->setPosition(745, 295);
 	komutlar->addWidget(evbtn);
+	
+	trect.x = 128; trect.y = 0;
+	resim = new SDLCommandButton(screen, trect, "Köylü");
+	resim->setPosition(655, 205);
+	komutlar->addWidget(resim);
 }
 
 Koylu::~Koylu()

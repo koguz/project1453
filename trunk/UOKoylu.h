@@ -37,7 +37,7 @@ class Koylu:public BaseUnit
 	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;
-	SDLCommandButton *yuru, *dur, *evbtn;
+	SDLCommandButton *resim, *yuru, *dur, *evbtn;
 };
 
 #endif

@@ -45,18 +45,18 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;
-	trect.x = 176; trect.y = 0;
-	trect.w = trect.h = 44;
+	trect.x = 128; trect.y = 0;
+	trect.w = trect.h = 32;
 	
 	SehirMerkezi *me = this;
 	
-	nowBuildingBar = new SDLProgressBar(144, 10, GREEN, 0, 1);
-	nowBuildingBar->setPosition(648, 245);
+	nowBuildingBar = new SDLProgressBar(120, 10, GREEN, 0, 1);
+	nowBuildingBar->setPosition(655, 245);
 	nowBuildingBar->setShow(false);
 	komutlar->addWidget(nowBuildingBar);
 	
 	btnKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", Koylu().getCost());
-	btnKoylu->setPosition(648, 195);
+	btnKoylu->setPosition(655, 205);
 	btnKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &SehirMerkezi::createKoylu);
 	komutlar->addWidget(btnKoylu);
 }
