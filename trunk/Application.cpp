@@ -15,11 +15,22 @@ Application::~Application()
 	SDL_FreeSurface(screen);
 	delete game;
 	TTF_Quit();
+	
+	int numtimesopened, frequency, channels;
+	Uint16 format;
+	numtimesopened=Mix_QuerySpec(&frequency, &format, &channels);
+	if(numtimesopened) 
+	{
+		// sesi kapatalım
+		for (int i=0;i<numtimesopened;i++)
+			Mix_CloseAudio();
+	}
+	
 }
 
 bool Application::Init()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 	{
 		error = "SDL Başlatılamadı";
 		return false;

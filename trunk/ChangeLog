@@ -1,3 +1,15 @@
+2007.03.31
+21:49
+	- Müzik çalma eklendi. SDLMusic sınıfı sayesinde SDL_mixer'ın
+	sadece müzik çalmaya ayrılan kanalından rasgele müzik yayını
+	yapılıyor. Kendimde olan OGG dosyalar ile denedim. Semih'ten
+	müzikler gelince güzel olacak. Şu hali ile 
+	wavs/ dizini altında music diye bir dizin altında track01.ogg
+	track04, 05, 06 ve 07 olarak dosyalarım var. Bunları SVN'ye
+	atamıyorum; lisans vs. olayına karşı gelmemek için :) Ama
+	müziklerimiz güzel güzel çalışıyor, bunu artık düşünmeyi 
+	bırakabiliriz.
+
 2007.03.30
 19:22
 	- Issue 2 giderildi:

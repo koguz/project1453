@@ -8,11 +8,12 @@ using namespace std;
 class SDLMixer
 {
 	public:
-	SDLMixer(char *f, bool loop);
+	SDLMixer(char *f);
 	~SDLMixer();
 	bool SetMixer();
 	bool loadFile(char *f);
 	void play();
+	void setVolume(int oran);
 	
 	protected:
 	Mix_Chunk *ses;

@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include "Player.h"
+#include "SDLMusic.h"
 
 // #include "SDLScreen.h"
 // #include "Resources.h"
@@ -22,6 +23,7 @@ class Game
 	SDLScreen *commands;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
 	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;//, *commandList;
+	SDLMusic *muse;
 	
 	Player *human, *cpu;
 	
@@ -34,6 +36,7 @@ class Game
 	void display();
 	void eventHandler(SDL_Event *event);
 	void update();
+	void checkMusic();
 };
 
 

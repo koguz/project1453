@@ -1,10 +1,10 @@
 #include "SDLMixer.h"
 
-SDLMixer::SDLMixer(char *f, bool loop)
+SDLMixer::SDLMixer(char *f)
 {
 	if(SetMixer())
 	{
-		this->loop = loop;
+		loop = false;
 		loadFile(f);
 	}
 }
@@ -15,12 +15,17 @@ SDLMixer::~SDLMixer()
 	ses = NULL;
 }
 
+void SDLMixer::setVolume(int oran)
+{
+	Mix_VolumeChunk(ses, MIX_MAX_VOLUME/oran);
+}
+
 bool SDLMixer::SetMixer()
 {
 	int audio_rate = 44100;
 	Uint16 audio_format = AUDIO_S16;
-	int audio_channels = 2;
-	int audio_buffers = 4096;
+	int audio_channels = 2; 
+	int audio_buffers = 4096; // 4096;
 	
 	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers!=0))
 	{

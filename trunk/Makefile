@@ -11,6 +11,7 @@ g1453: main.o \
 	Game.o \
 	Player.o \
 	SDLMixer.o \
+	SDLMusic.o \
 	SDLWidget.o \
 	SDLButton.o \
 	SDLFont.o \
@@ -44,6 +45,7 @@ g1453: main.o \
 	Game.o \
 	Player.o \
 	SDLMixer.o \
+	SDLMusic.o \
 	SDLWidget.o \
 	SDLButton.o \
 	SDLFont.o \
@@ -103,6 +105,9 @@ BaseUnit.o: BaseUnit.cpp
 
 SDLMixer.o: SDLMixer.cpp
 	$(CC) $(FLAGS) SDLMixer.cpp
+	
+SDLMusic.o: SDLMusic.cpp
+	$(CC) $(FLAGS) SDLMusic.cpp
 
 # Units.o: Units.cpp
 # 	$(CC) $(FLAGS) Units.cpp
