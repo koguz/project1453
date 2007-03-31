@@ -134,6 +134,8 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	tileDeniz = new SDLWidget("graphics/terrain/deniz.png");
 	
 	commands = new SDLScreen(screen);
+	muse = new SDLMusic("wavs/music/track04.ogg");
+	muse->play();
 }
 
 Game::~Game()
@@ -149,16 +151,43 @@ Game::~Game()
 	delete tileAgac;
 	delete tileToprak;
 	delete tileDeniz;
+	delete muse;
 }
 
 
 void Game::update()
 {
+	checkMusic();
 	human->update();
 	lblWood->setText(human->getWoodAmount());
 	lblFood->setText(human->getFoodAmount());
 	lblStone->setText(human->getStoneAmount());
 	// TODO cpu->update() AI yazılınca
+}
+
+void Game::checkMusic()
+{
+	if (Mix_PlayingMusic() == 1)
+		return;
+	
+	int a = rand() % 4;
+	switch(a)
+	{
+		case 0:
+			muse->loadFile("wavs/music/track04.ogg");
+			break;
+		case 1:
+			muse->loadFile("wavs/music/track05.ogg");
+			break;
+		case 2:
+			muse->loadFile("wavs/music/track06.ogg");
+			break;
+		case 3:
+			muse->loadFile("wavs/music/track07.ogg");
+			break;
+	}
+	muse->play();
+	
 }
 
 void Game::display()
