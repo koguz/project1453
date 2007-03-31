@@ -34,7 +34,7 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	
 	BaseObject* nowBuilding;
 	SDLProgressBar* nowBuildingBar;
-		
+	
 	void update();
 	
 	protected:

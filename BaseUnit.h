@@ -46,7 +46,18 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	
 	void update();
 	
-
+	
+	SDLProgressBar *sbar;
+	SDLLabel *birimAdi, 
+		*stArmor, *stArmorVal, 
+		*stDamage, *stDamageVal, 
+		*stRange, *stRangeVal, 
+		*stSight, *stSightVal, 
+		*stSpeed, *stSpeedVal, 
+		*stMorale, *stMoraleVal,
+		*stXp, *stXpVal, 
+		*stKills, *stKillsVal;
+	
 	protected:
 	int armor;
 	int damage;

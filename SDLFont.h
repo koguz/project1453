@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include "Headers.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ class SDLFont
 	
 	void drawMe(SDL_Surface* screen, int x, int y);
 	
-	static TTF_Font* font;
+	static map<int, TTF_Font*> font;
 	
 	private:
 	int w; 

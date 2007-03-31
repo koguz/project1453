@@ -8,17 +8,17 @@ SDLLabel::SDLLabel()
 }
 
 
-SDLLabel::SDLLabel(string lbl)
+SDLLabel::SDLLabel(string lbl, int s)
 {
-	size = 14;
+	size = s;
 	setText(lbl);
 	show = true;
 	tip = LABEL;
 }
 
-SDLLabel::SDLLabel(int lbl)
+SDLLabel::SDLLabel(int lbl, int s)
 {
-	size = 14;
+	size = s;
 	stringstream ss;
 	string tmp;
 	ss << lbl;

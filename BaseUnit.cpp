@@ -21,6 +21,91 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	
 	waitingCommand = "yok";
 	waiting = false;
+	
+	komutlar = new SDLScreen(screen);
+	
+	birimAdi = new SDLLabel("Köylü", 12);
+	birimAdi->setPosition(695, 205);
+	komutlar->addWidget(birimAdi);
+	
+	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
+	sbar->setPosition(695, 223);
+	komutlar->addWidget(sbar);
+	
+	stArmor = new SDLLabel("Zırh: ", 10);
+	stArmor->setPosition(655, 245);
+	komutlar->addWidget(stArmor);
+	
+	stArmorVal = new SDLLabel(armor, 10);
+	stArmorVal->setPosition(705, 245);
+	komutlar->addWidget(stArmorVal);
+	
+	stDamage = new SDLLabel("Hasar: ", 10);
+	stDamage->setPosition(655, 255);
+	komutlar->addWidget(stDamage);
+	
+	stDamageVal = new SDLLabel(damage, 10);
+	stDamageVal->setPosition(705, 255);
+	komutlar->addWidget(stDamageVal);
+	
+	stRange = new SDLLabel("Menzil: ", 10);
+	stRange->setPosition(655, 265);
+	komutlar->addWidget(stRange);
+	
+	stRangeVal = new SDLLabel(range, 10);
+	stRangeVal->setPosition(705, 265);
+	komutlar->addWidget(stRangeVal);
+	
+	stSight = new SDLLabel("Görüş: ", 10);
+	stSight->setPosition(655, 275);
+	komutlar->addWidget(stSight);
+	
+	stSightVal = new SDLLabel(sight, 10);
+	stSightVal->setPosition(705, 275);
+	komutlar->addWidget(stSightVal);
+	
+	stSpeed = new SDLLabel("Hız: ", 10);
+	stSpeed->setPosition(720, 245);
+	komutlar->addWidget(stSpeed);
+	
+	stSpeedVal = new SDLLabel(speed, 10);
+	stSpeedVal->setPosition(770, 245);
+	komutlar->addWidget(stSpeedVal);
+	
+	stMorale = new SDLLabel("Moral: ", 10);
+	stMorale->setPosition(720, 255);
+	komutlar->addWidget(stMorale);
+	
+	stMoraleVal = new SDLLabel(morale, 10);
+	stMoraleVal->setPosition(770, 255);
+	komutlar->addWidget(stMoraleVal);
+	
+	stXp = new SDLLabel("Deneyim: ", 10);
+	stXp->setPosition(720, 265);
+	komutlar->addWidget(stXp);
+	
+	stXpVal = new SDLLabel(xp, 10);
+	stXpVal->setPosition(770, 265);
+	komutlar->addWidget(stXpVal);
+	
+	stKills = new SDLLabel("Ölü: ", 10);
+	stKills->setPosition(720, 275);
+	komutlar->addWidget(stKills);
+	
+	stKillsVal = new SDLLabel(kills, 10);
+	stKillsVal->setPosition(770, 275);
+	komutlar->addWidget(stKillsVal);
+	
+// 	SDLProgressBar *sbar;
+// 	SDLLabel *birimAdi, 
+// 		*stArmor, *stArmorVal, 
+// 		*stDamage, *stDamageVal, 
+// 		*stRange, *stRangeVal, 
+// 		*stSight, *stSightVal, 
+// 		*stSpeed, *stSpeedVal, 
+// 		*stMorale, *stMoraleVal,
+// 		*stXp, *stXpVal, 
+// 		*stKills, *stKillsVal;
 }
 
 BaseUnit::~BaseUnit() {}
@@ -117,7 +202,19 @@ void BaseUnit::moveToTarget(int tx, int ty)
 
 void BaseUnit::update()
 {
-	healthBar->setValue(currentHp);
+	if (selected)
+	{
+		healthBar->setValue(currentHp);
+		sbar->setValue(currentHp);
+		stArmorVal->setText(armor);
+		stDamageVal->setText(damage);
+		stRangeVal->setText(range);
+		stSightVal->setText(sight);
+		stSpeedVal->setText(speed);
+		stMoraleVal->setText(morale);
+		stXpVal->setText(xp);
+		stKillsVal->setText(kills);
+	}
 	Coordinates temp;
 	if (!target.empty())
 	{

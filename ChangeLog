@@ -1,3 +1,14 @@
+2007.04.01
+02:35
+	- Birimlerin gösterildikleri ekranlar güncellendi. Artık birim
+	bilgileri gösteriliyor.
+
+	- SDLFont ve SDLLabel farklı font boylarını gösterecek şekilde
+	ayarlandı. Bu sayede istenilen boyuttaki yazı karakterleri 
+	yine sadece 1 kez okunarak yükleniyor...
+
+	- TODO: Yarın binaların detaylı gösterimi ile ilgilenmeli...
+
 2007.03.31
 21:49
 	- Müzik çalma eklendi. SDLMusic sınıfı sayesinde SDL_mixer'ın
