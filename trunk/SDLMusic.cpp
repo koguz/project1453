@@ -1,5 +1,7 @@
 #include "SDLMusic.h"
 
+bool SDLMusic::musicOn = true;
+
 SDLMusic::SDLMusic(char *f)
 {
 	int audio_rate = 44100;
@@ -31,6 +33,23 @@ void SDLMusic::play()
 	Mix_PlayMusic(m, 1);
 }
 
+void SDLMusic::stop()
+{
+	Mix_HaltMusic();
+}
+
+bool SDLMusic::isPlaying()
+{
+	if (Mix_PlayingMusic() == 1)
+		return true;
+	else return false;
+}
+
+int SDLMusic::getVolume()
+{
+	return Mix_VolumeMusic(-1);
+}
+
 void SDLMusic::loadFile(char *f)
 {
 	if (m != 0)
@@ -42,7 +61,7 @@ void SDLMusic::loadFile(char *f)
 		cerr << "Müzik yüklenemedi: " << f << endl;
 	}
 	
-	setVolume(2);
+// 	setVolume(2);
 }
 
 void SDLMusic::setVolume(int oran)

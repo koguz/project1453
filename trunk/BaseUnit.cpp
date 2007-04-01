@@ -24,13 +24,9 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	
 	komutlar = new SDLScreen(screen);
 	
-	birimAdi = new SDLLabel("Köylü", 12);
+	birimAdi = new SDLLabel(n, 12);
 	birimAdi->setPosition(695, 205);
 	komutlar->addWidget(birimAdi);
-	
-	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
-	sbar->setPosition(695, 223);
-	komutlar->addWidget(sbar);
 	
 	stArmor = new SDLLabel("Zırh: ", 10);
 	stArmor->setPosition(655, 245);

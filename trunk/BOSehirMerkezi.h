@@ -15,7 +15,7 @@ class SehirMerkezi:public BaseBuilding
 	SehirMerkezi();
 	SehirMerkezi(SDL_Surface *screen, Player *p);
 	~SehirMerkezi();
-	SDLCommandButton* btnKoylu;
+	SDLCommandButton *btnKoylu, *resim;
 	void createKoylu();
 	
 	static SDL_Surface* spriteImg;

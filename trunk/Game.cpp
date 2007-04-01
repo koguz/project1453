@@ -111,15 +111,15 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	houseIcon->setPosition(350, 2);
 	ui->addWidget(houseIcon);
 	
-	lblWood = new SDLLabel(human->getWoodAmount());
+	lblWood = new SDLLabel(human->getWoodAmount(), 12);
 	lblWood->setPosition(22, 2);
 	ui->addWidget(lblWood);
 	
-	lblFood = new SDLLabel(human->getFoodAmount());
+	lblFood = new SDLLabel(human->getFoodAmount(), 12);
 	lblFood->setPosition(138, 2);
 	ui->addWidget(lblFood);
 	
-	lblStone = new SDLLabel(human->getStoneAmount());
+	lblStone = new SDLLabel(human->getStoneAmount(), 12);
 	lblStone->setPosition(254, 2);
 	ui->addWidget(lblStone);
 	
@@ -134,7 +134,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	tileDeniz = new SDLWidget("graphics/terrain/deniz.png");
 	
 	commands = new SDLScreen(screen);
-	muse = new SDLMusic("wavs/music/track04.ogg");
+	muse = new SDLMusic("wavs/music/track02.ogg");
 	muse->play();
 }
 
@@ -167,25 +167,26 @@ void Game::update()
 
 void Game::checkMusic()
 {
-	if (Mix_PlayingMusic() == 1)
+	if (muse->isPlaying())
 		return;
 	
-	int a = rand() % 4;
-	switch(a)
-	{
-		case 0:
-			muse->loadFile("wavs/music/track04.ogg");
-			break;
-		case 1:
-			muse->loadFile("wavs/music/track05.ogg");
-			break;
-		case 2:
-			muse->loadFile("wavs/music/track06.ogg");
-			break;
-		case 3:
-			muse->loadFile("wavs/music/track07.ogg");
-			break;
-	}
+	// NOTE bunlar sonra müzikler gelince eklenecek
+// 	int a = rand() % 4;
+// 	switch(a)
+// 	{
+// 		case 0:
+// 			muse->loadFile("wavs/music/track04.ogg");
+// 			break;
+// 		case 1:
+// 			muse->loadFile("wavs/music/track05.ogg");
+// 			break;
+// 		case 2:
+// 			muse->loadFile("wavs/music/track06.ogg");
+// 			break;
+// 		case 3:
+// 			muse->loadFile("wavs/music/track07.ogg");
+// 			break;
+// 	}
 	muse->play();
 	
 }

@@ -16,6 +16,12 @@ BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n),
 	sight = 4;
 	size = 2;
 	tip = BUILDING;
+	
+	komutlar = new SDLScreen(screen);
+	birimAdi = new SDLLabel(n, 12);
+	birimAdi->setPosition(695, 205);
+	komutlar->addWidget(birimAdi);
+	
 }
 
 void BaseBuilding::setState(string state) { curState = state; }
@@ -24,7 +30,11 @@ BaseBuilding::~BaseBuilding() { }
 
 void BaseBuilding::update() 
 {
-	healthBar->setValue(currentHp);
+	if (selected)
+	{
+		healthBar->setValue(currentHp);
+		sbar->setValue(currentHp);
+	}
 	if (nowBuilding != 0)
 	{
 		if (nowBuilding->build())

@@ -34,6 +34,8 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	
 	BaseObject* nowBuilding;
 	SDLProgressBar* nowBuildingBar;
+	SDLProgressBar* sbar;
+	SDLLabel *birimAdi;
 	
 	void update();
 	

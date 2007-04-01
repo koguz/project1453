@@ -7,8 +7,9 @@
 #include "SDLScreen.h"
 #include "ScreenMain.h"
 #include "ScreenGameType.h"
+#include "ScreenSettings.h"
+#include "SDLMusic.h"
 #include "Game.h"
-// #include "Player.h"
 #include "callback.h"
 
 using namespace std;
@@ -24,8 +25,9 @@ class Application
 	SDLScreen *current;
 	ScreenMain *ana;
 	ScreenGameType *gt;
-// 	SDLProgressBar *pb;
+	ScreenSettings *ayar;
 	Game *game;
+	SDLMusic *muse;
 	
 	public:
 	SDL_Surface* screen;
@@ -36,6 +38,7 @@ class Application
 	int Run();
 	void screenMain();
 	void screenGameType();
+	void screenSettings();
 	void startSingleGame();
 	void Quit();
 };

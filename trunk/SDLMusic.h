@@ -13,8 +13,12 @@ class SDLMusic
 	bool SetMixer();
 	void loadFile(char *f);
 	void play();
-	void setVolume(int oran);
+	void stop();
+	static void setVolume(int oran);
+	static int getVolume();
 	void pause();
+	static bool musicOn;
+	static bool isPlaying();
 	
 	protected:
 	Mix_Music *m;

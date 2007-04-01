@@ -9,7 +9,7 @@ Koylu::Koylu()
 	faction = "Osmanlı";
 	sndSelected = 0;
 	sndConfirmed = 0;
-	yuru = dur = evbtn = 0;
+	yuru = dur = evbtn = resim = 0;
 }
 
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
@@ -27,7 +27,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	sight = 4;
 	speed = 10;
 	morale = 60;
-	xp = 0;
+	xp = 10;
 	kills = 0;
 	
 	// grafiksel bileşenler
@@ -98,6 +98,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	resim = new SDLCommandButton(screen, trect, "Köylü");
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);
+	
+	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
+	sbar->setPosition(695, 223);
+	komutlar->addWidget(sbar);
 }
 
 Koylu::~Koylu()
