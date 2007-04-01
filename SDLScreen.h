@@ -2,15 +2,7 @@
 #define EKRAN_H_
 
 #include <vector>
-// #include "Headers.h"
 #include "SDLWidget.h"
-// #include "SDLButton.h"
-// #include "SDLCombo.h"
-// #include "SDLLabel.h"
-// #include "SDLCheckBox.h"
-// #include "SDLTextView.h"
-// #include "SDLListView.h"
-// #include "SDLProgressBar.h"
 
 using namespace std;
 

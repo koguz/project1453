@@ -5,9 +5,9 @@ SDLCheckBox::SDLCheckBox(string label)
 	tip = SDLWidget::CHECKBOX;
 	on = false;
 	SDLCheckBox *me = this;
-	button = new SDLButton("img/combo.png", "");
+	button = new SDLButton("ui/combo.jpg", " ");
 	button->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLCheckBox::toggle);
-	check = new SDLWidget("img/check.png");
+	check = new SDLWidget("ui/check.png");
 	yazi = new SDLLabel(label);
 	w = button->getWidth() + 10 + yazi->getWidth();
 	h = button->getHeight();

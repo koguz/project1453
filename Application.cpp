@@ -16,6 +16,8 @@ Application::~Application()
 	delete game;
 	TTF_Quit();
 	
+	delete muse;
+	
 	int numtimesopened, frequency, channels;
 	Uint16 format;
 	numtimesopened=Mix_QuerySpec(&frequency, &format, &channels);
@@ -25,7 +27,6 @@ Application::~Application()
 		for (int i=0;i<numtimesopened;i++)
 			Mix_CloseAudio();
 	}
-	
 }
 
 bool Application::Init()
@@ -48,10 +49,17 @@ bool Application::Init()
 	ana = new ScreenMain(screen);
 	ana->cikis->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::Quit);
 	ana->single->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenGameType);
+	ana->ayarlar->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenSettings);
 	
 	gt = new ScreenGameType(screen);
 	gt->anaEkranaDon->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenMain);
 	gt->baslat->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::startSingleGame);
+	
+	ayar = new ScreenSettings(screen);
+	ayar->iptal->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenMain);
+	
+	muse = new SDLMusic("wavs/music/track01.ogg");
+	muse->play();
 	
 	game = 0;
 	
@@ -68,6 +76,8 @@ void Application::startSingleGame()
 	}
 	gt->err->setText(" ");
 	
+	muse->stop();
+	
 	game = new Game(screen, gt->ulke->getValue(), atoi(gt->rakipTip->getValue().c_str()), gt->haritalar->getValue());
 }
 
@@ -79,6 +89,12 @@ void Application::screenMain()
 void Application::screenGameType()
 {
 	current = gt;
+}
+
+void Application::screenSettings()
+{
+	ayar->reset();
+	current = ayar;
 }
 
 void Application::Quit()
@@ -117,7 +133,15 @@ int Application::Run()
 			game->update();
 		}
 		else
+		{
 			current->display();
+			// oyun yoksa, ekranlardan birindedir
+			// o sırada müzik çalacağız :D
+			if (!muse->isPlaying() && muse->musicOn)
+				muse->play();
+			else if (!muse->musicOn)
+				muse->stop();
+		}
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		SDL_Delay(50);
 	}

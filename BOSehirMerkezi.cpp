@@ -7,6 +7,7 @@ SehirMerkezi::SehirMerkezi()
 	cost.set(400, 0, 400); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
+	btnKoylu = resim = 0;
 }
 
 SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
@@ -43,22 +44,32 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
 	
-	komutlar = new SDLScreen(screen);
+// 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;
 	trect.x = 128; trect.y = 0;
 	trect.w = trect.h = 32;
 	
 	SehirMerkezi *me = this;
 	
-	nowBuildingBar = new SDLProgressBar(120, 10, GREEN, 0, 1);
-	nowBuildingBar->setPosition(655, 245);
+	nowBuildingBar = new SDLProgressBar(130, 10, GREEN, 0, 1);
+	nowBuildingBar->setPosition(655, 250);
 	nowBuildingBar->setShow(false);
 	komutlar->addWidget(nowBuildingBar);
 	
 	btnKoylu = new SDLCommandButton(screen, trect, "Yeni Köylü", Koylu().getCost());
-	btnKoylu->setPosition(655, 205);
+	btnKoylu->setPosition(665, 270);
 	btnKoylu->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &SehirMerkezi::createKoylu);
 	komutlar->addWidget(btnKoylu);
+	
+	
+	trect.x = 96;
+	resim = new SDLCommandButton(screen, trect, name);
+	resim->setPosition(655, 205);
+	komutlar->addWidget(resim);
+	
+	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
+	sbar->setPosition(695, 223);
+	komutlar->addWidget(sbar);
 }
 
 SehirMerkezi::~SehirMerkezi()

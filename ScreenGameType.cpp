@@ -10,33 +10,33 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	imgYeniceri->setPosition(520, 30);
 	addWidget(imgYeniceri);
 	
-	title = new SDLLabel("Yeni Oyun");
-	title->setPosition((520-title->getWidth())/2, 200);
+	title = new SDLLabel("Yeni Oyun", 36);
+	title->setPosition((520-title->getWidth())/2, 100);
 	addWidget(title);
 	
 	lblUlke = new SDLLabel("Ülkeniz");
-	lblUlke->setPosition(30, 250);
+	lblUlke->setPosition(30, 200);
 	addWidget(lblUlke);
 	
 	ulke = new SDLCombo();
-	ulke->setPosition(30, 280);
+	ulke->setPosition(30, 230);
 	ulke->addOption("Osmanlılar", "Osmanlı", true);
 	ulke->addOption("Bizanslılar", "Bizans");
 	addWidget(ulke);
 	
 	lblRakip = new SDLLabel("Rakip Zorluğu");
-	lblRakip->setPosition(200, 250);
+	lblRakip->setPosition(200, 200);
 	addWidget(lblRakip);
 	
 	rakipTip = new SDLCombo();
-	rakipTip->setPosition(200, 280);
+	rakipTip->setPosition(200, 230);
 	rakipTip->addOption("Agresif", "2");
 	rakipTip->addOption("Normal", "1", true);
 	rakipTip->addOption("Pasif", "0");
 	addWidget(rakipTip);
 	
 	lblHarita = new SDLLabel("Haritayı Seçiniz");
-	lblHarita->setPosition(350, 250);
+	lblHarita->setPosition(350, 200);
 	addWidget(lblHarita);
 	
 	haritalar = new SDLListView(4); // NOTE bu liste database'den gelse?
@@ -48,16 +48,16 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	haritalar->addItem("Edirne.hrt");
 	haritalar->addItem("TekKisilik.hrt");
 	haritalar->addItem("Son.hrt");
-	haritalar->setPosition(350, 280);
+	haritalar->setPosition(350, 230);
 	addWidget(haritalar);
 	
 	lblAciklama = new SDLLabel("Açıklama:");
-	lblAciklama->setPosition(30, 400);
+	lblAciklama->setPosition(30, 350);
 	addWidget(lblAciklama);
 	
 	string desc = "Tek Görev [p] Bu oyun türünde amaç rakibin bütün birimlerini ve binalarını ortadan kaldırmaktır.";
 	aciklama = new SDLTextView(desc, 300, 4);
-	aciklama->setPosition(30, 430);
+	aciklama->setPosition(30, 380);
 	addWidget(aciklama);
 	
 	baslat = new SDLButton("ui/kucukDugme.jpg", "Oyunu Başlat");

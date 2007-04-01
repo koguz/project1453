@@ -4,7 +4,6 @@
 #include "SDLScreen.h"
 #include "SDLWidget.h"
 #include "SDLButton.h"
-#include "SDLMusic.h"
 
 class ScreenMain:public SDLScreen
 {
@@ -13,7 +12,6 @@ class ScreenMain:public SDLScreen
 	SDLButton *oyun, *ayarlar, *credits, *cikis, *single;
 	ScreenMain(SDL_Surface* screen);
 	~ScreenMain();
-	SDLMusic *muse;
 };
 
 

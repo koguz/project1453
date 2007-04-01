@@ -25,6 +25,7 @@ g1453: main.o \
 	SDLScreen.o \
 	ScreenMain.o \
 	ScreenGameType.o \
+	ScreenSettings.o \
 	Resource.o \
 	Resources.o \
 	Cost.o \
@@ -59,6 +60,7 @@ g1453: main.o \
 	SDLScreen.o \
 	ScreenMain.o \
 	ScreenGameType.o \
+	ScreenSettings.o \
 	Resource.o \
 	Resources.o \
 	Cost.o \
@@ -85,6 +87,9 @@ ScreenMain.o: ScreenMain.cpp
 
 ScreenGameType.o: ScreenGameType.cpp
 	$(CC) $(FLAGS) ScreenGameType.cpp
+	
+ScreenSettings.o: ScreenSettings.cpp
+	$(CC) $(FLAGS) ScreenSettings.cpp
 
 # game related
 

@@ -25,13 +25,9 @@ ScreenMain::ScreenMain(SDL_Surface *screen):SDLScreen(screen)
 	cikis = new SDLButton("ui/dugme.jpg", "Oyunu Kapat");
 	cikis->setPosition(458, 560);
 	addWidget(cikis);
-	
-	
-	muse = new SDLMusic("wavs/music/track01.ogg");
-	muse->play();
 }
 
 ScreenMain::~ScreenMain()
 {
-	delete muse;
+	
 }

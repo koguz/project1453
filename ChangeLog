@@ -1,4 +1,13 @@
 2007.04.01
+23:00
+	- Dünkü TODO: Binaların detaylı gösterimi yapıldı.
+
+	- Ayarlar ekranı eklendi. Müzik ses seviyesi, açma kapama için 
+	ayarlar yazıldı. Ama oyun ekranından buraya ulaşılmıyor, onu da 
+	bir ara yazmak lazım. SDLMusic sınıfı tek başına çalıştığı için
+	static fonksiyonlara ve değişkenlere kavuştu. Bütün müzik olayı
+	SDL_mixer'ın bu kanalı üzerinden gittiği için böyle yapıldı. 
+
 02:35
 	- Birimlerin gösterildikleri ekranlar güncellendi. Artık birim
 	bilgileri gösteriliyor.

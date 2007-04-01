@@ -40,13 +40,14 @@ class SDLCheckBox:public SDLWidget
 		handleEvent(eventType, button, x, y);
 	}
 	
+	void setOn();
+	void setOff();
+	
 	protected:
 	SDLButton *button;
 	SDLWidget *check;
 	SDLLabel *yazi;
 	bool on;
-	void setOn();
-	void setOff();
 	void handleEvent (int eventType, int button, int x, int y);
 };
 
