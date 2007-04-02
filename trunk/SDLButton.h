@@ -14,7 +14,7 @@ class SDLButton:public SDLWidget
 	public:
 	enum ButtonState { NORMAL, OVER, PRESSED };
 	
-	SDLButton(string f, string label);
+	SDLButton(string f, string label, int size=-1);
 	~SDLButton();
 	
 	

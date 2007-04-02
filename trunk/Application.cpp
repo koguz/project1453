@@ -129,8 +129,21 @@ int Application::Run()
 		}
 		if (game != 0)
 		{
-			game->display();
-			game->update();
+			switch(game->sonMu())
+			{
+				case 0:
+					game->display();
+					game->update();
+					break;
+				case 1:
+					delete game;
+					game = 0;
+					current = ana;
+					break;
+				case 2:
+					done = false;
+					break;
+			}
 		}
 		else
 		{
