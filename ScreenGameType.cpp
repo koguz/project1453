@@ -40,14 +40,14 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	addWidget(lblHarita);
 	
 	haritalar = new SDLListView(4); // NOTE bu liste database'den gelse?
-	haritalar->addItem("İstanbul.hrt");
-	haritalar->addItem("İzmir.hrt");
-	haritalar->addItem("Bursa.hrt");
-	haritalar->addItem("Deneme.hrt");
-	haritalar->addItem("Temp.hrt");
-	haritalar->addItem("Edirne.hrt");
-	haritalar->addItem("TekKisilik.hrt");
-	haritalar->addItem("Son.hrt");
+	haritalar->addItem("İstanbul");
+	haritalar->addItem("İzmir");
+	haritalar->addItem("Bursa");
+	haritalar->addItem("Deneme");
+	haritalar->addItem("Temp");
+	haritalar->addItem("Edirne");
+	haritalar->addItem("TekKisilik");
+	haritalar->addItem("Son");
 	haritalar->setPosition(350, 230);
 	addWidget(haritalar);
 	
@@ -64,7 +64,7 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	baslat->setPosition(520 + ((imgYeniceri->getWidth() - baslat->getWidth())/2), 470);
 	addWidget(baslat);
 	
-	anaEkranaDon = new SDLButton("ui/kucukDugme.jpg", "« Ana Ekrana Dön");
+	anaEkranaDon = new SDLButton("ui/kucukDugme.jpg", "Ana Ekran");
 	anaEkranaDon->setPosition(520 + ((imgYeniceri->getWidth() - anaEkranaDon->getWidth())/2), 510);
 	addWidget(anaEkranaDon);
 	

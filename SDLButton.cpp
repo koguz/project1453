@@ -2,7 +2,7 @@
 
 using namespace std;
 
-SDLButton::SDLButton(string f, string label=string())
+SDLButton::SDLButton(string f, string label=string(), int size)
 {
 	SDL_Surface *temp = IMG_Load(f.c_str());
 	SDL_SetAlpha(temp, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE);
@@ -19,13 +19,15 @@ SDLButton::SDLButton(string f, string label=string())
 	tip = BUTTON;
 	if (label.size() != 0)
 	{
-		metin = new SDLLabel(label);
+		if (size == -1)
+			metin = new SDLLabel(label);
+		else
+			metin = new SDLLabel(label, size);
 	}
 	else metin = 0;
 	clicked = 0;
 	show = true;
 }
-
 
 SDLButton::~SDLButton()
 {

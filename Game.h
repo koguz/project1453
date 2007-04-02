@@ -6,12 +6,8 @@
 #include <sstream>
 #include "Player.h"
 #include "SDLMusic.h"
-
-// #include "SDLScreen.h"
-// #include "Resources.h"
-// #include "Cost.h"
-// #include "Tech.h"
-// #include "BaseBuilding.h"
+#include "SDLCheckBox.h"
+#include "SDLCombo.h"
 
 using namespace std;
 
@@ -19,8 +15,12 @@ using namespace std;
 class Game
 {
 	public:
-	SDLScreen *ui;
-	SDLScreen *commands;
+	SDLScreen *ui, *current, *commands, *sesayar;
+	SDLButton *menu, *btnSes, *devam, *anamenu, *cikis, *sesonceki, *seskaydet;
+	SDLWidget *menuArka, *arka2;
+	SDLLabel *menuTitle, *sesTitle, *muzik;
+	SDLCheckBox *monoff;
+	SDLCombo *mvol;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
 	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;//, *commandList;
 	SDLMusic *muse;
@@ -37,6 +37,17 @@ class Game
 	void eventHandler(SDL_Event *event);
 	void update();
 	void checkMusic();
+	void displayMenu();
+	void closeMenu();
+	void displayVolume();
+	void saveVolSets();
+	int sonMu();
+	void endGame();
+	void quitToSystem();
+	
+	protected:
+	bool running;
+	int son;
 };
 
 
