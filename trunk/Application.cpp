@@ -124,7 +124,8 @@ int Application::Run()
 					done = false;
 					break;
 				case SDL_MOUSEMOTION:
-					SDLCursor::cCurrent->setPosition(event.motion.x, event.motion.y);
+					SDLCursor::cMain->setPosition(event.motion.x, event.motion.y);
+					SDLCursor::cTarget->setPosition(event.motion.x, event.motion.y);
 					break;
 			}
 			if (game != 0)
