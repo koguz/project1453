@@ -10,6 +10,7 @@ g1453: main.o \
 	Application.o \
 	Game.o \
 	Player.o \
+	SDLCursor.o \
 	SDLMixer.o \
 	SDLMusic.o \
 	SDLWidget.o \
@@ -45,6 +46,7 @@ g1453: main.o \
 	Application.o \
 	Game.o \
 	Player.o \
+	SDLCursor.o \
 	SDLMixer.o \
 	SDLMusic.o \
 	SDLWidget.o \
@@ -90,6 +92,9 @@ ScreenGameType.o: ScreenGameType.cpp
 	
 ScreenSettings.o: ScreenSettings.cpp
 	$(CC) $(FLAGS) ScreenSettings.cpp
+
+SDLCursor.o: SDLCursor.cpp
+	$(CC) $(FLAGS) SDLCursor.cpp
 
 # game related
 

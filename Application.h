@@ -9,6 +9,7 @@
 #include "ScreenGameType.h"
 #include "ScreenSettings.h"
 #include "SDLMusic.h"
+#include "SDLCursor.h"
 #include "Game.h"
 #include "callback.h"
 

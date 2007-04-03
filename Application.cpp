@@ -44,6 +44,8 @@ bool Application::Init()
 	}
 	SDL_WM_SetCaption(appName.c_str(), "SDL Simgesi");
 	
+	SDL_ShowCursor(SDL_DISABLE);
+	
 	Application *me = this;
 	
 	ana = new ScreenMain(screen);
@@ -121,6 +123,9 @@ int Application::Run()
 				case SDL_QUIT:
 					done = false;
 					break;
+				case SDL_MOUSEMOTION:
+					SDLCursor::cCurrent->setPosition(event.motion.x, event.motion.y);
+					break;
 			}
 			if (game != 0)
 				game->eventHandler(&event);
@@ -155,6 +160,7 @@ int Application::Run()
 			else if (!muse->musicOn)
 				muse->stop();
 		}
+		SDLCursor::cCurrent->drawWidget(screen);
 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		SDL_Delay(50);
 	}

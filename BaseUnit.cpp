@@ -119,12 +119,14 @@ void BaseUnit::actionDur()
 
 void BaseUnit::setCommandYuru()
 {
+	SDLCursor::setCursorTarget();
 	waitingCommand = "yuru";
 	waiting = true;
 }
 
 void BaseUnit::moveToTarget(int tx, int ty)
 {
+	SDLCursor::setCursorMain();
 	target.clear();
 	int smx = posx;
 	int smy = posy;
