@@ -7,6 +7,7 @@
 #include "BaseObject.h"
 #include "BaseGraphicObject.h"
 #include "Sprite.h"
+#include "SDLCursor.h"
 
 using namespace std;
 
