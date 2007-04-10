@@ -43,7 +43,7 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	haritalar->addItem("İstanbul");
 	haritalar->addItem("İzmir");
 	haritalar->addItem("Bursa");
-	haritalar->addItem("Deneme");
+// 	haritalar->addItem("Deneme");
 	haritalar->addItem("Temp");
 	haritalar->addItem("Edirne");
 	haritalar->addItem("TekKisilik");
@@ -55,7 +55,7 @@ ScreenGameType::ScreenGameType(SDL_Surface *screen):SDLScreen(screen)
 	lblAciklama->setPosition(30, 350);
 	addWidget(lblAciklama);
 	
-	string desc = "Tek Görev [p] Bu oyun türünde amaç rakibin bütün birimlerini ve binalarını ortadan kaldırmaktır.";
+	string desc = "Tek Görev [p] Bu oyun türünde amaç rakibin bütün birimlerini ve binalarını ortadan kaldırmaktır. Uzun...";
 	aciklama = new SDLTextView(desc, 300, 4);
 	aciklama->setPosition(30, 380);
 	addWidget(aciklama);
