@@ -113,9 +113,7 @@ void SDLCombo::setSelected(string val)
 			options[i]->deSelect();
 		options[d]->setSelected();
 	}
-	
-	delete yazi;
-	yazi = new SDLLabel(options[d]->getOption());
+	yazi->setText(options[d]->getOption());
 }
 
 void SDLCombo::toggleOptions()
@@ -184,8 +182,7 @@ void SDLCombo::handleEvent(int eventType, int button, int x, int y)
 							for (int j=0;j<options.size();j++)
 								options[j]->deSelect();
 							options[i]->setSelected();
-							delete yazi;
-							yazi = new SDLLabel(options[i]->getOption());
+							yazi->setText(options[i]->getOption());
 							toggleOptions();
 							return;
 						}

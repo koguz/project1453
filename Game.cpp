@@ -194,7 +194,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	sesonceki->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::displayMenu);
 	sesayar->addWidget(sesonceki);
 	
-	seskaydet = new SDLButton("ui/dugme100.jpg", "Kaydet", 11);
+	seskaydet = new SDLButton("ui/dugme100.jpg", "Uygula", 11);
 	seskaydet->setPosition(350, 335);
 	seskaydet->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::saveVolSets);
 	sesayar->addWidget(seskaydet);
