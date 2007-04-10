@@ -1,4 +1,8 @@
 2007.04.10
+14:07
+	- Issue 6, SDLTextView ve SDLListView'da scrollbar'ların en 
+	aşağıya kadar inme sorunu çözüldü...
+
 12:41
 	- Issue 5, SDLCombo'ların seçildikten sonra saçma yerlerde 
 	gözükmesi düzeltildi... Burası sanırsam SDLLabel'ın setText()

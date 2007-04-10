@@ -81,9 +81,14 @@ class SDLListView:public SDLWidget
 		
 		if (lines > rows)
 		{
-			int sh = (((lineHeight*rows)-(up->getHeight() + down->getHeight()))/lines)*rows;
-			int sh2 = (py1+up->getHeight())+(uppos*(sh/rows));
-			boxColor(screen, px2+1, sh2, px2+up->getWidth(), sh2+sh, DARKGRAY);
+			int sh1 = (((lineHeight*rows)-(up->getHeight() + down->getHeight()))/lines)*rows;
+			int sh2 = (py1+up->getHeight())+(uppos*(sh1/rows));
+			int sh = sh1 + sh2;
+			if (downpos == lines)
+			{
+				sh = py2 - up->getHeight();
+			}
+			boxColor(screen, px2+1, sh2, px2+up->getWidth(), sh, DARKGRAY);
 		}
 	}
 	
