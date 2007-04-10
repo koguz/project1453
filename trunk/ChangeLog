@@ -1,3 +1,11 @@
+2007.04.10
+12:41
+	- Issue 5, SDLCombo'ların seçildikten sonra saçma yerlerde 
+	gözükmesi düzeltildi... Burası sanırsam SDLLabel'ın setText()
+	fonksiyonundan önce yazılmış. O yüzden o SDLLabel silinip 
+	new ile yeni bir tane alınıyormuş. Ondan sonra da setPosition()
+	çağrılmadığı için rasgele bir yerlerde çıkıyordu...
+
 2007.04.03
 04:02
 	- Cursorler devamlı güncelleniyor, böylece az önce yaşanan 

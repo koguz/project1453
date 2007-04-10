@@ -39,7 +39,7 @@ ScreenSettings::ScreenSettings(SDL_Surface *screen):SDLScreen(screen)
 	addWidget(mvol);
 	
 	
-	tamam = new SDLButton("ui/kucukDugme.jpg", "Kaydet");
+	tamam = new SDLButton("ui/kucukDugme.jpg", "Uygula");
 	tamam->setPosition(566, 470);
 	tamam->clicked = makeFunctor((CBFunctor0*)0, *me, &ScreenSettings::accept);
 	addWidget(tamam);
