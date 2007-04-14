@@ -1,0 +1,41 @@
+#summary Design Assessment Report
+#labels Phase-Design
+
+=Design Assessment Report=
+
+==About 1453== 
+
+1453 is a real-time strategy game about the early days of the Ottoman Empire. The game will use SDL and its sister libraries under C++. It will run on both Windows and Linux systems natively. Here are a few planned features
+
+  * Single Player Game
+  * Original Graphics, Music and Sounds
+  * Completely a Turkish User Interface
+  * A Challenging Artificial Intelligence
+
+
+==Design Assessments==
+
+===SDL Libraries===
+
+We are using many sister libraries of the SDL library. 
+
+  * *SDL_image:* SDL loads only BMP images. BMP files are uncompressed large files, without support for transparency. SDL_image lets us use many common image formats, like JPG and PNG, which allocate less space and PNG supports transparency. Even though these image formats are smaller on disk size, they are the same size when they are drawn with SDL.
+  * *SDL_gfx:* SDL_gfx lets us draw geometrical shapes, like lines, circles, rectangles and squares.
+  * *SDL_mixer:* SDL loads only WAV files. Like BMP files, these are uncompressed large files. SDL_mixer lets us use common audio formats like OGG and MP3. SDL_mixer, also has a built-in music channel for effectively playing music during the game.
+  * *SDL_ttf:* SDL_ttf lets us use TrueType Font files (TTF). SDL_ttf is one of the most important libraries we use, as it lets us have a Turkish interface without trouble. 
+
+===GUI Design===
+
+Although there are a few SDL libraries for GUI, none of them seems to satisfy the project  requirements. The game will have a Turkish interface, but the user interface libraries have a few distinctive problems
+
+  * they were too old (around 2001) to use with the current version of SDL
+  * they were incomplete
+  * they were too big, or too small
+  * and most importantly, they did not support Turkish characters...
+
+So, we decided to design a new graphical user interface
+
+
+
+
+
