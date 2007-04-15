@@ -19,10 +19,10 @@
 
 Many sister libraries of the SDL library are in use. In the following design approaches, these libraries will be referenced. 
 
-  * *SDL_image:* SDL loads only BMP images. BMP files are uncompressed large files, without support for transparency. SDL_image lets us use many common image formats, like JPG and PNG, which allocate less space and PNG supports transparency. Even though these image formats are smaller on disk size, they are the same size when they are drawn with SDL.
-  * *SDL_gfx:* SDL_gfx lets us draw geometrical shapes, like lines, circles, rectangles and squares.
-  * *SDL_mixer:* SDL loads only WAV files. Like BMP files, these are uncompressed large files. SDL_mixer lets us use common audio formats like OGG and MP3. SDL_mixer, also has a built-in music channel for effectively playing music during the game.
-  * *SDL_ttf:* SDL_ttf lets us use TrueType Font files (TTF). SDL_ttf is one of the most important libraries we use, as it lets us have a Turkish interface without trouble. 
+  * *SDL_image:* SDL loads only BMP images. BMP files are uncompressed large files, without support for transparency. SDL_image lets the usage many common image formats, like JPG and PNG, which allocate less space and PNG have support transparency. Even though these image formats are smaller on disk size, they are the same size when they are drawn with SDL.
+  * *SDL_gfx:* SDL_gfx draws geometrical shapes, like lines, empty or filled circles, rectangles and squares.
+  * *SDL_mixer:* SDL loads only WAV files. Like BMP files, these are uncompressed large files. SDL_mixer can use common audio formats like OGG and MP3. SDL_mixer, also has a built-in music channel for effectively playing music during the game. For the game, all audio files are planned to be encoded in OGG.
+  * *SDL_ttf:* SDL_ttf lets us use True Type Font files. SDL_ttf is one of the most important libraries that are used, as it makes the application have a Turkish interface without any trouble. 
 
 ===GUI Design===
 
@@ -35,11 +35,34 @@ Although there are a few SDL libraries for GUI, none of them seems to satisfy th
 
 So, it is decided to design a new graphical user interface along with the widgets that are required. The GUI system, which is called SDLGUI as a code name, has a simple design which has small similarities to another GUI toolkit, Qt. 
 
-The design is based on a class called SDLWidget, which is the base of all the derived classes. SDLWidget has basic variables for representing an image on the screen, which are the x, y coordinates, width and height. It also has an SDL_Surface which is a basic type of SDL library. SDL_Surface is always a pointer which a surface is held. The surface should be freed with SDL_FreeSurface(SDL_Surface*). 
+The design is based on a class called `SDLWidget`, which is the base of all the derived classes. `SDLWidget` has basic variables for representing an image on the screen, which are the x, y coordinates, width and height. It also has an `SDL_Surface` which is a basic type of SDL library. `SDL_Surface` is always a pointer which a surface is held. The surface should be freed with `SDL_FreeSurface(SDL_Surface*)`. 
 
-In SDLWidget, SDL_image library is used to be able to load JPG and PNG images. PNG images are mostly used for their transparency. 
+In `SDLWidget`, SDL_image library is used to be able to load JPG and PNG images. PNG images are mostly used for their transparency. 
+
+`SDLLabel`, like all other widgets, is derived from `SDLWidget`. It's one of the base widgets, as it allows the use of any text like an `SDL_Surface`. It uses SDL_ttf to render these surfaces. It's the widget that makes the application have Turkish characters.
+
+`SDLButton`, is also one of the basic widgets. It is used by almost all of the widgets. The widget has a `clicked` variable, which connects it to any function of any class. This is how the `SDLButton` gets the job done. The library, which is simply called `callback.h` is written by Rich Hickey. `SDLButton` may have an `SDLLabel`.
+
+The other derived classes are `SDLProgressBar`, a progress bar suitable for Loading screens and Health Bars of the units, `SDLCheckBox`, a simple checkbox for turning on and off some options. `SDLTextView` is a text area which displays a long text, wrapping it into lines.
+
+`SDLCombo` and `SDLListView` are two classes which use `SDLComboOption` and `SDLListViewItem` respectively as their children widgets. 
+
+`SDLCommandButton` is a special type of button, which displays information about it when the mouse is hovered on it. This button is mostly designed to be used in units and buildings. 
+
+All widgets have the basic `setPosition(int, int)` function, which puts them on a fixed position on screen. For simplicity a layout manager is not planned. 
+
+Having all these widgets, there are two ways to display them on screen. One is to use the `drawWidget()` function, the other one is to add them to an `SDLScreen` which simply holds all types of widgets and displays them in order. `SDLScreen` also passes events to these widgets as each widgets handles these events internally. 
+
+Below is a class diagram of these classes:
+
+
 
 [http://img244.imageshack.us/img244/7182/sdlguiad3.png]
+
+
+===Application, Game and Player Design===
+
+
 
 
 
