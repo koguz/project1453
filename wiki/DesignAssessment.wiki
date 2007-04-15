@@ -74,11 +74,26 @@ All technologies, units and buildings derive from Tech, BaseUnit and BaseBuildin
 
 Below, there is a class diagram about how these classes are related.
 
+
 [http://img244.imageshack.us/img244/1060/gametw7.png]
+
+
 
 ===Map Design=== 
 
 SERKAN
+
+===Units, Buildings and Technologies===
+
+The `Player` class is the one which is controlled by the actual player. One object of this class is controlled by the computer. To win the game, the player class should reach some goals using the resources on the map and his objects.
+
+The base class `BaseObject` holds the information for basic and common variables of these objects. The most important of them are the `Cost`, which is the cost of the object with the combination of three resources on the map; `Wood`, `Food` and `Stone`. 
+
+The other important variables is the requirements list. Each object depends on other objects, so before creating the object, the requirements list should be checked. 
+
+Technology class `Tech` is not displayed on the map, so `BaseBuilding` and `BaseUnit` are also derived from another class; `BaseGraphicObject` which holds their positions and their display variables.
+
+[http://img57.imageshack.us/img57/6834/unitsic2.png]
 
 ===Putting It All Together===
 _buranın başlığını sonra değiştirelim, çok gayri ciddi_
