@@ -62,8 +62,46 @@ Below is a class diagram of these classes:
 
 ===Application, Game and Player Design===
 
+Following an object oriented approach, an Application class is designed. During the execution of the program, there is only one Application object. This class wraps the SDL initializing functions. It also holds the screens of the game, which are the derivatives of `SDLScreen` object. 
+
+Within these screens, a new `Game` object can be created. `Game` class is also a special case, as there can only be one object of this class during the execution. `Game` has connections to many other classes, some of them are part of `SDLGUI`. 
+
+The third class is called `Player`. `Game` has two `Player` variables. One is for the actual player of the game, the other one is the one controlled by the artificial intelligence. 
+
+The `Player` class have `Resource`s like `Wood`, `Food` and `Stone`, objects like `Tech`, `BaseUnit` and `BaseBuilding`. These three classes are derived from `BaseObject` while `BaseUnit` and `BaseBuilding` also derive from `BaseGraphicObject`. `BaseGraphicObject`'s most important variable is `Sprite`, which animates images on screen. 
+
+All technologies, units and buildings derive from Tech, BaseUnit and BaseBuildings respectively. 
+
+Below, there is a class diagram about how these classes are related.
+
+[http://img244.imageshack.us/img244/1060/gametw7.png]
+
+===Map Design=== 
+
+SERKAN
+
+===Putting It All Together===
+_buranın başlığını sonra değiştirelim, çok gayri ciddi_
+
+The design phase also includes how the game will run. 
 
 
 
+==Basic Classes==
+
+There are some basic or wrapper classes around SDL and its sister libraries which were not mentioned above. 
+
+===SDLFont===
+
+SDLFont, is mostly used behind the scenes in SDLLabel as a wrapper to SDL_ttf. It creates a new SDL_Surface and passes it to SDLLabel... 
+
+(SEVİL?)
 
 
+===SDLMixer===
+
+ŞULE?
+
+===SDLMusic===
+
+This class is mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable.
