@@ -115,13 +115,15 @@ SDLFont, is mostly used behind the scenes in SDLLabel as a wrapper to SDL_ttf. I
 
 ===SDLMixer===
 
-Sounds are another part of the project.We need to make some sounds when you push the one images of the villagers or soldiers.We decide to use SDLMixer to play this kind of sounds and music.And we choose audio format of ogg because of the small size of it and licance problem of the audio formats of wavs and mp3s.
+Sounds are another part of the project.We need to make some sounds when you push the one images of the villagers or soldiers.We decide to use SDLMixer to play this kind of sounds and music.And we choose audio format of ogg because of the small size of it and licanse problem of the audio formats of wavs and mp3s.
 
 In SDL there are things that must do.When you want to play sound you must adjust,check mixer SetMixer() and free the memory ~SDLMixer.In SDLMixer audio formats like ogg,mp3 have to be declared  as Mix_Chunk.Because of this we declared our sounds as Mix_Chunk.
 
-There is a main class SDLMixer.In this class has some functions to play the music play(),to load loadFile(char *f) and to adjust the sound volume setVolume(int oran).
- 
+There is a main class SDLMixer.In this class has some functions to play the music 
+play(),to load loadFile(char *f) and to adjust the sound volume setVolume(int oran).
+
 
 ===SDLMusic===
 
 This class is mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable.
+
