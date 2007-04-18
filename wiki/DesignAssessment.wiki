@@ -70,7 +70,7 @@ The third class is called `Player`. `Game` has two `Player` variables. One is fo
 
 The `Player` class have `Resource`s like `Wood`, `Food` and `Stone`, objects like `Tech`, `BaseUnit` and `BaseBuilding`. These three classes are derived from `BaseObject` while `BaseUnit` and `BaseBuilding` also derive from `BaseGraphicObject`. `BaseGraphicObject`'s most important variable is `Sprite`, which animates images on screen. 
 
-All technologies, units and buildings derive from Tech, BaseUnit and BaseBuildings respectively. 
+All technologies, units and buildings derive from `Tech`, `BaseUnit` and `BaseBuildings` respectively. 
 
 Below, there is a class diagram about how these classes are related.
 
