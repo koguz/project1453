@@ -40,6 +40,7 @@ class BaseGraphicObject
 	virtual void playConfirmed() {}
 	
 	void draw();
+	void drawSubScreen();
 	Player *parent;
 	
 	SDL_Rect hotspot;

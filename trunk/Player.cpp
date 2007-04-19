@@ -13,6 +13,8 @@ Player::Player()
 	faction = "Osmanlı";
 	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 	lastMsgTime = 0;
+	multipleSelect = false;
+	cok = 0;
 }
 
 Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
@@ -29,6 +31,9 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	drawing = dragging = false;
 	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 	lastMsgTime = 0;
+	multipleSelect = false;
+	cok = new SDLLabel("Detaylar Yakında!", 10);
+	cok->setPosition(660, 210);
 }
 
 Player::~Player()
@@ -109,22 +114,17 @@ bool Player::yeniKoylu()
 	if (!haveReqs(temp))
 	{
 		addMessage("Bu birim için gereksinimler karşılanmamış...");
-// 		cout << "Bu birim için gereksinimler karşılanmamış..." << endl;
 		delete temp;
 		return false;
 	}
 	if (!temp->getCost().compare(wood, food, stone))
 	{
 		addMessage("Bu birim için kaynaklar yetersiz...");
-// 		cout << << endl;
 		delete temp;
 		return false;
 	}
-// 	delete temp;
 	subtractCost(temp->getCost());
-// 	temp = new Koylu(screen, this);
 	delete temp;
-// 	return new Koylu(screen, this);
 	return true;
 }
 
@@ -143,11 +143,15 @@ void Player::update()
 	{
 		units[i]->update();
 		units[i]->draw();
+		if (!multipleSelect && units[i]->isSelected())
+			units[i]->drawSubScreen();
 	}
 	for(int i=0;i<buildings.size();i++)
 	{
 		buildings[i]->update();
 		buildings[i]->draw();
+		if (buildings[i]->isSelected())
+			buildings[i]->drawSubScreen();
 	}
 	if (isMultipleSelecting())
 	{
@@ -157,6 +161,10 @@ void Player::update()
 	{
 		messages.pop_back();
 		lastMsgTime = SDL_GetTicks();
+	}
+	if (multipleSelect)
+	{
+		cok->drawWidget(screen);
 	}
 }
 
@@ -208,6 +216,7 @@ void Player::eventHandler(SDL_Event *event)
 						units[i]->select();
 						units[i]->playSelected();
 						single = true;
+						multipleSelect = false;
 						empty = false;
 					}
 					else units[i]->unselect();
@@ -220,6 +229,7 @@ void Player::eventHandler(SDL_Event *event)
 						buildings[i]->select();
 						buildings[i]->playSelected();
 						single = true;
+						multipleSelect = false;
 						empty = false;
 					}
 					else buildings[i]->unselect();
@@ -232,6 +242,7 @@ void Player::eventHandler(SDL_Event *event)
 						buildings[i]->unselect();
 					// bir kare seçim başlıyor o zaman...
 					drawing = true;
+					multipleSelect = false;
 					rsx1 = event->motion.x;
 					rsy1 = event->motion.y;
 				}
@@ -253,6 +264,7 @@ void Player::eventHandler(SDL_Event *event)
 			// bakalim kimleri sectik
 			if (event->button.button = SDL_BUTTON_LEFT && drawing)
 			{
+				int sayac = 0;
 				for(int i=0;i<units.size();i++)
 				{
 					int smx = units[i]->getCenter().x;
@@ -285,7 +297,12 @@ void Player::eventHandler(SDL_Event *event)
 					)
 					{
 						if (isValidSelection())
+						{
 							units[i]->select();
+							sayac++;
+							if (sayac > 1)
+								multipleSelect = true;
+						}
 					}
 				}
 				drawing = dragging = false;

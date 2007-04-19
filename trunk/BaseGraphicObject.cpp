@@ -103,7 +103,13 @@ void BaseGraphicObject::draw()
 		int hy = uy1 - 10;
 		healthBar->setPosition(hx, hy);
 		healthBar->drawWidget(screen);
-		if (komutlar != 0)
-			komutlar->display();
+// 		if (komutlar != 0)
+// 			komutlar->display();
 	}
+}
+
+void BaseGraphicObject::drawSubScreen()
+{
+	if (komutlar!=0)
+		komutlar->display();
 }

@@ -69,6 +69,8 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int xp;
 	int kills;
 	
+	int lastUpdate;
+	
 	// grafikler için
 	string waitingCommand;
 	bool waiting;

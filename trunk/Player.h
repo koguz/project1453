@@ -43,12 +43,14 @@ class Player
 	void addMessage(string m);
 	
 	bool yeniKoylu();
+	bool multipleSelect;
  	
  	private:
  	vector<BaseUnit*> units;
  	vector<BaseBuilding*> buildings;
 	vector<Tech*> techs;
 	deque<string> messages;
+	SDLLabel *cok;
 	Uint32 lastMsgTime;
 	string faction;
 	SDL_Surface *screen;
