@@ -26,6 +26,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	range = 1;
 	sight = 4;
 	speed = 10;
+// 	speed = rand() % 20; // tmmdir :)
 	morale = 60;
 	xp = 10;
 	kills = 0;

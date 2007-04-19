@@ -2,11 +2,12 @@
 
 BaseUnit::BaseUnit()
 {
-	
+	lastUpdate = SDL_GetTicks();
 }
 
 BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGraphicObject(scr, p)
 {
+	lastUpdate = SDL_GetTicks();
 	hitpoints = 20; // hit points
 	armor = 1; // over 10
 	damage = 10; // minimum damage
@@ -91,17 +92,6 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	stKillsVal = new SDLLabel(kills, 10);
 	stKillsVal->setPosition(770, 275);
 	komutlar->addWidget(stKillsVal);
-	
-// 	SDLProgressBar *sbar;
-// 	SDLLabel *birimAdi, 
-// 		*stArmor, *stArmorVal, 
-// 		*stDamage, *stDamageVal, 
-// 		*stRange, *stRangeVal, 
-// 		*stSight, *stSightVal, 
-// 		*stSpeed, *stSpeedVal, 
-// 		*stMorale, *stMoraleVal,
-// 		*stXp, *stXpVal, 
-// 		*stKills, *stKillsVal;
 }
 
 BaseUnit::~BaseUnit() {}
@@ -213,33 +203,42 @@ void BaseUnit::update()
 		stXpVal->setText(xp);
 		stKillsVal->setText(kills);
 	}
+	
 	Coordinates temp;
 	if (!target.empty())
 	{
 		setState("yuru");
-		temp = target.front();
-		// ne tarafa bakacagiz?
-		if ( (posx > temp.x) && (posy == temp.y) )
-			setYon(W);
-		else if ( (posx > temp.x) && (posy > temp.y) )
-			setYon(NW);
-		else if ( (posx > temp.x) && (posy < temp.y) )
-			setYon(SW);
-		else if ( (posx < temp.x) && (posy == temp.y) )
-			setYon(E);
-		else if ( (posx < temp.x) && (posy > temp.y) )
-			setYon(NE);
-		else if ( (posx < temp.x) && (posy < temp.y) )
-			setYon(SE);
-		else if ( (posx == temp.x) && (posy > temp.y) )
-			setYon(N);
-		else if ( (posx == temp.x) && (posy < temp.y) )
-			setYon(S);
+		if ( (SDL_GetTicks() - lastUpdate) > (1000 / speed) )
+		{
+// 			cout << "update: " << SDL_GetTicks() << endl;
+			
 		
-		posx = temp.x;
-		posy = temp.y;
-		
-		target.pop_front();
+			temp = target.front();
+			// ne tarafa bakacagiz?
+			if ( (posx > temp.x) && (posy == temp.y) )
+				setYon(W);
+			else if ( (posx > temp.x) && (posy > temp.y) )
+				setYon(NW);
+			else if ( (posx > temp.x) && (posy < temp.y) )
+				setYon(SW);
+			else if ( (posx < temp.x) && (posy == temp.y) )
+				setYon(E);
+			else if ( (posx < temp.x) && (posy > temp.y) )
+				setYon(NE);
+			else if ( (posx < temp.x) && (posy < temp.y) )
+				setYon(SE);
+			else if ( (posx == temp.x) && (posy > temp.y) )
+				setYon(N);
+			else if ( (posx == temp.x) && (posy < temp.y) )
+				setYon(S);
+			
+			posx = temp.x;
+			posy = temp.y;
+			
+			target.pop_front();
+			
+			lastUpdate = SDL_GetTicks();
+		}
 	}
 	else 
 	{

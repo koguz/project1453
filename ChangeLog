@@ -1,3 +1,17 @@
+2007.04.20
+02:50
+	- Birimlerin hızlarına göre ekranda ilerlemesi ayarlandı. Eskiden
+	birimlerin "speed" değişkenleri görüntüden ibaretti, şimdi o 
+	değer temel alınarak belli aralıklarla güncelleniyor. Böylece
+	speed değeri arttıkça, güncelleme aralığı artıyor, dolayısı ile
+	hız artıyor
+
+	- Çoklu seçim olduğunda, her birim kendi alt ekranını (komutlar)
+	göstermek istiyor(du). Artık öyle değil. Bu gece için sadece bir
+	SDLLabel koydum, ama en kısa zamanda oraya bir alt ekran ile 
+	bütün birimler için geçerli olan "Yürü" ve "Dur" eylemlerini
+	koyacağım...
+
 2007.04.10
 14:07
 	- Issue 6, SDLTextView ve SDLListView'da scrollbar'ların en 
