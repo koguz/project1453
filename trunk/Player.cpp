@@ -32,8 +32,28 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 	lastMsgTime = 0;
 	multipleSelect = false;
-	cok = new SDLLabel("Detaylar Yakında!", 10);
-	cok->setPosition(660, 210);
+	cok = new SDLScreen(screen);
+	
+	SDL_Rect trect;
+	trect.x = trect.y = 0;
+	trect.w = trect.h = 32;
+	
+	Player *me = this;
+	
+	clist = new SDLTextView("boş", 100, 4);
+	clist->setPosition(660, 210);
+	cok->addWidget(clist);
+	
+	yuru = new SDLCommandButton(screen, trect, "Seçilileri Yürüt");
+	yuru->setPosition(665,295);
+	yuru->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::hepsiYuru);
+	cok->addWidget(yuru);
+	
+	trect.x = 32; trect.y = 0;
+	dur = new SDLCommandButton(screen, trect, "Seçilileri Durdur");
+	dur->setPosition(705,295);
+	dur->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::hepsiDur);
+	cok->addWidget(dur);
 }
 
 Player::~Player()
@@ -70,6 +90,24 @@ void Player::addUnit(BaseUnit* b) { units.push_back(b); }
 void Player::addTech(Tech* t) { techs.push_back(t); }
 void Player::addBuilding(BaseBuilding* b) { buildings.push_back(b); }
 void Player::addMessage(string m) { lastMsgTime = SDL_GetTicks(); messages.push_front(m); }
+
+void Player::hepsiYuru()
+{
+	for(int i=0;i<units.size();i++)
+	{
+		if (units[i]->isSelected())
+			units[i]->setCommandYuru();
+	}
+}
+
+void Player::hepsiDur()
+{
+	for(int i=0;i<units.size();i++)
+	{
+		if (units[i]->isSelected())
+			units[i]->actionDur();
+	}
+}
 
 void Player::buildStartingUnits(int x, int y)
 {
@@ -164,13 +202,15 @@ void Player::update()
 	}
 	if (multipleSelect)
 	{
-		cok->drawWidget(screen);
+		cok->display();
 	}
 }
 
 
 void Player::eventHandler(SDL_Event *event)
 {
+	if (multipleSelect)
+		cok->eventHandler(event);
 	for(int i=0;i<units.size();i++)
 	{
 		if(units[i]->isSelected())
@@ -300,8 +340,23 @@ void Player::eventHandler(SDL_Event *event)
 						{
 							units[i]->select();
 							sayac++;
-							if (sayac > 1)
-								multipleSelect = true;
+						}
+						if (sayac > 1)
+						{
+							string a = "Liste: [br] ";
+							int s2 = 0;
+							for(int i=0;i<units.size();i++)
+							{
+								if (units[i]->isSelected())
+								{
+									a += units[i]->getName() + " ";
+									if (s2 != (sayac-1))
+										a += " [br] ";
+									s2++;
+								}
+							}
+							clist->setText(a);
+							multipleSelect = true;
 						}
 					}
 				}

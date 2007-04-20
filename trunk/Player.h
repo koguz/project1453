@@ -11,6 +11,7 @@
 #include "TTemelTech.h"
 #include "UOKoylu.h"
 #include "UBSerf.h"
+#include "SDLTextView.h"
 
 using namespace std;
 
@@ -41,6 +42,8 @@ class Player
 	void addTech(Tech* t);
 	void addBuilding(BaseBuilding* b);
 	void addMessage(string m);
+	void hepsiYuru();
+	void hepsiDur();
 	
 	bool yeniKoylu();
 	bool multipleSelect;
@@ -50,7 +53,11 @@ class Player
  	vector<BaseBuilding*> buildings;
 	vector<Tech*> techs;
 	deque<string> messages;
-	SDLLabel *cok;
+	
+	SDLScreen *cok;
+	SDLCommandButton *yuru, *dur;
+	SDLTextView *clist; // kimler secilmis, liste...
+	
 	Uint32 lastMsgTime;
 	string faction;
 	SDL_Surface *screen;
