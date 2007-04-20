@@ -100,6 +100,19 @@ _buranın başlığını sonra değiştirelim, çok gayri ciddi_
 
 The design phase also includes how the game will run. 
 
+Real Time Strategy games are being developed more than fifteen years and there are some common approaches on the game play. The most popular are the resource oriented games. In resource oriented games, the player is to gather resources from the map, or process these resources in order to support more units and research new technologies. 
+
+Usually this gathering is done by some worker type unit, like engineers or villagers, depending on the set of the game. All units should also be supported by accomodation or in some games by some amount of food. The size of the army mostly depends on these conditions.
+
+To make use of the player's previous experience with real time strategy games, a similar game style is planned. The player will be given a city center and a villager, unless the map sets otherwise, and the player will start producing more units. Having more units means having more resources, and with these resources new type of technologies, buildings and units will be made available. 
+
+The winning conditions of real time strategy games are mostly about destroying the enemy's all units. But in scenario oriented games, there may be different goals for each scenario. For example, keeping a particular unit alive for certain amount of time, or gathering a certain amount of resource may be enough to win the game. 
+
+
+The gathering of the resources are crucial to the game play. More resource means more units; so it is common to have scarcity on resources. 
+
+In 1453, there are three resources; Food, Wood and Stone. Wood is gathered from the trees on the map. Each tree tile contains a certain amount of wood, and when this wood is gathered, the tree tile will be displayed as cut and no more wood will be gathered. Food is gathered from the building Farms. Farms can only be built on special type of tile, which is yellow-green grass. This also limits... (to be continued :) )
+
 
 
 ==Basic Classes==
