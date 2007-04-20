@@ -26,7 +26,7 @@ Many sister libraries of the SDL library are in use. In the following design app
 
 ===GUI Design===
 
-Although there are a few SDL libraries for GUI, none of them seems to satisfy the project  requirements. The game will have a Turkish interface, but the user interface libraries have a few distinctive problems
+Although there are a few SDL libraries for GUI, none of them seems to satisfy the project  requirements. The game will have a Turkish interface, but the user interface libraries have a few distinctive problems;
 
   * they were too old (around 2001) to use with the current version of SDL
   * they were incomplete
@@ -35,19 +35,19 @@ Although there are a few SDL libraries for GUI, none of them seems to satisfy th
 
 So, it is decided to design a new graphical user interface along with the widgets that are required. The GUI system, which is called SDLGUI as a code name, has a simple design which has small similarities to another GUI toolkit, Qt. 
 
-The design is based on a class called `SDLWidget`, which is the base of all the derived classes. `SDLWidget` has basic variables for representing an image on the screen, which are the x, y coordinates, width and height. It also has an `SDL_Surface` which is a basic type of SDL library. `SDL_Surface` is always a pointer which a surface is held. The surface should be freed with `SDL_FreeSurface(SDL_Surface*)`. 
+The design is based on a class called `SDLWidget`, which is the base of all the derived classes. `SDLWidget` has basic variables for representing an image on the screen, which are the x, y coordinates, width and height. It also has an `SDL_Surface` which is a basic type of SDL library. `SDL_Surface` is always a pointer to which a surface is held. The surface should be freed with `SDL_FreeSurface(SDL_Surface*)`. 
 
 In `SDLWidget`, SDL_image library is used to be able to load JPG and PNG images. PNG images are mostly used for their transparency. 
 
 `SDLLabel`, like all other widgets, is derived from `SDLWidget`. It's one of the base widgets, as it allows the use of any text like an `SDL_Surface`. It uses SDL_ttf to render these surfaces. It's the widget that makes the application have Turkish characters.
 
-`SDLButton`, is also one of the basic widgets. It is used by almost all of the widgets. The widget has a `clicked` variable, which connects it to any function of any class. This is how the `SDLButton` gets the job done. The library, which is simply called `callback.h` is written by Rich Hickey. `SDLButton` may have an `SDLLabel`.
+`SDLButton`, is also one of the basic widgets. It is used by almost all of the widgets. The widget has a `clicked` variable, which connects it to any function of any class. This is how the `SDLButton` gets the job done. The library, which is simply called `callback.h` is written by Rich Hickey. `SDLButton`, optionally, may have an `SDLLabel`.
 
 The other derived classes are `SDLProgressBar`, a progress bar suitable for Loading screens and Health Bars of the units, `SDLCheckBox`, a simple checkbox for turning on and off some options. `SDLTextView` is a text area which displays a long text, wrapping it into lines.
 
-`SDLCombo` and `SDLListView` are two classes which use `SDLComboOption` and `SDLListViewItem` respectively as their children widgets. 
+`SDLCombo` and `SDLListView` are two classes which use `SDLComboOption` and `SDLListViewItem` respectively as their children widgets, similar to Qt's `QComboBox` and `QListWidget`.
 
-`SDLCommandButton` is a special type of button, which displays information about it when the mouse is hovered on it. This button is mostly designed to be used in units and buildings. 
+`SDLCommandButton` is a special type of button, which displays information about it when the mouse is hovered on it. This button is mostly designed to be used at the screens of units and buildings. 
 
 All widgets have the basic `setPosition(int, int)` function, which puts them on a fixed position on screen. For simplicity a layout manager is not planned. 
 
@@ -104,16 +104,17 @@ Real Time Strategy games are being developed more than fifteen years and there a
 
 Usually this gathering is done by some worker type unit, like engineers or villagers, depending on the set of the game. All units should also be supported by accomodation or in some games by some amount of food. The size of the army mostly depends on these conditions.
 
-To make use of the player's previous experience with real time strategy games, a similar game style is planned. The player will be given a city center and a villager, unless the map sets otherwise, and the player will start producing more units. Having more units means having more resources, and with these resources new type of technologies, buildings and units will be made available. 
+To make use of the player's previous experience with real time strategy games, a similar game style is planned. The player will be given a city center and a villager, unless the map sets otherwise, and the player will start producing more units. Having more units means having more resources, and with these resources new technologies, buildings and units will be made available. 
 
-The winning conditions of real time strategy games are mostly about destroying the enemy's all units. But in scenario oriented games, there may be different goals for each scenario. For example, keeping a particular unit alive for certain amount of time, or gathering a certain amount of resource may be enough to win the game. 
+The winning conditions of real time strategy games are mostly about destroying the enemy's all units, which is sometimes called a _Death Match_. But in scenario oriented games, there may be different goals for each scenario. For example, keeping a particular unit alive for certain amount of time, or gathering a certain amount of resource, may be enough to win the game. 
 
+The games usually occur in open areas, like forests, swamps etc. In 1453, the locations are mostly country sides. Therefore, the field types are; grass, yellow-green grass, dirt, trees, rocky areas and sea. Land units can not walk on water, and sea units can not sail on land, so certain units can occupy certain fields. Land units can not walk through the trees and rocky areas. 
 
-The gathering of the resources are crucial to the game play. More resource means more units; so it is common to have scarcity on resources. 
+The gathering of the resources are crucial to the game play. More resource means more units; so it is common to have scarcity and dependency on resources. 
 
-In 1453, there are three resources; Food, Wood and Stone. Wood is gathered from the trees on the map. Each tree tile contains a certain amount of wood, and when this wood is gathered, the tree tile will be displayed as cut and no more wood will be gathered. Food is gathered from the building Farms. Farms can only be built on special type of tile, which is yellow-green grass. This also limits... (to be continued :) )
+In 1453, there are three resources; Food, Wood and Stone. Wood is gathered from the tree tiles on the map. Each tree tile contains a certain amount of wood, and when this wood is gathered, the tree tile will be displayed as _cut_ and no more wood will be gathered. Food is gathered from the building Farms. Farms can only be built on special type of tile, which is yellow-green grass. This also limits the number of farms that can be built, therefore limiting both the Food resource, and the number of units that can be supported. Finally, Stone is gathered from the Mine. Mines can be built to rocky areas. When built, they get a certain amount of Stone from the surrounding rocky areas. 
 
-
+Using these resources, new buildings, like Barracks can be built to produce warrior units. Building a blacksmith, the player can research upgrades to weaponry and armors. The cost of all of these are defined by the three resources. For example, a house may need 100 Stone and 100 Food. To ease the calculation of these amounts, a `Cost` class is designed. Cost of each object is defined with this `Cost` class. 
 
 ==Basic Classes==
 
@@ -137,4 +138,4 @@ There is a main class called `SDLMixer`. This class has a functions to play the 
 
 ===SDLMusic===
 
-This class is mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable.
+This class is mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable. 
