@@ -1,4 +1,9 @@
 2007.04.20
+13:49
+	- Birden fazla birim seçilirse, onlar için "Yürü" ve "Dur 
+	komutları çıkıyor. Bu komutların üzerinde de seçili birimlerin
+	listesi... Daha geliştirilebilir, ama şimdilik iş görüyor...
+
 02:50
 	- Birimlerin hızlarına göre ekranda ilerlemesi ayarlandı. Eskiden
 	birimlerin "speed" değişkenleri görüntüden ibaretti, şimdi o 

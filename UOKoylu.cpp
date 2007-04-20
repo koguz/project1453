@@ -20,7 +20,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	
 	// temel bileşenler
 	hitpoints = 20;
-	buildRate = 1000; 
+	buildRate = 1000;
 	armor = 2;
 	damage = 10;
 	range = 1;

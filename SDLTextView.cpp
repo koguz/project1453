@@ -23,11 +23,6 @@ SDLTextView::SDLTextView(string text, int w, int r)
 	
 	up->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLTextView::moveUp);
 	down->clicked = makeFunctor((CBFunctor0*)0, *me, &SDLTextView::moveDown);
-	
-	uppos = 0;
-	if (lines < r)
-		downpos = lines;
-	else downpos = r;
 }
 
 SDLTextView::~SDLTextView()
@@ -94,6 +89,11 @@ void SDLTextView::setText(string text)
 	}
 	satirlar.push_back(temp);
 	lines = satirlar.size();
+	uppos = 0;
+	if (lines < rows)
+		downpos = lines;
+	else downpos = rows;
+	repositionLabels();
 }
 
 void SDLTextView::repositionLabels()
