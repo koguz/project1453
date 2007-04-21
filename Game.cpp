@@ -206,6 +206,25 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	mvol->addOption("Kısık", "4");
 	sesayar->addWidget(mvol);
 	
+	// emin mi diyaloglari icin
+	eminmi = new SDLScreen(screen);
+	
+	arka3 = new SDLWidget("ui/optionPane.jpg");
+	arka3->setPosition(265, 200);
+	eminmi->addWidget(arka3);
+	
+	lblemin = new SDLLabel("Emin misiniz?");
+	lblemin->setPosition(300 + ( (200-lblemin->getWidth())/2 ), 260);
+	eminmi->addWidget(lblemin);
+	
+	evet = new SDLButton("ui/dugme100.jpg", "Evet", 11);
+	evet->setPosition(300, 300);
+	eminmi->addWidget(evet);
+	
+	hayir = new SDLButton("ui/dugme100.jpg", "Hayır", 11);
+	hayir->setPosition(400, 300);
+	eminmi->addWidget(hayir);
+	
 	current = 0;
 	
 	muse = new SDLMusic("wavs/music/track02.ogg");
@@ -240,12 +259,28 @@ int Game::sonMu()
 
 void Game::endGame()
 {
+	Game *me = this;
+	evet->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::quitGame);
+	hayir->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::closeMenu);
+	current = eminmi;
+}
+
+void Game::quitGame()
+{
 	son = 1;
+}
+
+void Game::quitAll()
+{
+	son = 2;
 }
 
 void Game::quitToSystem()
 {
-	son = 2;
+	Game *me = this;
+	evet->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::quitAll);
+	hayir->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::closeMenu);
+	current = eminmi;
 }
 
 void Game::update()

@@ -15,9 +15,11 @@ using namespace std;
 class Game
 {
 	public:
-	SDLScreen *ui, *current, *commands, *sesayar;
+	SDLScreen *ui, *current, *commands, *sesayar, *eminmi;
+	SDLLabel *lblemin;
+	SDLButton *evet, *hayir;
 	SDLButton *menu, *btnSes, *devam, *anamenu, *cikis, *sesonceki, *seskaydet;
-	SDLWidget *menuArka, *arka2;
+	SDLWidget *menuArka, *arka2, *arka3;
 	SDLLabel *menuTitle, *sesTitle, *muzik;
 	SDLCheckBox *monoff;
 	SDLCombo *mvol;
@@ -43,7 +45,9 @@ class Game
 	void saveVolSets();
 	int sonMu();
 	void endGame();
+	void quitGame();
 	void quitToSystem();
+	void quitAll();
 	
 	protected:
 	bool running;
