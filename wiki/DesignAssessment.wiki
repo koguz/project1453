@@ -125,10 +125,13 @@ There are some basic or wrapper classes around SDL and its sister libraries whic
 
 ===SDLFont===
 
-SDLFont, is mostly used behind the scenes in SDLLabel as a wrapper to SDL_ttf. It creates a new SDL_Surface and passes it to SDLLabel... 
+In the game has font a crucial role. `SDLFont`, is mostly used behind the scenes in `SDLLabel` as a wrapper to `SDL_ttf`. It creates a new `SDL_Surface` and passes it to `SDLLabel`. 
 
-(SEVİL?)
+Thanks to the SDLFont a lot of important information is transmitted to the player. Buttons and units gain meaning. A perfect combination of the font style, size, color and the graphical user interface lets a game appear more attractive to the user. Since the game is in Turkish `UTF8` encoding have to be used. Having taken these facts to consideration, a font that is appropriate to the user interface and also to the theme of the game will be chosen. While this class will be coded, the `SDL_ttf` library will support all technical aspects needed. 
 
+Since the `SDLFont` code is needed to be used in many parts of the project, it is designed as a class whose calling function has the font color and font size as parameters. This saves time and prevents the developer from writing the same code again and again. In the code, first an initialization takes place. The `TTF_OpenFont` enables opening a font from the same file with an arbitrary size. If the font cannot be loaded an error is returned. 
+
+To have a clear and plain readability, only the `TTF_STYLE_NORMAL` of `TTF_SetFontStyle` has been chosen. If a glyph cannot be read or there is another problem, the control structure, if statement of `TTF_SizeUTF8` returns an error. Since the quality of the text surface affects also the common appearance of the game, `TTF_RenderUTF8_Blended` was the best choice for rendering. In this statement the text turns to the color, the developer has chosen according to the place of use. Finally, in the `drawMe()` function `SDL_BlitSurface` copies everything from the source surface to the target surface.
 
 ===SDLMixer===
 
