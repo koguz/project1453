@@ -119,7 +119,7 @@ Sounds are another part of the project. When a villager or a soldier is clicked 
 
 In SDL there are things that should be done before a sound is played. When a sound should be played the mixer should be checked or be adjusted by `SetMixer()` function. The allocated memory should be freed by the destructor `~SDLMixer()`. In SDLMixer audio formats like OGG and MP3 have to be declared as `MixChunk`. 
 
-There is a main class called `SDLMixer`. This class has a functions to play the sound which is called `play()`, a function to load the file which is `loadFile()` and another to adjust the sound volume, `setVolume()`.
+There is a main class called `SDLMixer`. This class has functions to play the sound which is called `play()`, a function to load the file which is `loadFile()` and another to adjust the sound volume, `setVolume()`.
 
 
 ===SDLMusic===
