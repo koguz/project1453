@@ -57,7 +57,7 @@ Below is a class diagram of these classes:
 
 
 
-[http://img244.imageshack.us/img244/7182/sdlguiad3.png]
+[http://img235.imageshack.us/img235/4352/sdlgui1zq7.png]
 
 
 ===Application, Game and Player Design===
@@ -75,7 +75,7 @@ All technologies, units and buildings derive from `Tech`, `BaseUnit` and `BaseBu
 Below, there is a class diagram about how these classes are related.
 
 
-[http://img244.imageshack.us/img244/1060/gametw7.png]
+[http://img256.imageshack.us/img256/3034/game1iu5.png]
 
 
 
@@ -93,7 +93,10 @@ The other important variables is the requirements list. Each object depends on o
 
 Technology class `Tech` is not displayed on the map, so `BaseBuilding` and `BaseUnit` are also derived from another class; `BaseGraphicObject` which holds their positions and their display variables.
 
-[http://img57.imageshack.us/img57/6834/unitsic2.png]
+
+[http://img255.imageshack.us/img255/9982/units1aq9.png]
+
+
 
 ===Putting It All Together===
 _buranın başlığını sonra değiştirelim, çok gayri ciddi_
