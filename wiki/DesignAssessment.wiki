@@ -28,10 +28,10 @@ Many sister libraries of the SDL library are in use. In the following design app
 
 Although there are a few SDL libraries for GUI, none of them seems to satisfy the project  requirements. The game will have a Turkish interface, but the user interface libraries have a few distinctive problems;
 
-  * they were too old (around 2001) to use with the current version of SDL
-  * they were incomplete
-  * they were too big, or too small
-  * and most importantly, they did not support Turkish characters...
+  * they are too old (around 2001) to use with the current version of SDL
+  * they are incomplete
+  * they are too big, or too small
+  * and most importantly, they do not support Turkish characters...
 
 So, it is decided to design a new graphical user interface along with the widgets that are required. The GUI system, which is called SDLGUI as a code name, has a simple design which has small similarities to another GUI toolkit, Qt. 
 
@@ -64,11 +64,11 @@ Below is a class diagram of these classes:
 
 Following an object oriented approach, an Application class is designed. During the execution of the program, there is only one Application object. This class wraps the SDL initializing functions. It also holds the screens of the game, which are the derivatives of `SDLScreen` object. 
 
-Within these screens, a new `Game` object can be created. `Game` class is also a special case, as there can only be one object of this class during the execution. `Game` has connections to many other classes, some of them are part of `SDLGUI`. 
+Within these screens, a new `Game` object can be created. `Game` class is also a special case, as there can only be one object of this class during the execution. `Game` has connections to many other classes, some of them are parts of `SDLGUI`. 
 
 The third class is called `Player`. `Game` has two `Player` variables. One is for the actual player of the game, the other one is the one controlled by the artificial intelligence. 
 
-The `Player` class have `Resource`s like `Wood`, `Food` and `Stone`, objects like `Tech`, `BaseUnit` and `BaseBuilding`. These three classes are derived from `BaseObject` while `BaseUnit` and `BaseBuilding` also derive from `BaseGraphicObject`. `BaseGraphicObject`'s most important variable is `Sprite`, which animates images on screen. 
+The `Player` class have `Resource`s like `Wood`, `Food` and `Stone`, objects like `Tech`, `BaseUnit` and `BaseBuilding`. These three classes are derived from `BaseObject`, while `BaseUnit` and `BaseBuilding` derive from both `BaseObject` and `BaseGraphicObject`. `BaseGraphicObject`'s most important variable is `Sprite`, which animates images on screen. 
 
 All technologies, units and buildings derive from `Tech`, `BaseUnit` and `BaseBuildings` respectively. 
 
@@ -89,7 +89,7 @@ The `Player` class is the one which is controlled by the actual player. One obje
 
 The base class `BaseObject` holds the information for basic and common variables of these objects. The most important of them are the `Cost`, which is the cost of the object with the combination of three resources on the map; `Wood`, `Food` and `Stone`. 
 
-The other important variables is the requirements list. Each object depends on other objects, so before creating the object, the requirements list should be checked. 
+The other important variable is the requirements list. Each object depends on other objects, so before creating the object, the requirements list should be checked. 
 
 Technology class `Tech` is not displayed on the map, so `BaseBuilding` and `BaseUnit` are also derived from another class; `BaseGraphicObject` which holds their positions and their display variables.
 
@@ -105,17 +105,17 @@ There are some basic or wrapper classes around SDL and its sister libraries whic
 
 ===SDLFont===
 
-In the game has font a crucial role. `SDLFont`, is mostly used behind the scenes in `SDLLabel` as a wrapper to `SDL_ttf`. It creates a new `SDL_Surface` and passes it to `SDLLabel`. 
+In the game font has a crucial role. `SDLFont`, is mostly used behind the scenes in `SDLLabel` as a wrapper to `SDL_ttf`. It creates a new `SDL_Surface` and passes it to `SDLLabel`. 
 
-Thanks to the SDLFont a lot of important information is transmitted to the player. Buttons and units gain meaning. A perfect combination of the font style, size, color and the graphical user interface lets a game appear more attractive to the user. Since the game is in Turkish `UTF8` encoding have to be used. Having taken these facts to consideration, a font that is appropriate to the user interface and also to the theme of the game will be chosen. While this class will be coded, the `SDL_ttf` library will support all technical aspects needed. 
+SDLFont is used for displaying a lot of information to the player. Buttons and units are more meaningful with text. A perfect combination of the font style, size, color and the graphical user interface lets a game appear more attractive to the user. Since the game is in Turkish, `UTF8` encoding is appropiate for displaying the text correctly. Taking these facts to consideration, a font that is best displayed on screen and also fits to the theme of the game will be chosen. While this class is being coded, the `SDL_ttf` library will support all technical aspects needed. 
 
-Since the `SDLFont` code is needed to be used in many parts of the project, it is designed as a class whose calling function has the font color and font size as parameters. This saves time and prevents the developer from writing the same code again and again. In the code, first an initialization takes place. The `TTF_OpenFont` enables opening a font from the same file with an arbitrary size. If the font cannot be loaded an error is returned. 
+Since the `SDLFont` code is needed to be used in many parts of the project, it is designed as a class whose calling function has the font color and font size as parameters. This saves time and prevents the developer from writing the same code again and again. Before a font is used, an initialization should take place. The `TTF_OpenFont` enables opening a font from the same file with an arbitrary size. If the font cannot be loaded, an error is returned. 
 
-To have a clear and plain readability, only the `TTF_STYLE_NORMAL` of `TTF_SetFontStyle` has been chosen. If a glyph cannot be read or there is another problem, the control structure, if statement of `TTF_SizeUTF8` returns an error. Since the quality of the text surface affects also the common appearance of the game, `TTF_RenderUTF8_Blended` was the best choice for rendering. In this statement the text turns to the color, the developer has chosen according to the place of use. Finally, in the `drawMe()` function `SDL_BlitSurface` copies everything from the source surface to the target surface.
+To have a clear and plain readability, only the `TTF_STYLE_NORMAL` of `TTF_SetFontStyle` is chosen. Since the quality of the text surface affects also the common appearance of the game, `TTF_RenderUTF8_Blended` is the best choice for rendering. This type of rendering is slow but is displayed anti-aliased, which looks cleaner and is more beautiful. 
 
 ===SDLMixer===
 
-Sounds are another part of the project. When a villager or a soldier is clicked on, some sounds should be played. `SDLMixer` is the choice to play this kind of sounds and music. Because of the licensing problems of MP3 and the large sizes of WAV files, OGG is the choice of sound format.
+Sounds are another part of the project. When a villager or a soldier is clicked, a sound should be played. `SDLMixer` is the library which plays sounds. Because of the licensing problems of MP3 and the large sizes of WAV files, OGG is the choice of the sound format in the game.
 
 In SDL there are things that should be done before a sound is played. When a sound should be played the mixer should be checked or be adjusted by `SetMixer()` function. The allocated memory should be freed by the destructor `~SDLMixer()`. In SDLMixer audio formats like OGG and MP3 have to be declared as `MixChunk`. 
 
@@ -124,14 +124,14 @@ There is a main class called `SDLMixer`. This class has functions to play the so
 
 ===SDLMusic===
 
-This class is mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable. 
+This class mostly have static variables, as there can be only one music playing at a time. Also, `SDL_mixer` has a single channel for playing music, so the functions related effects only one variable. 
 
 
 == Overall Design ==
 
 The design phase also includes how the game will run. 
 
-Real Time Strategy games are being developed more than fifteen years and there are some common approaches on the game play. The most popular are the resource oriented games. In resource oriented games, the player is to gather resources from the map, or process these resources in order to support more units and research new technologies. 
+Real Time Strategy games are being developed more than fifteen years and there are some common approaches to the game play. The most popular are the resource oriented games. In resource oriented games, the player is to gather resources from the map, or process these gathered resources in order to support more units and research new technologies. 
 
 Usually this gathering is done by some worker type unit, like engineers or villagers, depending on the set of the game. All units should also be supported by accomodation or in some games by some amount of food. The size of the army mostly depends on these conditions.
 
@@ -143,6 +143,6 @@ The games usually occur in open areas, like forests, swamps etc. In 1453, the lo
 
 The gathering of the resources are crucial to the game play. More resource means more units; so it is common to have scarcity and dependency on resources. 
 
-In 1453, there are three resources; Food, Wood and Stone. Wood is gathered from the tree tiles on the map. Each tree tile contains a certain amount of wood, and when this wood is gathered, the tree tile will be displayed as _cut_ and no more wood will be gathered. Food is gathered from the building Farms. Farms can only be built on special type of tile, which is yellow-green grass. This also limits the number of farms that can be built, therefore limiting both the Food resource, and the number of units that can be supported. Finally, Stone is gathered from the Mine. Mines can be built to rocky areas. When built, they get a certain amount of Stone from the surrounding rocky areas. 
+In 1453, there are three resources; Food, Wood and Stone. Wood is gathered from the tree tiles on the map. Each tree tile contains a certain amount of wood, and when this wood is gathered, the tree tile will be displayed as _cut_ tile and no more wood will be gathered. Food is gathered from the building Farms. Farms can only be built on special type of tile, which is yellow-green grass. This also limits the number of farms that can be built, therefore limiting both the Food resource, and the number of units that can be supported. Finally, Stone is gathered from the Mine. Mines can be built to rocky areas. When built, they get a certain amount of Stone from the surrounding rocky areas. 
 
 Using these resources, new buildings, like Barracks can be built to produce warrior units. Building a blacksmith, the player can research upgrades to weaponry and armors. The cost of all of these are defined by the three resources. For example, a house may need 100 Stone and 100 Food. To ease the calculation of these amounts, a `Cost` class is designed. Cost of each object is defined with this `Cost` class. 
