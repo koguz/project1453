@@ -117,9 +117,13 @@ To have a clear and plain readability, only the `TTF_STYLE_NORMAL` of `TTF_SetFo
 
 Sounds are another part of the project. When a villager or a soldier is clicked, a sound should be played. `SDLMixer` is the library which plays sounds. Because of the licensing problems of MP3 and the large sizes of WAV files, OGG is the choice of the sound format in the game.
 
-In SDL there are things that should be done before a sound is played. When a sound should be played the mixer should be checked or be adjusted by `SetMixer()` function. The allocated memory should be freed by the destructor `~SDLMixer()`. In SDLMixer audio formats like OGG and MP3 have to be declared as `MixChunk`. 
+There are steps in using SDL_Mixer
+ * Open up the audio device
+ * Load sounds into memory
+ * Play them when necessary
+ * Clean up
 
-There is a main class called `SDLMixer`. This class has functions to play the sound which is called `play()`, a function to load the file which is `loadFile()` and another to adjust the sound volume, `setVolume()`.
+There is a main class called `SDLMixer`. In SDLMixer audio formats like OGG and MP3 have to be declared as `MixChunk`. This class has a function to play the sound which is called `play()`, a function to load the file which is `loadFile()` and another to adjust the sound volume, `setVolume()`. When a sound should be played the mixer should be checked or be adjusted by `SetMixer()` function. The allocated memory should be freed by the destructor `~SDLMixer()`. 
 
 
 ===SDLMusic===
