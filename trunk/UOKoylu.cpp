@@ -95,7 +95,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	evbtn->setPosition(745, 295);
 	komutlar->addWidget(evbtn);
 	
-	trect.x = 128; trect.y = 0;
+	trect.x = 96; trect.y = 0;
 	resim = new SDLCommandButton(screen, trect, "Köylü");
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);
