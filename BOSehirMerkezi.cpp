@@ -10,7 +10,7 @@ SehirMerkezi::SehirMerkezi()
 	btnKoylu = resim = 0;
 }
 
-SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi (I)")
+SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi")
 {
 	cost.set(400, 0, 400); 
 	addReq("Temel Teknoloji");
@@ -27,7 +27,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	if (spriteImg == 0)
 	{
-		spriteImg = loadImg("graphics/buildings/osmanli/sehirMerkezi1.png");
+		spriteImg = loadImg("graphics/buildings/osmanli/merkez.png");
 	}
 	
 	sprite = Sprite(spriteImg);
@@ -46,7 +46,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 // 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;
-	trect.x = 128; trect.y = 0;
+	trect.x = 96; trect.y = 0;
 	trect.w = trect.h = 32;
 	
 	SehirMerkezi *me = this;
@@ -62,7 +62,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	komutlar->addWidget(btnKoylu);
 	
 	
-	trect.x = 96;
+	trect.x = 128; trect.y = 32;
 	resim = new SDLCommandButton(screen, trect, name);
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);

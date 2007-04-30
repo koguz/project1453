@@ -29,6 +29,8 @@ class Application
 	ScreenSettings *ayar;
 	Game *game;
 	SDLMusic *muse;
+	SDLLabel *lblFps;
+	bool showFps;
 	
 	public:
 	SDL_Surface* screen;

@@ -6,6 +6,9 @@ Application::Application(string name, int w, int h, int d, unsigned int f)
 	screen = 0;
 	error = "";
 	done = true;
+	lblFps = new SDLLabel("?", 8);
+	lblFps->setPosition(20, 580);
+	showFps = true;
 }
 
 Application::~Application()
@@ -114,6 +117,8 @@ int Application::Run()
 	}
 	SDL_Event event;
 	done = true;
+	int fps = 0;
+	int sonfps = SDL_GetTicks();
 	while(done)
 	{
 		while(SDL_PollEvent(&event))
@@ -162,8 +167,19 @@ int Application::Run()
 				muse->stop();
 		}
 		SDLCursor::cCurrent->drawWidget(screen);
-		SDL_UpdateRect(screen, 0, 0, 0, 0);
-		SDL_Delay(50);
+		if (showFps)
+			lblFps->drawWidget(screen);
+		SDL_Flip(screen);
+// 		SDL_UpdateRect(screen, 0, 0, 0, 0);
+		SDL_Delay(10);
+		if (SDL_GetTicks() - sonfps > 1000)
+		{
+			if (showFps)
+				lblFps->setText(fps);
+			sonfps = SDL_GetTicks();
+			fps = 0;
+		}
+		else fps++;
 	}
 	
 	return 0;
