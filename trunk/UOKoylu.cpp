@@ -32,7 +32,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	kills = 0;
 	
 	// grafiksel bileşenler
-	hotspot.x = hotspot.y = 18;
+	hotspot.x = hotspot.y = 16;
 	hotspot.w = hotspot.h = 32;
 	cx = cy = 32; 
 	

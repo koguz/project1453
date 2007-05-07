@@ -1,3 +1,13 @@
+2007.05.07
+03:36
+	- Baya bir hata var, ama commit edeyim artik... Haritaya tasima
+	islemleri devam ediyor...
+
+2007.05.01
+	- Daha önce yazılmış harita oyuna dahil edildi, şu an düzgün 
+	çalışmıyor. Düzeltmelere girmeden önce SVN'ye bir commit etmek 
+	istedim... 
+
 2007.04.21
 17:19
 	- Issue #9, Emin misiniz diyalogları eklendi. 

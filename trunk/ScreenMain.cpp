@@ -2,28 +2,24 @@
 
 ScreenMain::ScreenMain(SDL_Surface *screen):SDLScreen(screen)
 {
-	arka = new SDLWidget("ui/1453.jpg");
+	arka = new SDLWidget("ui/ana_sayfa3.jpg");
 	arka->setPosition(0, 0);
 	addWidget(arka);
 	
-	oyun = new SDLButton("ui/dugme.jpg", "Yeni Oyun");
-	oyun->setPosition(458, 400);
-	addWidget(oyun);
-	
-	single = new SDLButton("ui/dugme.jpg", "Tek Görev");
-	single->setPosition(458, 440);
+	single = new SDLButton("ui/button.png", "Yeni Oyun");
+	single->setPosition(470, 335);
 	addWidget(single);
 	
-	ayarlar = new SDLButton("ui/dugme.jpg", "Ayarlar");
-	ayarlar->setPosition(458, 480);
+	ayarlar = new SDLButton("ui/button.png", "Ayarlar");
+	ayarlar->setPosition(470, 385);
 	addWidget(ayarlar);
 	
-	credits = new SDLButton("ui/dugme.jpg", "Emeği Geçenler");
-	credits->setPosition(458, 520);
+	credits = new SDLButton("ui/button.png", "Emeği Geçenler");
+	credits->setPosition(470, 435);
 	addWidget(credits);
 		
-	cikis = new SDLButton("ui/dugme.jpg", "Oyunu Kapat");
-	cikis->setPosition(458, 560);
+	cikis = new SDLButton("ui/button.png", "Oyunu Kapat");
+	cikis->setPosition(470, 485);
 	addWidget(cikis);
 }
 

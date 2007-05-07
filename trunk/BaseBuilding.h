@@ -37,6 +37,8 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	SDLProgressBar* sbar;
 	SDLLabel *birimAdi;
 	
+	bool isClicked(int x, int y);
+	
 	void update();
 	
 	protected:

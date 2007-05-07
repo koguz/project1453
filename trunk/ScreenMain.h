@@ -9,7 +9,7 @@ class ScreenMain:public SDLScreen
 {
 	public:
 	SDLWidget *arka;
-	SDLButton *oyun, *ayarlar, *credits, *cikis, *single;
+	SDLButton *ayarlar, *credits, *cikis, *single;
 	ScreenMain(SDL_Surface* screen);
 	~ScreenMain();
 };

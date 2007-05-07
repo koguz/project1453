@@ -116,6 +116,7 @@ void BaseUnit::setCommandYuru()
 
 void BaseUnit::moveToTarget(int tx, int ty)
 {
+// 	cout << tx << " - " << ty << endl;
 	SDLCursor::setCursorMain();
 	target.clear();
 	int smx = posx;

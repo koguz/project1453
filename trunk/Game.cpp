@@ -18,67 +18,13 @@ bool operator==(BaseObject &a, BaseObject &b)
 Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 {
 	screen = scr;
-	/*
-	mapname ve ai parametreleri şimdilik yok
-	userFaction'a göre ilk adamı Köylü ya da 
-	Bizans'ın Köylü'ye denk birimi olarak
-	başlatacağız..
-	
-	önce haritayı şimdilik yaratalım
-	
-	haritada aynı zamanda start position da olması lazım...
-	
-	0 - çim
-	1 - sari çim
-	2 - agac
-	3 - toprak
-	4 - daglik
-	5 - deniz
-	6 - kesik agac
-	*/
-	
-	
-	// öylesine harita
-	{
-		for(int i=0;i<20;i++)
-		{
-			for(int j=0;j<18;j++)
-			{
-				map[i][j] = 0;
-			}
-		}
-		
-		for(int i=0;i<6;i++)
-		{
-			for(int j=0;j<6;j++)
-			{
-				if ((i==5) || (j==5))
-					map[i][j] = 3;
-				else
-					map[i][j] = 5;
-			}
-		}
-		
-		for(int i=15;i<20;i++)
-		{
-			for(int j=15;j<18;j++)
-			{
-				map[i][j] = 2;
-			}
-		}
-		
-		for(int i=0;i<4;i++)
-		{
-			for(int j=9;j<18;j++)
-			{
-				map[i][j] = 1;
-			}
-		}
-	}
-	
+	harita = new Map(screen, 70, 70);
+	harita->setOrigin(10, 25);
+	harita->setPane(630, 566);
+	harita->setMiniMapPos(653, 45);
 	
 	human = new Player(screen, userFaction, 1000, 1000, 1000);
-	human->buildStartingUnits(360, 450); // FIXME sabit? haritadan al
+	human->buildStartingUnits(harita->getPx(), harita->getPy());
 	
 	string cpuFaction;
 	if (userFaction == "Osmanlı")
@@ -87,7 +33,9 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 		cpuFaction = "Osmanlı";
 		
 	cpu = new Player(screen, cpuFaction, 1000, 1000, 1000);
-	cpu->buildStartingUnits(360, 75); // FIXME sabit? haritadan al
+	cpu->buildStartingUnits(harita->getCpux(), harita->getCpuy());
+	
+	harita->setPlayers(human, cpu);
 	
 	Game *me = this;
 	
@@ -288,10 +236,11 @@ void Game::update()
 	checkMusic();
 	if (!running)
 		return;
-	human->update();
+	human->update(harita->getCx(), harita->getCy());
 	lblWood->setText(human->getWoodAmount());
 	lblFood->setText(human->getFoodAmount());
 	lblStone->setText(human->getStoneAmount());
+	harita->update();
 	// TODO cpu->update() AI yazılınca
 }
 
@@ -384,39 +333,7 @@ void Game::closeMenu()
 void Game::display()
 {
 	ui->display();
-	// harita
-	int px, py;
-	for(int i=0;i<20;i++)
-	{
-		for(int j=0;j<18;j++)
-		{
-			px = 2 + (i*32);
-			py = 20 + (j*32);
-			switch(map[i][j])
-			{
-				case 0:
-					tileCim->setPosition(px, py);
-					tileCim->drawWidget(screen);
-					break;
-				case 1:
-					tileSari->setPosition(px, py);
-					tileSari->drawWidget(screen);
-					break;
-				case 2:
-					tileAgac->setPosition(px, py);
-					tileAgac->drawWidget(screen);
-					break;
-				case 3:
-					tileToprak->setPosition(px, py);
-					tileToprak->drawWidget(screen);
-					break;
-				case 5:
-					tileDeniz->setPosition(px, py);
-					tileDeniz->drawWidget(screen);
-					break;
-			}
-		}
-	}	
+	harita->draw();
 	
 	if (!running)
 	{
@@ -427,6 +344,7 @@ void Game::display()
 void Game::eventHandler(SDL_Event *event)
 {
 	ui->eventHandler(event);
+	harita->handleEvents(event);
 	if (current != 0)
 		current->eventHandler(event);
 	human->eventHandler(event);
