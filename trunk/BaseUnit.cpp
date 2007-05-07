@@ -119,10 +119,12 @@ void BaseUnit::moveToTarget(int tx, int ty)
 // 	cout << tx << " - " << ty << endl;
 	SDLCursor::setCursorMain();
 	target.clear();
-	int smx = posx;
-	int smy = posy;
-	tx -= cx;
-	ty -= cy;
+	int smx = wx;
+	int smy = wy;
+// 	tx -= cx;
+// 	ty -= cy;
+	tx = tx*32;
+	ty = ty*32;
 	Coordinates temp;
 	
 	if (abs(tx-smx) > abs(ty-smy))
@@ -216,26 +218,27 @@ void BaseUnit::update()
 		
 			temp = target.front();
 			// ne tarafa bakacagiz?
-			if ( (posx > temp.x) && (posy == temp.y) )
+			if ( (wx > temp.x) && (wy == temp.y) )
 				setYon(W);
-			else if ( (posx > temp.x) && (posy > temp.y) )
+			else if ( (wx > temp.x) && (wy > temp.y) )
 				setYon(NW);
-			else if ( (posx > temp.x) && (posy < temp.y) )
+			else if ( (wx > temp.x) && (wy < temp.y) )
 				setYon(SW);
-			else if ( (posx < temp.x) && (posy == temp.y) )
+			else if ( (wx < temp.x) && (wy == temp.y) )
 				setYon(E);
-			else if ( (posx < temp.x) && (posy > temp.y) )
+			else if ( (wx < temp.x) && (wy > temp.y) )
 				setYon(NE);
-			else if ( (posx < temp.x) && (posy < temp.y) )
+			else if ( (wx < temp.x) && (wy < temp.y) )
 				setYon(SE);
-			else if ( (posx == temp.x) && (posy > temp.y) )
+			else if ( (wx == temp.x) && (wy > temp.y) )
 				setYon(N);
-			else if ( (posx == temp.x) && (posy < temp.y) )
+			else if ( (wx == temp.x) && (wy < temp.y) )
 				setYon(S);
 			
-			posx = temp.x;
-			posy = temp.y;
-			
+			wx = temp.x;
+			wy = temp.y;
+			posx = wx / 32;
+			posy = wy / 32;
 			target.pop_front();
 			
 			lastUpdate = SDL_GetTicks();
