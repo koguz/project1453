@@ -8,6 +8,7 @@
 #include "SDLMusic.h"
 #include "SDLCheckBox.h"
 #include "SDLCombo.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ class Game
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
 	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;//, *commandList;
 	SDLMusic *muse;
+	Map *harita;
 	
 	Player *human, *cpu;
 	

@@ -6,6 +6,7 @@
 #include <vector>
 #include <deque>
 
+// #include "Map.h"
 #include "BOEv.h"
 #include "BOSehirMerkezi.h"
 #include "TTemelTech.h"
@@ -22,11 +23,7 @@ class Player
 	Player(SDL_Surface *scr, string faction, int w, int f, int s);
 	~Player();
 	
-	int rsx1, rsx2, rsy1, rsy2;
-	bool isMultipleSelecting();
-	bool isValidSelection();
-	
-	void update();
+	void update(int mx, int my);
 	void buildStartingUnits(int x, int y);
 	
 	string getFaction();
@@ -46,23 +43,21 @@ class Player
 	void hepsiDur();
 	
 	bool yeniKoylu();
-	bool multipleSelect;
  	
- 	private:
  	vector<BaseUnit*> units;
  	vector<BaseBuilding*> buildings;
+ 	SDLTextView *clist; // kimler secilmis, liste...
+ 	SDLScreen *cok;
+ 	
+ 	private:
 	vector<Tech*> techs;
 	deque<string> messages;
 	
-	SDLScreen *cok;
 	SDLCommandButton *yuru, *dur;
-	SDLTextView *clist; // kimler secilmis, liste...
 	
 	Uint32 lastMsgTime;
 	string faction;
-	SDL_Surface *screen;
-	bool drawing;
-	bool dragging;
+	SDL_Surface *screen;;
 	
 	Wood wood;
 	Food food;

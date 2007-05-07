@@ -7,6 +7,7 @@ all: g1453
 again: clean all
 
 g1453: main.o \
+	Map.o \
 	Application.o \
 	Game.o \
 	Player.o \
@@ -43,6 +44,7 @@ g1453: main.o \
 	Sprite.o 
 	
 	$(CC) $(LIBS) main.o \
+	Map.o \
 	Application.o \
 	Game.o \
 	Player.o \
@@ -97,6 +99,9 @@ SDLCursor.o: SDLCursor.cpp
 	$(CC) $(FLAGS) SDLCursor.cpp
 
 # game related
+
+Map.o: Map.cpp
+	$(CC) $(FLAGS) Map.cpp
 
 Player.o: Player.cpp
 	$(CC) $(FLAGS) Player.cpp

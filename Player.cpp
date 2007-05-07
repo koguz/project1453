@@ -11,9 +11,7 @@ Player::Player()
 	food.setAmount(1000);
 	stone.setAmount(1000);
 	faction = "Osmanlı";
-	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 	lastMsgTime = 0;
-	multipleSelect = false;
 	cok = 0;
 }
 
@@ -28,10 +26,7 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	wood.setAmount(w);
 	food.setAmount(f);
 	stone.setAmount(s);
-	drawing = dragging = false;
-	rsx1 = rsx2 = rsy1 = rsy2 = -1;
 	lastMsgTime = 0;
-	multipleSelect = false;
 	cok = new SDLScreen(screen);
 	
 	SDL_Rect trect;
@@ -81,7 +76,6 @@ Player::~Player()
 	techs.clear();
 }
 
-bool Player::isMultipleSelecting() { return (drawing && dragging); }
 string Player::getFaction() { return faction; }
 int Player::getWoodAmount() { return wood.getAmount(); }
 int Player::getFoodAmount() { return food.getAmount(); }
@@ -115,13 +109,8 @@ void Player::buildStartingUnits(int x, int y)
 	{
 		Koylu *temp = new Koylu(screen, this);
 		temp->instantBuild();
-		temp->setPosition(360, 450);
+		temp->setPosition(x, y);
 		addUnit(temp);
-		
-		SehirMerkezi* e = new SehirMerkezi(screen, this);
-		e->instantBuild();
-		e->setPosition(128, 320);
-		addBuilding(e);
 	}
 	else if (faction == "Bizans")
 	{
@@ -166,10 +155,11 @@ bool Player::yeniKoylu()
 	return true;
 }
 
-void Player::update()
+void Player::update(int mx, int my)
 {
 	int top = 26;
-	for(int i=0;i<5/*messages.size()*/;i++) // NOTE 5 burada sabit olsun, şişmesin 
+	for(int i=0;i<5/*messages.size()*/;i++) 
+	// NOTE 5 burada sabit olsun, şişmesin 
 	{
 		if (i == messages.size()) break;
 		SDLLabel *temp = new SDLLabel(messages[i]);
@@ -180,37 +170,21 @@ void Player::update()
 	for(int i=0;i<units.size();i++)
 	{
 		units[i]->update();
-		units[i]->draw();
-		if (!multipleSelect && units[i]->isSelected())
-			units[i]->drawSubScreen();
 	}
 	for(int i=0;i<buildings.size();i++)
 	{
 		buildings[i]->update();
-		buildings[i]->draw();
-		if (buildings[i]->isSelected())
-			buildings[i]->drawSubScreen();
-	}
-	if (isMultipleSelecting())
-	{
-		rectangleColor(screen, rsx1, rsy1, rsx2, rsy2, 0x00FF00FF);
 	}
 	if ( ((SDL_GetTicks()-lastMsgTime) > 2000) && !messages.empty() )
 	{
 		messages.pop_back();
 		lastMsgTime = SDL_GetTicks();
 	}
-	if (multipleSelect)
-	{
-		cok->display();
-	}
 }
 
 
 void Player::eventHandler(SDL_Event *event)
 {
-	if (multipleSelect)
-		cok->eventHandler(event);
 	for(int i=0;i<units.size();i++)
 	{
 		if(units[i]->isSelected())
@@ -221,171 +195,7 @@ void Player::eventHandler(SDL_Event *event)
 		if (buildings[i]->isSelected())
 			buildings[i]->komutlar->eventHandler(event);
 	}
-	int mx, my, ux1, ux2, uy1, uy2;
-	bool empty = true;
-//	rsx1 = 0, rsx2 = 0, rsy1 = 0, rsy2 = 0;
-//	drawing = false;
-//	dragging = false;
-	switch(event->type)
-	{
-		case SDL_MOUSEBUTTONDOWN:
-			mx = event->motion.x;
-			my = event->motion.y;
-			if (mx > 600) // FIXME -- HARITA EKRANININ GENİŞLİĞİ!!
-				break;
-			if (event->button.button == SDL_BUTTON_LEFT) 
-			{
-				// önce seçilen birine bir komut verilmişmi
-				bool tmm = false;
-				for(int i=0;i<units.size();i++)
-				{
-					if(units[i]->isWaiting())
-					{
-						units[i]->issueCommand(mx, my);
-						units[i]->playConfirmed();
-						tmm = true;
-					}
-				}
-				if (tmm)
-					break;
-				bool single = false;
-				for(int i=0;i<units.size();i++)
-				{
-					if (units[i]->isMouseOver(mx, my) && !single)
-					{
-						units[i]->select();
-						units[i]->playSelected();
-						single = true;
-						multipleSelect = false;
-						empty = false;
-					}
-					else units[i]->unselect();
-				}
-				
-				for(int i=0;i<buildings.size();i++)
-				{
-					if (buildings[i]->isMouseOver(mx, my) && !single)
-					{
-						buildings[i]->select();
-						buildings[i]->playSelected();
-						single = true;
-						multipleSelect = false;
-						empty = false;
-					}
-					else buildings[i]->unselect();
-				}
-				if (empty)
-				{
-					for(int i=0;i<units.size();i++)
-						units[i]->unselect();
-					for(int i=0;i<buildings.size();i++)
-						buildings[i]->unselect();
-					// bir kare seçim başlıyor o zaman...
-					drawing = true;
-					multipleSelect = false;
-					rsx1 = event->motion.x;
-					rsy1 = event->motion.y;
-				}
-			}
-			else if (event->button.button == SDL_BUTTON_RIGHT)
-			{
-				for(int i=0;i<units.size();i++)
-				{
-					if (units[i]->isSelected())
-					{
-						units[i]->defaultAction(mx, my);
-						units[i]->playConfirmed();
-					}
-				}
-			}
-			break;
-		
-		case SDL_MOUSEBUTTONUP:
-			// bakalim kimleri sectik
-			if (event->button.button = SDL_BUTTON_LEFT && drawing)
-			{
-				int sayac = 0;
-				for(int i=0;i<units.size();i++)
-				{
-					int smx = units[i]->getCenter().x;
-					int smy = units[i]->getCenter().y;
-					if  (
-						(
-							(smx > rsx1) &&
-							(smx < rsx2) &&
-							(smy > rsy1) &&
-							(smy < rsy2)
-						) ||
-						(
-							(smx < rsx1) &&
-							(smx > rsx2) &&
-							(smy < rsy1) &&
-							(smy > rsy2)
-						) ||
-						(
-							(smx > rsx1) &&
-							(smx < rsx2) &&
-							(smy < rsy1) &&
-							(smy > rsy2)
-						) ||
-						(
-							(smx < rsx1) &&
-							(smx > rsx2) &&
-							(smy > rsy1) &&
-							(smy < rsy2)
-						)
-					)
-					{
-						if (isValidSelection())
-						{
-							units[i]->select();
-							sayac++;
-						}
-						if (sayac > 1)
-						{
-							string a = "Liste: [br] ";
-							int s2 = 0;
-							for(int i=0;i<units.size();i++)
-							{
-								if (units[i]->isSelected())
-								{
-									a += units[i]->getName() + " ";
-									if (s2 != (sayac-1))
-										a += " [br] ";
-									s2++;
-								}
-							}
-							clist->setText(a);
-							multipleSelect = true;
-						}
-					}
-				}
-				drawing = dragging = false;
-				rsx1 = rsx2 = rsy1 = rsy2 = -1;
-			}
-			break;
-		
-		case SDL_MOUSEMOTION:
-			if (drawing)
-			{
-				dragging = true;
-				rsx2 = event->motion.x;
-				rsy2 = event->motion.y;
-			}
-			break;
-	}
 }
-
-
-bool Player::isValidSelection()
-{
-	if ( (rsx1 == -1) || (rsy1 == -1) || (rsx2 == -1) || (rsy2 == -1) )
-	{
-		return false;
-	} 
-	else return true;
-}
-
 
 // TODO - buna bi ara bak
 bool Player::haveReqs(BaseObject *u)

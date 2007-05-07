@@ -24,6 +24,16 @@ BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n),
 	
 }
 
+bool BaseBuilding::isClicked(int x, int y)
+{
+	return (
+		(x >= posx) &&
+		(x < posx+size) &&
+		(x >= posy) &&
+		(x < posy+size)
+	);
+}
+
 void BaseBuilding::setState(string state) { curState = state; }
 
 BaseBuilding::~BaseBuilding() { }
