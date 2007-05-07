@@ -24,8 +24,11 @@ class BaseGraphicObject
 	virtual ~BaseGraphicObject();
 	
 	void setPosition(int x, int y);
+	void setTilePos(int x, int y);
 	int getX();
 	int getY();
+	int getTx();
+	int getTy();
 	Coordinates getCenter();
 	Coordinates getPosition();
 	
@@ -56,7 +59,8 @@ class BaseGraphicObject
 	SDLScreen *komutTanim;
 	
 	protected:
-	int posx, posy; 
+	int posx, posy; // bunlar haritanin hangi tile'inda oldugunu
+	int wx, wy; // bunlar da yürürken vs. koordinatlari
 	int cx, cy; // cx ve cy merkez noktaları
 	SDL_Surface* screen;
 	SDL_Surface* loadImg(char *f);

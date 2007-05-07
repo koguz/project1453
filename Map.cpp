@@ -58,14 +58,12 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 			break;
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
+// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }
 bool MapTile::isExplored() { return !unexplored; }
 void MapTile::setExplored() { unexplored = false; }
-
-
-
 
 
 //////////////////// MAP /////////////////////////
@@ -122,8 +120,8 @@ Map::Map(SDL_Surface* scr, int w, int h)
 			}
 		}
 	}
-	startpx = 10;
-	startpy = 6;
+	startpx = 1;
+	startpy = 0;
 	startcx = 2000;
 	startcy = 2000; 
 	
@@ -270,8 +268,8 @@ void Map::drawMiniMap()
 	
 	for (int i=0;i<human->units.size();i++)
 	{
-		sx = mmx + (human->units[i]->getX()*2);
-		sy = mmy + (human->units[i]->getY()*2);
+		sx = mmx + (human->units[i]->getTx()*2);
+		sy = mmy + (human->units[i]->getTy()*2);
 		ex = sx + 2;
 		ey = sy + 2;
 		boxColor(screen,sx, sy, ex, ey, 0xFFFFFFFF);
@@ -299,6 +297,7 @@ void Map::draw()
 	xs = (cx+pw)/TILESIZE; // kaçıncı tile'a kadar  "   "
 	yb = cy/TILESIZE;
 	ys = (cy+ph)/TILESIZE;
+	SDL_Rect s, d; // source ve dest
 	int nx = -1, ny = -1;
 	bool tmm = false;
 	for (int i=xb;i<=xs;i++)
@@ -307,7 +306,6 @@ void Map::draw()
 		ny = -1;
 		for (int j=yb;j<=ys;j++)
 		{
-			SDL_Rect s, d; // source ve dest
 			// önce x'leri ve w'leri
 			if (i*TILESIZE <= cx)
 			{
@@ -381,11 +379,45 @@ void Map::draw()
 	{
 		if (human->units[i]->onScreen(xb, xs, yb, ys))
 		{
-			human->units[i]->draw
-				(
-					tiles[human->units[i]->getX()][human->units[i]->getY()].s,
-					tiles[human->units[i]->getX()][human->units[i]->getY()].d
-				);
+			int ux = human->units[i]->getX();
+			int uy = human->units[i]->getY();
+			if (ux <= cx)
+			{
+				s.x = cx - ux;
+				s.w = d.w = ( ux + TILESIZE - cx );
+				d.x = ox;
+			}
+			else if ( (ux > cx) && (ux + TILESIZE < (cx+pw)) )
+			{
+				s.x = 0; s.w = d.w = TILESIZE;
+				d.x = ux - cx + ox;
+			}
+			else 
+			{
+				s.x = 0;
+				s.w = d.w = pw + ox - ux;
+				d.x = ux + ox;
+			}
+			
+			// y
+			if (uy <= cy)
+			{
+				s.y = cy - uy;
+				s.h = d.h = ( uy + TILESIZE - cy );
+				d.y = oy;
+			}
+			else if ( (uy > cy) && (uy + TILESIZE < cy+ph))
+			{
+				s.y = 0; s.h = d.h = TILESIZE;
+				d.y = uy - cy + oy;
+			}
+			else 
+			{
+				s.y = 0;
+				s.h = d.h = (ph + oy) - uy;
+				d.y = uy + oy;
+			}
+			human->units[i]->draw(s,d);
 		}
 		if (!multipleSelect && human->units[i]->isSelected())
 			human->units[i]->drawSubScreen();
@@ -514,65 +546,72 @@ void Map::handleEvents(SDL_Event *event)
 				{
 					int sayac = 0;
 					int smx, smy;
-					rsx1 = (rsx1+ox+cx)/TILESIZE; 
-					rsx2 = (rsx2+ox+cx)/TILESIZE; 
-					rsy1 = (rsy1+oy+cy)/TILESIZE;
-					rsy2 = (rsy2+oy+cy)/TILESIZE;
-					for (int i=0;i<human->units.size();i++)
+// 					rsx1 = rsx1 - ox + cx;
+// 					rsx2 = rsx2 - ox + cx;
+// 					rsy1 = rsy1 - oy + cy;
+// 					rsy2 = rsy2 - oy + cy;
+// 					mx-ox+cx
+					if (isValidSelection())
 					{
-						smx = human->units[i]->getX();
-						smy = human->units[i]->getY();
-						if 	(
-								(
-									(smx > rsx1) &&
-									(smx < rsx2) &&
-									(smy > rsy1) &&
-									(smy < rsy2)
-								) ||
-								(
-									(smx < rsx1) &&
-									(smx > rsx2) &&
-									(smy < rsy1) &&
-									(smy > rsy2)
-								) ||
-								(
-									(smx > rsx1) &&
-									(smx < rsx2) &&
-									(smy < rsy1) &&
-									(smy > rsy2)
-								) ||
-								(
-									(smx < rsx1) &&
-									(smx > rsx2) &&
-									(smy > rsy1) &&
-									(smy < rsy2)
-								)
-							)
+						rsx1 = (rsx1-ox+cx)/TILESIZE; 
+						rsx2 = (rsx2-ox+cx)/TILESIZE; 
+						rsy1 = (rsy1-oy+cy)/TILESIZE;
+						rsy2 = (rsy2-oy+cy)/TILESIZE;
+	
+	
+						for (int i=0;i<human->units.size();i++)
 						{
-							if (isValidSelection())
+							smx = human->units[i]->getTx();
+							smy = human->units[i]->getTy();
+							if 	(
+									(
+										(smx > rsx1) &&
+										(smx < rsx2) &&
+										(smy > rsy1) &&
+										(smy < rsy2)
+									) ||
+									(
+										(smx < rsx1) &&
+										(smx > rsx2) &&
+										(smy < rsy1) &&
+										(smy > rsy2)
+									) ||
+									(
+										(smx > rsx1) &&
+										(smx < rsx2) &&
+										(smy < rsy1) &&
+										(smy > rsy2)
+									) ||
+									(
+										(smx < rsx1) &&
+										(smx > rsx2) &&
+										(smy > rsy1) &&
+										(smy < rsy2)
+									)
+								)
 							{
 								human->units[i]->select();
 								sayac++;
 							}
 						}
-					}
-					
-					if (sayac > 1)
-					{
-						string a = "Liste: [br] ";
-						int s2 = 0;
-						for(int i=0;i<human->units.size();i++)
+						
+						if (sayac > 1)
 						{
-							if (human->units[i]->isSelected())
+							string a = "Liste: [br] ";
+							int s2 = 0;
+							for(int i=0;i<human->units.size();i++)
 							{
-								a += human->units[i]->getName() + " ";
-								if (s2 != (sayac-1))
-									a += " [br] ";
-								s2++;
+								if (human->units[i]->isSelected())
+								{
+									a += human->units[i]->getName() + " ";
+									if (s2 != (sayac-1))
+										a += " [br] ";
+									s2++;
+								}
 							}
+							human->clist->setText(a);
+							multipleSelect = true;
 						}
-						human->clist->setText(a);
-						multipleSelect = true;
 					}
 					
 					drawing = dragging = false;
@@ -608,8 +647,10 @@ void Map::handleEvents(SDL_Event *event)
 						(my < oy+ph)
 						)
 				{
-					int tilex = (mx-ox+cx)/32; // tıklanan tile x
-					int tiley = (my-oy+cy)/32; // tıklanan tile y
+					int cox = mx-ox+cx;
+					int coy = my-oy+cy;
+					int tilex = cox/32; // tıklanan tile x
+					int tiley = coy/32; // tıklanan tile y
 					if (event->button.button == SDL_BUTTON_LEFT)
 					{
 						bool tmm = false;
@@ -629,11 +670,7 @@ void Map::handleEvents(SDL_Event *event)
 						bool single = false;
 						for (int i=0;i<human->units.size();i++)
 						{
-							if (
-								(human->units[i]->getX() == tilex) &&
-								(human->units[i]->getY() == tiley) &&
-								!single
-								)
+							if (human->units[i]->isMouseOver(cox, coy) && !single)
 							{
 								human->units[i]->select();
 								human->units[i]->playSelected();
@@ -678,8 +715,11 @@ void Map::handleEvents(SDL_Event *event)
 					{
 						for(int i=0;i<human->units.size();i++)
 						{
-							human->units[i]->defaultAction(tilex, tiley);
-							human->units[i]->playConfirmed();
+							if (human->units[i]->isSelected())
+							{
+								human->units[i]->defaultAction(tilex, tiley);
+								human->units[i]->playConfirmed();
+							}
 						}
 					}
 				}

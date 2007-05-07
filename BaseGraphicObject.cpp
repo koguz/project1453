@@ -5,6 +5,7 @@ BaseGraphicObject::BaseGraphicObject()
 	komutlar = 0;
 	komutTanim = 0;
 	healthBar = 0;
+	wx = wy = 0;
 }
 
 BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
@@ -15,6 +16,7 @@ BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
 	komutTanim = 0;
 	selected = false;
 	healthBar = 0;
+	wx = wy = 0;
 }
 
 BaseGraphicObject::~BaseGraphicObject()
@@ -24,8 +26,10 @@ BaseGraphicObject::~BaseGraphicObject()
 	delete healthBar;
 }
 
-int BaseGraphicObject::getX() { return posx; }
-int BaseGraphicObject::getY()  { return posy; }
+int BaseGraphicObject::getX() { return wx; }
+int BaseGraphicObject::getY()  { return wy; }
+int BaseGraphicObject::getTx() { return posx; }
+int BaseGraphicObject::getTy()  { return posy; }
 void BaseGraphicObject::select() { selected = true; }
 void BaseGraphicObject::unselect() { selected = false; }
 bool BaseGraphicObject::isSelected() { return selected; }
@@ -33,10 +37,16 @@ SDLScreen* BaseGraphicObject::getScreen() { return komutlar; }
 
 void BaseGraphicObject::setPosition(int x, int y)
 {
-	posx = x;
-	posy = y;
+	wx = x;
+	wy = y;
 }
 
+void BaseGraphicObject::setTilePos(int x, int y)
+{
+	posx = x;
+	posy = y;
+	setPosition(x*32, y*32);
+}
 
 Coordinates BaseGraphicObject::getCenter()
 {
@@ -57,11 +67,10 @@ Coordinates BaseGraphicObject::getPosition()
 
 bool BaseGraphicObject::isMouseOver(int mx, int my)
 {
-	// buna da değinmek gerekecek
-	int ux1 = getX() + hotspot.x;
-	int ux2 = ux1 + hotspot.w;
-	int uy1 = getY() + hotspot.y;
-	int uy2 = uy1 + hotspot.h;
+	int ux1 = getX();
+	int ux2 = ux1 + 32;
+	int uy1 = getY();
+	int uy2 = uy1 + 32;
 	if (
 		(mx > ux1) &&
 		(mx < ux2) &&
@@ -100,7 +109,7 @@ void BaseGraphicObject::draw(SDL_Rect s, SDL_Rect d)
 	src.y += s.y + hotspot.y;
 	src.w = s.w;
 	src.h = s.h;
-	
+// 	rectangleColor(screen, wx, wy, wx+32, wy+32, 0xFFFFFFFF);
 	SDL_BlitSurface(getImg(), &src, screen, &d);
 	if (isSelected())
 	{

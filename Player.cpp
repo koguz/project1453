@@ -109,14 +109,14 @@ void Player::buildStartingUnits(int x, int y)
 	{
 		Koylu *temp = new Koylu(screen, this);
 		temp->instantBuild();
-		temp->setPosition(x, y);
+		temp->setTilePos(x, y);
 		addUnit(temp);
 	}
 	else if (faction == "Bizans")
 	{
 		Serf *s = new Serf(screen, this);
 		s->instantBuild();
-		s->setPosition(x, y);
+		s->setTilePos(x, y);
 		addUnit(s);
 	}
 }
