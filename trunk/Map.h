@@ -54,7 +54,7 @@ class Map
 	void update();
 	void drawMiniMap();
 	void setMiniMapPos(int x, int y);
-	void draw();
+	void draw(bool running);
 	void handleEvents(SDL_Event *event);
 	int getPx();
 	int getPy();

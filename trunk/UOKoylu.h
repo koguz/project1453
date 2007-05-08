@@ -4,6 +4,7 @@
 #include "SDLMixer.h"
 #include "BaseUnit.h"
 #include "BOEv.h"
+#include "BOSehirMerkezi.h"
 
 class Koylu:public BaseUnit
 {
@@ -37,7 +38,17 @@ class Koylu:public BaseUnit
 	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;
-	SDLCommandButton *resim, *yuru, *dur, *evbtn;
+	SDLCommandButton 
+		*resim, 
+		*yuru, 
+		*dur, 
+		*calis, 
+		*smerkezi, 
+		*ev,
+		*tarla,
+		*asker,
+		*demirci,
+		*maden;
 };
 
 #endif

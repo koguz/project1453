@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "SDLCursor.h"
 #include "Player.h"
 #include "SDLMusic.h"
 #include "SDLCheckBox.h"

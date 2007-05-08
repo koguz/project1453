@@ -1,3 +1,11 @@
+2007.05.08
+02:59
+	- Birimlerin yürümeleri ile ilgili bir iki sorun giderildi
+	- Harita scroll ederken 8 köşede uygun ok cikmasi saglandi
+	- Köylü birimi ile ev yapimi insaasina baslanacak... 
+	- Map, Application ve Game sınıfları arasındaki bir iki sorun
+	giderildi...
+
 2007.05.07
 23:10
 	- Harita artik adamlarimizi ciziyor. simdi harita uzerine bina

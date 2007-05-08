@@ -125,9 +125,10 @@ void BaseUnit::moveToTarget(int tx, int ty)
 // 	ty -= cy;
 	tx = tx*32;
 	ty = ty*32;
+	
 	Coordinates temp;
 	
-	if (abs(tx-smx) > abs(ty-smy))
+	if (abs(tx-smx) >= abs(ty-smy))
 	{
 		// once y'e gel, sonra x
 		// cünkü x daha uzak
