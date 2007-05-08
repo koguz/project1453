@@ -58,7 +58,7 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 			break;
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
-// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
+	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }
@@ -290,7 +290,7 @@ void Map::setMiniMapPos(int x, int y)
 	mmy = y;
 }
 
-void Map::draw()
+void Map::draw(bool running)
 {
 	drawMiniMap();
 	xb = cx/TILESIZE; // kaçıncı tile'dan başlıcas (0'dan say)
@@ -372,6 +372,7 @@ void Map::draw()
 	}
 	rectangleColor(screen, ox-1, oy-1, ox+pw+1, oy+ph+1, 0xFFFFFFFF);
 	
+	if (!running) return;
 	
 	// harita cizildi, üzerine birim ve binalari ciz
 	// kopya çek :D
@@ -521,6 +522,28 @@ void Map::handleEvents(SDL_Event *event)
 				else if (my > TOL && my < screen->h-TOL)
 					ay = 0;
 				
+				if ( (ax < 0) && (ay < 0) )
+					SDLCursor::setNw();
+				else if ( (ax < 0) && (ay > 0) )
+					SDLCursor::setSw();
+				else if ( (ax > 0) && (ay < 0) )
+					SDLCursor::setNe();
+				else if ( (ax > 0) && (ay > 0) )
+					SDLCursor::setSe();
+				else if (ax < 0)
+					SDLCursor::setW();
+				else if (ax > 0)
+					SDLCursor::setE();
+				else if (ay < 0)
+					SDLCursor::setN();
+				else if (ay > 0)
+					SDLCursor::setS();
+				else
+				{
+					if (SDLCursor::cCurrent != SDLCursor::cTarget)
+						SDLCursor::setCursorMain();
+				}
+				
 				if(drawing)
 				{
 					dragging = true;
@@ -658,7 +681,7 @@ void Map::handleEvents(SDL_Event *event)
 						{
 							if (human->units[i]->isWaiting())
 							{
-								human->units[i]->issueCommand(tilex, tiley);
+								human->units[i]->issueCommand((cox+16)/32, (coy+16)/32);
 								human->units[i]->playConfirmed();
 								tmm = true;
 							}

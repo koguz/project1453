@@ -9,7 +9,7 @@ Koylu::Koylu()
 	faction = "Osmanlı";
 	sndSelected = 0;
 	sndConfirmed = 0;
-	yuru = dur = evbtn = resim = 0;
+	yuru = dur = calis = resim = 0;
 }
 
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
@@ -90,15 +90,45 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	dur->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::actionDur);
 	komutlar->addWidget(dur);
 	
-	trect.x = 64; trect.y = 0;
-	evbtn = new SDLCommandButton(screen, trect, "Ev Yap", Ev().getCost());
-	evbtn->setPosition(745, 295);
-	komutlar->addWidget(evbtn);
+	trect.x = 288; trect.y = 0;
+	calis = new SDLCommandButton(screen, trect, "Çalış / Saldır");
+	calis->setPosition(745, 295);
+	komutlar->addWidget(calis);
 	
 	trect.x = 96; trect.y = 0;
 	resim = new SDLCommandButton(screen, trect, "Köylü");
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);
+	
+	trect.x = 128; trect.y = 32;
+	smerkezi = new SDLCommandButton(screen, trect, "Şehir Merkezi Yap", SehirMerkezi().getCost());
+	smerkezi->setPosition(665, 335);
+	komutlar->addWidget(smerkezi);
+	
+	trect.x = 64; trect.y = 32;
+	ev = new SDLCommandButton(screen, trect, "Ev Yap", Ev().getCost());
+	ev->setPosition(705, 335);
+	komutlar->addWidget(ev);
+	
+	trect.x = 160; trect.y = 32;
+	tarla = new SDLCommandButton(screen, trect, "Tarla Yap");
+	tarla->setPosition(745, 335);
+	komutlar->addWidget(tarla);
+	
+	trect.x = 96; trect.y = 32;
+	maden = new SDLCommandButton(screen, trect, "Maden Yap");
+	maden->setPosition(665, 375);
+	komutlar->addWidget(maden);
+	
+	trect.x = 32; trect.y = 32;
+	demirci = new SDLCommandButton(screen, trect, "Demirci Yap");
+	demirci->setPosition(705, 375);
+	komutlar->addWidget(demirci);
+	
+	trect.x = 0; trect.y = 32;
+	asker = new SDLCommandButton(screen, trect, "Asker Ocağı Yap");
+	asker->setPosition(745, 375);
+	komutlar->addWidget(asker);
 	
 	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
 	sbar->setPosition(695, 223);

@@ -84,7 +84,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	tileDeniz = new SDLWidget("graphics/terrain/deniz.png");
 	
 	menu = new SDLButton("ui/dugme100.jpg", "Menü", 12);
-	menu->setPosition(680, 2);
+	menu->setPosition(680, 12);
 	menu->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::displayMenu);
 	ui->addWidget(menu);
 	
@@ -333,7 +333,8 @@ void Game::closeMenu()
 void Game::display()
 {
 	ui->display();
-	harita->draw();
+	
+	harita->draw(running);
 	
 	if (!running)
 	{
@@ -344,7 +345,8 @@ void Game::display()
 void Game::eventHandler(SDL_Event *event)
 {
 	ui->eventHandler(event);
-	harita->handleEvents(event);
+	if (running)
+		harita->handleEvents(event);
 	if (current != 0)
 		current->eventHandler(event);
 	human->eventHandler(event);

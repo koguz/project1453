@@ -9,7 +9,29 @@ class SDLCursor
 	public:
 	static void setCursorTarget();
 	static void setCursorMain();
-	static SDLWidget *cCurrent, *cMain, *cTarget;
+	static void setE();
+	static void setS();
+	static void setW();
+	static void setN();
+	static void setNe();
+	static void setNw();
+	static void setSe();
+	static void setSw();
+	
+	static void updateAll(int x, int y);
+	
+	static SDLWidget 
+		*cCurrent, // simdiki
+		*cMain, // bildigimiz el
+		*cTarget, // hedef!
+		*oke, // oklar
+		*oks, 
+		*okw,
+		*okn,
+		*okne,
+		*oknw,
+		*okse,
+		*oksw;
 };
 
 #endif 
