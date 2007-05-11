@@ -20,11 +20,7 @@ class Koylu:public BaseUnit
 	
 	virtual void issueCommand(int x, int y)
 	{
-		if (waitingCommand == "yuru")
-		{
-			waiting = false;
-			moveToTarget(x, y);
-		}
+		command(x, y);
 	}
 	
 	virtual void playSelected()
@@ -35,6 +31,8 @@ class Koylu:public BaseUnit
 	
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
+	void setCommandMerkezYap();
+	void command(int x, int y);
 	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;

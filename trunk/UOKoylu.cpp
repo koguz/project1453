@@ -24,7 +24,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	armor = 2;
 	damage = 10;
 	range = 1;
-	sight = 4;
+	sight = 3;
 	speed = 20;
 // 	speed = rand() % 20; // tmmdir :)
 	morale = 60;
@@ -79,6 +79,12 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	
 	Koylu *me = this;
 	
+	trect.x = 96; trect.y = 0;
+	resim = new SDLCommandButton(screen, trect, "Köylü");
+	resim->setPosition(655, 205);
+	komutlar->addWidget(resim);
+	
+	trect.x = 0;
 	yuru = new SDLCommandButton(screen, trect, "Yürü");
 	yuru->setPosition(665,295);
 	yuru->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandYuru);
@@ -95,14 +101,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	calis->setPosition(745, 295);
 	komutlar->addWidget(calis);
 	
-	trect.x = 96; trect.y = 0;
-	resim = new SDLCommandButton(screen, trect, "Köylü");
-	resim->setPosition(655, 205);
-	komutlar->addWidget(resim);
-	
 	trect.x = 128; trect.y = 32;
 	smerkezi = new SDLCommandButton(screen, trect, "Şehir Merkezi Yap", SehirMerkezi().getCost());
 	smerkezi->setPosition(665, 335);
+	smerkezi->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandMerkezYap);
 	komutlar->addWidget(smerkezi);
 	
 	trect.x = 64; trect.y = 32;
@@ -141,9 +143,39 @@ Koylu::~Koylu()
 	delete sndConfirmed;
 }
 
+void Koylu::command(int x, int y)
+{
+	if (waitingCommand == "yuru")
+	{
+		waiting = false;
+		moveToTarget(x, y);
+	}
+	if (waitingCommand == "merkezYap")
+	{
+		if (parent->harita->uygun())
+		{
+			waiting = false;
+			parent->harita->endBuildSel();
+			parent->addOsMerkez(x, y);
+		}
+		else
+		{
+			parent->addMessage("Burası uygun değil!");
+		}
+	}
+}
+
 void Koylu::setCommandCalis()
 {
 	setState("calis");
 }
 
+void Koylu::setCommandMerkezYap()
+{
+	if(!parent->yeniOsMerkez())
+		return;
+	waitingCommand = "merkezYap";
+	waiting = true;
+	parent->harita->startBuildSel(4, MapTile::CIM);
+}
 

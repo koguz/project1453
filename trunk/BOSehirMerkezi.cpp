@@ -18,7 +18,8 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	state = 1;
 	hitpoints = 1000;
-	sight = 8;
+	currentHp = 1;
+	sight = 4;
 	size = 4;
 	
 	hotspot.x = hotspot.y = 0;
@@ -32,15 +33,20 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	sprite = Sprite(spriteImg);
 	sprite.addState("saglam");
+	sprite.addState("insaa");
 	
 	SDL_Rect t;
 	t.x = t.y = 0;
-	t.w = spriteImg->w;
-	t.h = spriteImg->h;
+	t.w = 128;
+	t.h = 128;
 	
 	sprite.addFrameToState("saglam", t, 1000);
 	
-	setState("saglam");
+	t.x = 0;
+	t.y = 128;
+	sprite.addFrameToState("insaa", t, 1000);
+	
+	setState("insaa");
 	
 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
 	
@@ -70,6 +76,8 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
 	sbar->setPosition(695, 223);
 	komutlar->addWidget(sbar);
+	selected = false;
+	curState = "insaa";
 }
 
 SehirMerkezi::~SehirMerkezi()
@@ -79,6 +87,11 @@ SehirMerkezi::~SehirMerkezi()
 
 void SehirMerkezi::createKoylu()
 {
+	if (curState == "insaa")
+	{
+		parent->addMessage("Bina henüz inşaa edilmedi!");
+		return;
+	}
 	if (nowBuilding != 0)
 	{
 		parent->addMessage("Şu an başka bir birim üretiliyor!");

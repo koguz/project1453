@@ -36,6 +36,8 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	cpu->buildStartingUnits(harita->getCpux(), harita->getCpuy());
 	
 	harita->setPlayers(human, cpu);
+	human->harita = harita;
+	cpu->harita = harita;
 	
 	Game *me = this;
 	

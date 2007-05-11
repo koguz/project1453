@@ -42,11 +42,14 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	void moveToTarget(int tx, int ty);
 	void actionDur();
 	void setCommandYuru();
+	void cancelActions();
 	list<Coordinates> target;
 	list<string>commandList;
+	int getSight();
+	bool onScreen(int x1, int x2, int y1, int y2);
+	void draw(SDL_Rect s, SDL_Rect d); 
 	
 	void update();
-	
 	
 	SDLProgressBar *sbar;
 	SDLLabel *birimAdi, 
