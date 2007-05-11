@@ -10,6 +10,8 @@
 
 using namespace std;
 
+class Player;
+
 class MapTile
 {
 	public:
@@ -24,16 +26,19 @@ class MapTile
 	};
 	
 	MapTile();
-	void setType(tileType t);
+	void setType(tileType t, bool obs);
 	void draw(SDL_Rect src, SDL_Rect dest);
 	tileType getTip();
 	bool isExplored();
+	bool tileKontrol(tileType t);
 	void setExplored();
+	bool isObstructed();
 	SDL_Rect s, d; // nereleri cizilmis tutuyor bunlar :)
 	
 	static SDL_Surface* screen;
 	
 	private:
+	bool obstruction;
 	bool unexplored;
 	tileType tip;
 	static SDL_Surface *tileList;
@@ -62,15 +67,22 @@ class Map
 	int getCpuy();
 	void setPlayers(Player* h, Player* c);
 	
-	// playedan gelenler
+	// playerdan gelenler
 	bool multipleSelect;
 	int rsx1, rsx2, rsy1, rsy2;
 	bool isMultipleSelecting();
 	bool isValidSelection();
 	
+	void exploreTiles(int tx, int ty, int range);
+	void startBuildSel(int size, MapTile::tileType type);
+	void endBuildSel();
+	bool uygun();
+	
 	private:
 	Player *human, *cpu;
 	bool drawing, dragging;
+	int buildsize;
+	MapTile::tileType buildtype;
 	MapTile** tiles;
 	SDL_Surface* screen;
 	int ox, oy; // ekrandaki posizyon, sol üst
@@ -83,6 +95,7 @@ class Map
 	int rw, rh; // real width tx*TILESIZE
 	int vx, vy; // velocity 
 	int ax, ay; // acceleration 
+	int mtx, mty; // mouse hangi tile üzerinde :D 
 	int mmx, mmy; // mini map positions
 	// starting points for player and computer
 	int startpx, startpy, startcx, startcy;

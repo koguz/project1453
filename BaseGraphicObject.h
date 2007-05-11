@@ -43,11 +43,6 @@ class BaseGraphicObject
 	virtual void playSelected() {}
 	virtual void playConfirmed() {}
 	
-	// bu fonksiyonu harita cagirabilir, 
-	// burada haritanın bilgilerine ihtiyacimiz olacak
-	void draw(SDL_Rect s, SDL_Rect d); 
-	bool onScreen(int x1, int x2, int y1, int y2);
-	
 	void drawSubScreen();
 	Player *parent; 
 	

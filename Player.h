@@ -6,15 +6,17 @@
 #include <vector>
 #include <deque>
 
-// #include "Map.h"
 #include "BOEv.h"
 #include "BOSehirMerkezi.h"
 #include "TTemelTech.h"
 #include "UOKoylu.h"
 #include "UBSerf.h"
 #include "SDLTextView.h"
+#include "Map.h"
 
 using namespace std;
+
+class Map;
 
 class Player
 {
@@ -43,11 +45,14 @@ class Player
 	void hepsiDur();
 	
 	bool yeniKoylu();
+	bool yeniOsMerkez();
+	void addOsMerkez(int x, int y);
  	
  	vector<BaseUnit*> units;
  	vector<BaseBuilding*> buildings;
  	SDLTextView *clist; // kimler secilmis, liste...
  	SDLScreen *cok;
+ 	Map* harita;
  	
  	private:
 	vector<Tech*> techs;

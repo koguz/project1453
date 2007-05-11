@@ -13,10 +13,12 @@ Player::Player()
 	faction = "Osmanlı";
 	lastMsgTime = 0;
 	cok = 0;
+	harita = 0;
 }
 
 Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 {
+	harita = 0;
 	screen = scr;
 	Tech* t = new TemelTech;
 	t->instantBuild();
@@ -153,6 +155,34 @@ bool Player::yeniKoylu()
 	subtractCost(temp->getCost());
 	delete temp;
 	return true;
+}
+
+bool Player::yeniOsMerkez()
+{
+	SehirMerkezi *temp = new SehirMerkezi();
+	if (!haveReqs(temp))
+	{
+		addMessage("Bu bina için gereksinimler karşılanmamış...");
+		delete temp;
+		return false;
+	}
+	if (!temp->getCost().compare(wood, food, stone))
+	{
+		addMessage("Bu bina için kaynaklar yetersiz...");
+		delete temp;
+		return false;
+	}
+// 	subtractCost(temp->getCost());
+	delete temp;
+	return true;
+}
+
+void Player::addOsMerkez(int x, int y)
+{
+	SehirMerkezi *t = new SehirMerkezi(screen, this);
+	subtractCost(t->getCost());
+	t->setTilePos(x, y);
+	addBuilding(t);
 }
 
 void Player::update(int mx, int my)

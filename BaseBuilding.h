@@ -40,6 +40,13 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	bool isClicked(int x, int y);
 	
 	void update();
+	int getSize();
+	int getSizeSqr();
+	int getSight();
+	
+	bool onScreen(int x1, int x2, int y1, int y2);
+	void draw();
+// 	void draw(SDL_Rect s, SDL_Rect d, int tile);
 	
 	protected:
 	int sight;

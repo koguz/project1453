@@ -13,12 +13,25 @@ SDL_Surface* MapTile::screen = 0;
 MapTile::MapTile()
 {
 	tip = CIM;
-	unexplored = false; // sonra true
+	unexplored = true; 
+	obstruction = false;
 }
 
-void MapTile::setType(tileType t)
+void MapTile::setType(tileType t, bool obs)
 {
 	tip = t;
+	obstruction = obs;
+}
+
+
+bool MapTile::isObstructed()
+{
+	return obstruction;
+}
+
+bool MapTile::tileKontrol(tileType t)
+{
+	return (t == tip);
 }
 
 void MapTile::draw(SDL_Rect src, SDL_Rect dest)
@@ -88,36 +101,44 @@ Map::Map(SDL_Surface* scr, int w, int h)
 		tiles[i] = new MapTile[h];
 	
 	scroll = true; 
+	buildsize = 0;
 	
 	// aslında şu kisim... bu kisim dosyadan, ya da db'den
 	for(int i=0;i<w;i++)
 	{
 		for(int j=0;j<h;j++)
 		{
-			switch(rand() % 1)
-			{
-				case 0:
-					tiles[i][j].setType(MapTile::CIM);
-					break;
-				case 1:
-					tiles[i][j].setType(MapTile::SARICIM);
-					break;
-				case 2:
-					tiles[i][j].setType(MapTile::TOPRAK);
-					break;
-				case 3:
-					tiles[i][j].setType(MapTile::AGAC);
-					break;
-				case 4:
-					tiles[i][j].setType(MapTile::AGACKESIK);
-					break;
-				case 5:
-					tiles[i][j].setType(MapTile::DAGLIK);
-					break;
-				case 6:
-					tiles[i][j].setType(MapTile::DENIZ);
-					break;
-			}
+			if (i==j)
+				tiles[i][j].setType(MapTile::DENIZ, true);
+			else if (i == 10)
+				tiles[i][j].setType(MapTile::DAGLIK, true);
+			else if (i == 20 || i == 21 || i == 22)
+				tiles[i][j].setType(MapTile::AGAC, true);
+			else tiles[i][j].setType(MapTile::CIM, false);
+// 			switch(rand() % 1)
+// 			{
+// 				case 0:
+// 					tiles[i][j].setType(MapTile::CIM);
+// 					break;
+// 				case 1:
+// 					tiles[i][j].setType(MapTile::SARICIM);
+// 					break;
+// 				case 2:
+// 					tiles[i][j].setType(MapTile::TOPRAK);
+// 					break;
+// 				case 3:
+// 					tiles[i][j].setType(MapTile::AGAC);
+// 					break;
+// 				case 4:
+// 					tiles[i][j].setType(MapTile::AGACKESIK);
+// 					break;
+// 				case 5:
+// 					tiles[i][j].setType(MapTile::DAGLIK);
+// 					break;
+// 				case 6:
+// 					tiles[i][j].setType(MapTile::DENIZ);
+// 					break;
+// 			}
 		}
 	}
 	startpx = 1;
@@ -125,7 +146,7 @@ Map::Map(SDL_Surface* scr, int w, int h)
 	startcx = 2000;
 	startcy = 2000; 
 	
-	vx = vy = ax = ay = 0;
+	vx = vy = ax = ay = mtx = mty = 0;
 	cx = 0; cy = 0; // aslında bu da map'ten okunacak
 }
 
@@ -290,6 +311,47 @@ void Map::setMiniMapPos(int x, int y)
 	mmy = y;
 }
 
+void Map::exploreTiles(int x, int y, int range)
+{
+	int sx = x - range;
+	if (sx<0)
+		sx = 0;
+	int ex = x + range;
+	if (ex>=tx)
+		ex = tx - 1;
+		
+	int sy = y - range;
+	if (sy<0)
+		sy = 0;
+	int ey = y + range;
+	if (ey>=ty)
+		ey = ty - 1;
+		
+	for (int i=sx;i<=ex;i++)
+	{
+		for(int j=sy;j<=ey;j++)
+		{
+			tiles[i][j].setExplored();
+		}
+	}
+}
+
+bool Map::uygun()
+{
+	for(int i=mtx;i<mtx+buildsize;i++)
+	{
+		for(int j=mty;j<mty+buildsize;j++)
+		{
+			if (!tiles[i][j].tileKontrol(buildtype) || 
+				!tiles[i][j].isExplored())
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void Map::draw(bool running)
 {
 	drawMiniMap();
@@ -366,7 +428,20 @@ void Map::draw(bool running)
 			}
 			tiles[i][j].s = s; // bu s ve d asagida birim ve binalari
 			tiles[i][j].d = d; // cizerken kullaniliyor :D 
-			tiles[i][j].draw(s,d);
+			if 	( 
+				(buildsize > 0) && 
+				(i >= mtx) && 
+				(i < mtx+buildsize) &&
+				(j >= mty) &&
+				(j < mty+buildsize)
+				)
+			{
+				if (tiles[i][j].tileKontrol(buildtype) && (tiles[i][j].isExplored()))
+					boxColor(screen, d.x, d.y, d.x+d.w, d.y+d.h, 0x00FF00FF);
+				else 
+					boxColor(screen, d.x, d.y, d.x+d.w, d.y+d.h, 0xFF0000FF);
+			}
+			else tiles[i][j].draw(s,d);
 		}
 		tmm = false;
 	}
@@ -375,13 +450,15 @@ void Map::draw(bool running)
 	if (!running) return;
 	
 	// harita cizildi, üzerine birim ve binalari ciz
-	// kopya çek :D
 	for (int i=0;i<human->units.size();i++)
 	{
+		exploreTiles( human->units[i]->getTx(), human->units[i]->getTy(), human->units[i]->getSight());
+		
 		if (human->units[i]->onScreen(xb, xs, yb, ys))
 		{
 			int ux = human->units[i]->getX();
 			int uy = human->units[i]->getY();
+			
 			if (ux <= cx)
 			{
 				s.x = cx - ux;
@@ -426,14 +503,16 @@ void Map::draw(bool running)
 	
 	for (int i=0;i<human->buildings.size();i++)
 	{
-		if (human->buildings[i]->onScreen(xb, xs, yb, ys))
+		for (int m=0;m<human->buildings[i]->getSize();m++)
 		{
-			human->buildings[i]->draw
-				(
-					tiles[human->buildings[i]->getX()][human->buildings[i]->getY()].s,
-					tiles[human->buildings[i]->getX()][human->buildings[i]->getY()].d
-				);
+			for(int n=0;n<human->buildings[i]->getSize();n++)
+			{
+				exploreTiles( human->buildings[i]->getTx()+m, human->buildings[i]->getTy()+n, human->buildings[i]->getSight());
+			}
 		}
+		
+		human->buildings[i]->draw();
+		
 		if (human->buildings[i]->isSelected())
 			human->buildings[i]->drawSubScreen();
 	}
@@ -456,6 +535,18 @@ bool Map::isValidSelection()
 		return false;
 	} 
 	else return true;
+}
+
+
+void Map::startBuildSel(int size, MapTile::tileType type)
+{
+	buildsize = size;
+	buildtype = type;
+}
+
+void Map::endBuildSel()
+{
+	buildsize = 0;
 }
 
 void Map::handleEvents(SDL_Event *event)
@@ -508,6 +599,10 @@ void Map::handleEvents(SDL_Event *event)
 			case SDL_MOUSEMOTION:
 				mx = event->motion.x;
 				my = event->motion.y;
+				
+				mtx = (mx-ox+cx)/32;
+				mty = (my-oy+cy)/32;
+				
 				if (mx < TOL)
 					ax = -ACC;
 				else if (mx < screen->w && mx > screen->w-TOL)
@@ -540,7 +635,7 @@ void Map::handleEvents(SDL_Event *event)
 					SDLCursor::setS();
 				else
 				{
-					if (SDLCursor::cCurrent != SDLCursor::cTarget)
+					if (!SDLCursor::locked)
 						SDLCursor::setCursorMain();
 				}
 				
@@ -681,7 +776,7 @@ void Map::handleEvents(SDL_Event *event)
 						{
 							if (human->units[i]->isWaiting())
 							{
-								human->units[i]->issueCommand((cox+16)/32, (coy+16)/32);
+								human->units[i]->issueCommand(tilex, tiley);
 								human->units[i]->playConfirmed();
 								tmm = true;
 							}
@@ -709,6 +804,7 @@ void Map::handleEvents(SDL_Event *event)
 						
 						for (int i=0;i<human->buildings.size();i++)
 						{
+							human->buildings[i]->isClicked(tilex, tiley);
 							if(human->buildings[i]->isClicked(tilex, tiley) && !single)
 							{
 								human->buildings[i]->select();
@@ -730,6 +826,7 @@ void Map::handleEvents(SDL_Event *event)
 								human->buildings[i]->unselect();
 							drawing = true;
 							multipleSelect = false;
+							endBuildSel();
 							rsx1 = event->motion.x;
 							rsy1 = event->motion.y;
 						}
@@ -738,10 +835,14 @@ void Map::handleEvents(SDL_Event *event)
 					{
 						for(int i=0;i<human->units.size();i++)
 						{
-							if (human->units[i]->isSelected())
+							if (human->units[i]->isSelected() && !human->units[i]->isWaiting())
 							{
 								human->units[i]->defaultAction(tilex, tiley);
 								human->units[i]->playConfirmed();
+							}
+							else if (human->units[i]->isWaiting())
+							{
+								human->units[i]->cancelActions();
 							}
 						}
 					}
