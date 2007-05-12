@@ -77,6 +77,7 @@ class Map
 	void startBuildSel(int size, MapTile::tileType type);
 	void endBuildSel();
 	bool uygun();
+	bool tileEmpty(int ex, int ey);
 	
 	private:
 	Player *human, *cpu;
