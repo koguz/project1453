@@ -158,7 +158,6 @@ int Map::getCpuy() { return startcy; }
 
 bool Map::isMultipleSelecting() { return (drawing && dragging); }
 
-
 void Map::setPlayers(Player* h, Player* c)
 {
 	human = h;
@@ -296,6 +295,15 @@ void Map::drawMiniMap()
 		boxColor(screen,sx, sy, ex, ey, 0xFFFFFFFF);
 	}
 	
+	for (int i=0;i<human->buildings.size();i++)
+	{
+		sx = mmx + (human->buildings[i]->getTx()*2);
+		sy = mmy + (human->buildings[i]->getTy()*2);
+		ex = sx + (2 * human->buildings[i]->getSize());
+		ey = sy + (2 * human->buildings[i]->getSize());
+		boxColor(screen,sx, sy, ex, ey, 0xFFFFFFFF);
+	}
+	
 	sx = mmx + cx/16;
 	sy = mmy + cy/16;
 	
@@ -336,6 +344,36 @@ void Map::exploreTiles(int x, int y, int range)
 	}
 }
 
+bool Map::tileEmpty(int ex, int ey)
+{
+	bool empty = true;
+	for(int i=0;i<human->units.size();i++)
+	{
+		if ( (human->units[i]->getTx() == ex) && (human->units[i]->getTy() == ey) )
+		{
+			empty = false;
+		}
+		if (!empty) return empty;
+	}
+	
+	for(int i=0;i<human->buildings.size();i++)
+	{
+		int tempx = human->buildings[i]->getTx();
+		int tempy = human->buildings[i]->getTy();
+		int temps = human->buildings[i]->getSize();
+		if( (ex>=tempx) && 
+			(ex<tempx+temps) && 
+			(ey>=tempy) &&
+			(ey<tempy+temps)
+		  )
+		 {
+		 	empty = false;
+		 }
+		 if (!empty) return empty;
+	}
+	return true;
+}
+
 bool Map::uygun()
 {
 	for(int i=mtx;i<mtx+buildsize;i++)
@@ -343,7 +381,9 @@ bool Map::uygun()
 		for(int j=mty;j<mty+buildsize;j++)
 		{
 			if (!tiles[i][j].tileKontrol(buildtype) || 
-				!tiles[i][j].isExplored())
+				!tiles[i][j].isExplored() ||
+				!tileEmpty(i, j)
+				)
 			{
 				return false;
 			}
@@ -436,7 +476,10 @@ void Map::draw(bool running)
 				(j < mty+buildsize)
 				)
 			{
-				if (tiles[i][j].tileKontrol(buildtype) && (tiles[i][j].isExplored()))
+				if (tiles[i][j].tileKontrol(buildtype) &&
+				 (tiles[i][j].isExplored()) &&
+				 (tileEmpty(i,j))
+				 )
 					boxColor(screen, d.x, d.y, d.x+d.w, d.y+d.h, 0x00FF00FF);
 				else 
 					boxColor(screen, d.x, d.y, d.x+d.w, d.y+d.h, 0xFF0000FF);
@@ -511,7 +554,51 @@ void Map::draw(bool running)
 			}
 		}
 		
-		human->buildings[i]->draw();
+		if (human->buildings[i]->onScreen(cx, cx+pw, cy, cy+ph))
+		{
+			int ux = human->buildings[i]->getX();
+			int uy = human->buildings[i]->getY();
+			int sb = human->buildings[i]->getSize();
+			
+			if (ux <= cx)
+			{
+				s.x = cx - ux;
+				s.w = d.w = ( ux + (TILESIZE*sb) - cx );
+				d.x = ox;
+			}
+			else if ( (ux > cx) && (ux + (TILESIZE*sb) < (cx+pw)) )
+			{
+				s.x = 0; s.w = d.w = (TILESIZE*sb);
+				d.x = ux - cx + ox;
+			}
+			else 
+			{
+				s.x = 0;
+				s.w = d.w = pw + ox - ux;
+				d.x = ux + ox;
+			}
+			
+			// y
+			if (uy <= cy)
+			{
+				s.y = cy - uy;
+				s.h = d.h = ( uy + (TILESIZE*sb) - cy );
+				d.y = oy;
+			}
+			else if ( (uy > cy) && (uy + (TILESIZE*sb) < cy+ph))
+			{
+				s.y = 0; s.h = d.h = (TILESIZE*sb);
+				d.y = uy - cy + oy;
+			}
+			else 
+			{
+				s.y = 0;
+				s.h = d.h = (ph + oy) - uy;
+				d.y = uy + oy;
+			}
+			
+			human->buildings[i]->draw(s,d);
+		}
 		
 		if (human->buildings[i]->isSelected())
 			human->buildings[i]->drawSubScreen();

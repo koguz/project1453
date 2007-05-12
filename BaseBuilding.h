@@ -45,7 +45,7 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	int getSight();
 	
 	bool onScreen(int x1, int x2, int y1, int y2);
-	void draw();
+	void draw(SDL_Rect s,SDL_Rect d);
 // 	void draw(SDL_Rect s, SDL_Rect d, int tile);
 	
 	protected:
