@@ -15,7 +15,8 @@ class Player;
 class MapTile
 {
 	public:
-	enum tileType {
+	enum tileType 
+	{
 		CIM,
 		SARICIM,
 		TOPRAK,
@@ -48,6 +49,19 @@ class MapTile
 class Map
 {
 	public:
+	
+	enum tileInfo 
+	{
+		BOS,
+		DOLU, // deniz ya da daglik cikarsa :D
+		AGACLIK,
+		MADEN,
+		TARLA,
+		BINA,
+		BIRIM,
+		SALDIR // karşıdaki bir düşman birimi...
+	};
+	
 	Map(SDL_Surface *scr, int w, int h);
 	void setOrigin(int x, int y);
 	void setCurrentX(int x);
@@ -78,6 +92,8 @@ class Map
 	void endBuildSel();
 	bool uygun();
 	bool tileEmpty(int ex, int ey);
+	tileInfo getTileInfo(int ex, int ey);
+	BaseBuilding* getBuilding(int x, int y);
 	
 	private:
 	Player *human, *cpu;

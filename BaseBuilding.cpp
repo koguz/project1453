@@ -36,6 +36,7 @@ bool BaseBuilding::isClicked(int x, int y)
 }
 
 void BaseBuilding::setState(string state) { curState = state; }
+string BaseBuilding::getState() { return curState; }
 int BaseBuilding::getSize() { return size; }
 int BaseBuilding::getSizeSqr() { return size*size; }
 int BaseBuilding::getSight() { return sight; }

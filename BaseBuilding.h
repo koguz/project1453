@@ -18,6 +18,7 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	~BaseBuilding();
 	
 	void setState(string state);
+	string getState();
 	
 	virtual SDL_Surface* getImg() 
 	{ 
@@ -46,7 +47,6 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	
 	bool onScreen(int x1, int x2, int y1, int y2);
 	void draw(SDL_Rect s,SDL_Rect d);
-// 	void draw(SDL_Rect s, SDL_Rect d, int tile);
 	
 	protected:
 	int sight;

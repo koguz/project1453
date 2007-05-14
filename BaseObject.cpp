@@ -22,10 +22,24 @@ BaseObject::BaseObject(string n)
 
 BaseObject::~BaseObject() {}
 
+bool BaseObject::tam()
+{
+	return (hitpoints == currentHp);
+}
 
 void BaseObject::addReq(string r)
 {
 	reqList.push_back(r);
+}
+
+void BaseObject::addCurHp(int v)
+{
+	// eksi deger ile cikariladabilir
+	currentHp += v;
+	if (currentHp > hitpoints)
+		currentHp = hitpoints;
+	if (currentHp < 0)
+		currentHp = 0;
 }
 
 bool BaseObject::build()

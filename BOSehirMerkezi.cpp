@@ -102,7 +102,7 @@ void SehirMerkezi::createKoylu()
 		return;
 	
 	Koylu *ykoylu = new Koylu(screen, parent);
-	ykoylu->setPosition(200, 200);
+	ykoylu->setTilePos(posx+2, posy+4);
 	
 	nowBuilding = (BaseObject*) ykoylu;
 	nowBuildingBar->setMax(ykoylu->getMaxHp());

@@ -259,7 +259,7 @@ void BaseUnit::moveToTarget(int tx, int ty)
 	
 }
 
-void BaseUnit::update()
+void BaseUnit::doUpdate()
 {
 // 	parent->harita->exploreTiles(getTx(), getTy(), getSight());
 	if (selected)
@@ -282,9 +282,6 @@ void BaseUnit::update()
 		setState("yuru");
 		if ( (SDL_GetTicks() - lastUpdate) > (1000 / speed) )
 		{
-// 			cout << "update: " << SDL_GetTicks() << endl;
-			
-		
 			temp = target.front();
 			// ne tarafa bakacagiz?
 			if ( (wx > temp.x) && (wy == temp.y) )

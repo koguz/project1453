@@ -25,6 +25,8 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	
 	virtual void issueCommand(int x, int y) { cerr << "base unit issueCommand is called, err??" << endl; }
 	virtual void defaultAction(int tx, int ty) { cerr << "base unit default action is called, err?" << endl; }
+	virtual void update() { doUpdate(); }
+	
 	
 	virtual SDL_Surface* getImg()
 	{
@@ -49,7 +51,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	bool onScreen(int x1, int x2, int y1, int y2);
 	void draw(SDL_Rect s, SDL_Rect d); 
 	
-	void update();
+	void doUpdate();
 	
 	SDLProgressBar *sbar;
 	SDLLabel *birimAdi, 

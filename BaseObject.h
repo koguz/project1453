@@ -21,9 +21,11 @@ class BaseObject
 	string getFaction();
 	vector<string> getReqs();
 	void addReq(string r);
+	void addCurHp(int v);
 	int getCurHp();
 	int getMaxHp();
 	bool build();
+	bool tam();
 	void instantBuild();
 	
 	friend bool operator==(BaseObject &a, BaseObject &b);
