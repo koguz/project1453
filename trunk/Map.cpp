@@ -71,7 +71,7 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 			break;
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
-	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
+// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }
@@ -373,6 +373,72 @@ bool Map::tileEmpty(int ex, int ey)
 	}
 	return true;
 }
+
+Map::tileInfo Map::getTileInfo(int ex, int ey)
+{
+	// bu üstteki tileEmpty de bunun gibi bişii diil mi?
+	
+	/* öncelik
+		- oyuncunun birimlerden biri var mi
+		- bilg. birimlerden biri var mi
+		- oyuncunun binalarindan biri var mi
+			- maden
+			- tarla
+		- bilg. binalarindan biri var mi
+		- agaclik bir alan mi
+		- yürünebilecek bir alan mi
+	
+	enum tileInfo 
+	{
+		BOS,
+		DOLU, // deniz ya da daglik cikarsa :D
+		AGACLIK,
+		MADEN,
+		TARLA,
+		BINA,
+		BIRIM,
+		SALDIR
+	};
+	
+	*/
+	
+	for(int i=0;i<human->buildings.size();i++)
+	{
+		int tempx = human->buildings[i]->getTx();
+		int tempy = human->buildings[i]->getTy();
+		int temps = human->buildings[i]->getSize();
+		if( (ex>=tempx) && 
+			(ex<tempx+temps) && 
+			(ey>=tempy) &&
+			(ey<tempy+temps)
+		  )
+		 {
+		 	return Map::BINA;
+		 }
+	}
+	
+	return Map::BOS;
+}
+
+BaseBuilding* Map::getBuilding(int ex, int ey)
+{
+	for(int i=0;i<human->buildings.size();i++)
+	{
+		int tempx = human->buildings[i]->getTx();
+		int tempy = human->buildings[i]->getTy();
+		int temps = human->buildings[i]->getSize();
+		if( (ex>=tempx) && 
+			(ex<tempx+temps) && 
+			(ey>=tempy) &&
+			(ey<tempy+temps)
+		  )
+		 {
+		 	return human->buildings[i];
+		 }
+	}
+	return 0;
+}
+
 
 bool Map::uygun()
 {

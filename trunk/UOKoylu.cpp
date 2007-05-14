@@ -10,6 +10,7 @@ Koylu::Koylu()
 	sndSelected = 0;
 	sndConfirmed = 0;
 	yuru = dur = calis = resim = 0;
+	insa = 0;
 }
 
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
@@ -51,10 +52,12 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 		sprites[i].setImg(spriteImg);
 		sprites[i].addState("dur");
 		sprites[i].addState("yuru");
+		sprites[i].addState("calis");
 		
 		t.x = i*64;
 		t.y = 0;
 		sprites[i].addFrameToState("dur", t, 1000);
+		sprites[i].addFrameToState("calis", t, 1000);
 		
 		for (int j=0;j<2;j++)
 		{
@@ -67,6 +70,8 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	yon = S;
 	setState("dur");
 	healthBar = new SDLProgressBar(32, 4, GREEN, 0, hitpoints);
+	
+	insa = 0;
 	
 	// sesler
 	sndSelected = new SDLMixer("wavs/ottoman/koylu01.ogg");
@@ -162,6 +167,52 @@ void Koylu::command(int x, int y)
 		{
 			parent->addMessage("Burası uygun değil!");
 		}
+	}
+}
+
+void Koylu::defAct(int tx, int ty)
+{
+	// bakalim basilan yerde ne var :)
+	switch(parent->harita->getTileInfo(tx, ty))
+	{
+		case Map::BOS:
+			moveToTarget(tx, ty);
+			break;
+		case Map::BINA:
+			buildBina(parent->harita->getBuilding(tx, ty));
+			break;
+		default:
+			cout << "wassup?" << endl;
+			break;
+	}
+}
+
+void Koylu::kUpdate()
+{
+	if (curState == "calis")
+	{
+		if (insa != 0)
+		{
+			if (insa->getState() == "insaa" && !insa->tam())
+				insa->addCurHp(1);
+				
+			else 
+			{
+				insa->setState("saglam");
+				parent->addMessage("Bina yapımı tamamlandı: " + insa->getName());
+				insa = 0;
+				curState = "dur";
+			}
+		}
+	}
+}
+
+void Koylu::buildBina(BaseBuilding* b)
+{
+	if (!b->tam())
+	{
+		insa = b;
+		setState("calis");
 	}
 }
 

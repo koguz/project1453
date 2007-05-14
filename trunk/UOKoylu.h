@@ -15,12 +15,18 @@ class Koylu:public BaseUnit
 	
 	virtual void defaultAction(int tx, int ty)
 	{
-		moveToTarget(tx, ty);
+		defAct(tx, ty);
 	}
 	
 	virtual void issueCommand(int x, int y)
 	{
 		command(x, y);
+	}
+	
+	virtual void update()
+	{
+		BaseUnit::update();
+		kUpdate();
 	}
 	
 	virtual void playSelected()
@@ -32,7 +38,14 @@ class Koylu:public BaseUnit
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
 	void setCommandMerkezYap();
+	
 	void command(int x, int y);
+	void defAct(int tx, int ty);
+	
+	void buildBina(BaseBuilding* b);
+	void kUpdate(); // koyluUpdate, isim bulamiyorum artik...
+	
+	BaseBuilding* insa;
 	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;

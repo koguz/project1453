@@ -1,3 +1,11 @@
+2007.05.14
+15:03
+	- Adam evi insaa ediyor. Bunu otomatige almak icin path-finding olayini
+	yapmam lazim. su an adam evi koyduktan sonra bir de evin uzerine sagla
+	tiklarsaniz, defaultAction orada bir ev oldugunu ve evin bizim taraftan
+	oldugunu gördugu icin insaa moduna geciyor... path finding'e girismeden
+	tekrar bir commit edeyim istedim...
+
 2007.05.12
 03:03
 	- Ev yerleşiyor, şimdi adam bunu saniyede belli bir miktar
