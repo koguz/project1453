@@ -55,6 +55,7 @@ bool Application::Init()
 	ana->cikis->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::Quit);
 	ana->single->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenGameType);
 	ana->ayarlar->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenSettings);
+	ana->credits->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenCredits);
 	
 	gt = new ScreenGameType(screen);
 	gt->anaEkranaDon->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenMain);
@@ -62,6 +63,9 @@ bool Application::Init()
 	
 	ayar = new ScreenSettings(screen);
 	ayar->iptal->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenMain);
+	
+	emek = new ScreenCredits(screen);
+	emek->anaEkranaDon->clicked = makeFunctor((CBFunctor0*)0, *me, &Application::screenMain);
 	
 	muse = new SDLMusic("wavs/music/track01.ogg");
 	muse->play();
@@ -74,16 +78,16 @@ bool Application::Init()
 
 void Application::startSingleGame()
 {
-	if (!strcmp(gt->haritalar->getValue().c_str(), "NONE"))
-	{
-		gt->err->setText("Lütfen bir harita seçiniz!");
-		return;
-	}
-	gt->err->setText(" ");
-	
+// 	if (!strcmp(gt->haritalar->getValue().c_str(), "NONE"))
+// 	{
+// 		gt->err->setText("Lütfen bir harita seçiniz!");
+// 		return;
+// 	}
+// 	gt->err->setText(" ");
+// 	
 	muse->stop();
 	
-	game = new Game(screen, gt->ulke->getValue(), atoi(gt->rakipTip->getValue().c_str()), gt->haritalar->getValue());
+	game = new Game(screen, "Osmanlı", 1, "dummy");
 }
 
 void Application::screenMain()
@@ -94,6 +98,11 @@ void Application::screenMain()
 void Application::screenGameType()
 {
 	current = gt;
+}
+
+void Application::screenCredits()
+{
+	current = emek;
 }
 
 void Application::screenSettings()

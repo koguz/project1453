@@ -45,13 +45,105 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 	{
 		case CIM:
 			break;
-		case SARICIM:
+		case DENIZKIYIS:
+			src.x += 32;
+			break;
+		case DENIZKIYIW:
+			src.x += 64;
+			break;
+		case DENIZKIYIN:
 			src.x += 96;
-			src.y += 96;
+			break;
+		case DENIZKIYIE:
+			src.x += 128;
+			break;
+		case DENIZKIYINE:
+			src.x += 160;
+			break;
+		case DENIZKIYISE:
+			src.x += 192;
+			break;
+		case DENIZKIYISW:
+			src.x += 224;
+			break;
+		case DENIZKIYINW:
+			src.y += 32;
+			break;
+		case DENIZKIYISEB:
+			src.x += 32;
+			src.y += 32;
+			break;
+		case DENIZKIYISWB:
+			src.x += 64;
+			src.y += 32;
+			break;
+		case DENIZKIYINWB:
+			src.x += 96;
+			src.y += 32;
+			break;
+		case DENIZKIYINEB:
+			src.x += 128;
+			src.y += 32;
+			break;
+		case DENIZ:
+			src.x += 160;
+			src.y += 32;
 			break;
 		case TOPRAK:
 			src.x += 192;
 			src.y += 32;
+			break;
+		case TOPRAKKIYIS:
+			src.x += 224;
+			src.y += 32;
+			break;
+		case TOPRAKKIYIW:
+			src.y += 64;
+			break;
+		case TOPRAKKIYIN:
+			src.x += 32;
+			src.y += 64;
+			break;
+		case TOPRAKKIYIE:
+			src.x += 64;
+			src.y += 64;
+			break;
+		case TOPRAKKIYINE:
+			src.x += 96;
+			src.y += 64;
+			break;
+		case TOPRAKKIYISE:
+			src.x += 128;
+			src.y += 64;
+			break;
+		case TOPRAKKIYISW:
+			src.x += 160;
+			src.y += 64;
+			break;
+		case TOPRAKKIYINW:
+			src.x += 192;
+			src.y += 64;
+			break;
+		case TOPRAKKIYISEB:
+			src.x += 224;
+			src.y += 64;
+			break;
+		case TOPRAKKIYISWB:
+			src.y += 96;
+			break;
+		case TOPRAKKIYINWB:
+			src.x += 32;
+			src.y += 96;
+			break;
+		case TOPRAKKIYINEB:
+			src.x += 64;
+			src.y += 96;
+			break;
+		case SARICIM:
+			src.x += 96;
+			src.y += 96;
+			break;
+		
 			break;
 		case AGAC:
 			src.x += 160;
@@ -61,14 +153,57 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 			src.x += 128;
 			src.y += 96;
 			break;
-		case DAGLIK:
+		case DAGLIKKIYIS:
+			src.x += 192;
+			src.y += 96;
+			break;
+		case DAGLIKKIYIW:
+			src.x += 224;
+			src.y += 96;
+			break;
+		case DAGLIKKIYIN:
+			src.y += 128;
+			break;
+		case DAGLIKKIYIE:
+			src.x += 32;
+			src.y += 128;
+			break;
+		case DAGLIKKIYISEB:
+			src.x += 64;
+			src.y += 128;
+			break;
+		case DAGLIKKIYISWB:
+			src.x += 96;
+			src.y += 128;
+			break;
+		case DAGLIKKIYINWB:
+			src.x += 128;
+			src.y += 128;
+			break;
+		case DAGLIKKIYINEB:
+			src.x += 160;
+			src.y += 128;
+			break;
+		case DAGLIKKIYISE:
+			src.x += 192;
+			src.y += 128;
+			break;
+		case DAGLIKKIYISW:
+			src.x += 224;
+			src.y += 128;
+			break;
+		case DAGLIKKIYINW:
+			src.y += 160;
+			break;
+		case DAGLIKKIYINE:
 			src.x += 32;
 			src.y += 160;
 			break;
-		case DENIZ:
-			src.x += 160;
-			src.y += 32;
+		case DAGLIK:
+			src.x += 64;
+			src.y += 160;
 			break;
+		
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
 // 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
@@ -88,6 +223,8 @@ Map::Map(SDL_Surface* scr, int w, int h)
 	MapTile::screen = screen;
 	tx = w; ty = h;
 	
+	get_map("harita1.txt");
+	
 	rw = tx*TILESIZE;
 	rh = ty*TILESIZE;
 	
@@ -103,51 +240,167 @@ Map::Map(SDL_Surface* scr, int w, int h)
 	scroll = true; 
 	buildsize = 0;
 	
-	// aslında şu kisim... bu kisim dosyadan, ya da db'den
-	for(int i=0;i<w;i++)
-	{
-		for(int j=0;j<h;j++)
-		{
-			if (i==j)
-				tiles[i][j].setType(MapTile::DENIZ, true);
-			else if (i == 10)
-				tiles[i][j].setType(MapTile::DAGLIK, true);
-			else if (i == 20 || i == 21 || i == 22)
-				tiles[i][j].setType(MapTile::AGAC, true);
-			else tiles[i][j].setType(MapTile::CIM, false);
-// 			switch(rand() % 1)
-// 			{
-// 				case 0:
-// 					tiles[i][j].setType(MapTile::CIM);
-// 					break;
-// 				case 1:
-// 					tiles[i][j].setType(MapTile::SARICIM);
-// 					break;
-// 				case 2:
-// 					tiles[i][j].setType(MapTile::TOPRAK);
-// 					break;
-// 				case 3:
-// 					tiles[i][j].setType(MapTile::AGAC);
-// 					break;
-// 				case 4:
-// 					tiles[i][j].setType(MapTile::AGACKESIK);
-// 					break;
-// 				case 5:
-// 					tiles[i][j].setType(MapTile::DAGLIK);
-// 					break;
-// 				case 6:
-// 					tiles[i][j].setType(MapTile::DENIZ);
-// 					break;
-// 			}
+	int j = 0;
+	vector<string>::iterator iter;
+	for( iter = map.begin(); iter != map.end(); iter++ ) {
+		for( int i=0; i < map.at(j).size(); i++ ) {
+			switch(map.at(j).at(i))
+			{
+				case '0':
+					tiles[i][j].setType(MapTile::CIM);
+					break;
+				case '1':
+					tiles[i][j].setType(MapTile::DENIZKIYIS, true);
+					break;
+				case '2':
+					tiles[i][j].setType(MapTile::DENIZKIYIW, true);
+					break;
+				case '3':
+					tiles[i][j].setType(MapTile::DENIZKIYIN, true);
+					break;
+				case '4':
+					tiles[i][j].setType(MapTile::DENIZKIYIE, true);
+					break;
+				case '5':
+					tiles[i][j].setType(MapTile::DENIZKIYINE, true);
+					break;
+				case '6':
+					tiles[i][j].setType(MapTile::DENIZKIYISE, true);
+					break;
+				case '7':
+					tiles[i][j].setType(MapTile::DENIZKIYISW, true);
+					break;
+				case '8':
+					tiles[i][j].setType(MapTile::DENIZKIYINW, true);
+					break;
+				case '9':
+					tiles[i][j].setType(MapTile::DENIZKIYISEB, true);
+					break;
+				case 'A':
+					tiles[i][j].setType(MapTile::DENIZKIYISWB, true);
+					break;
+				case 'B':
+					tiles[i][j].setType(MapTile::DENIZKIYINWB, true);
+					break;
+				case 'C':
+					tiles[i][j].setType(MapTile::DENIZKIYINEB, true);
+					break;
+				case 'D':
+					tiles[i][j].setType(MapTile::DENIZ, true);
+					break;
+				case 'E':
+					tiles[i][j].setType(MapTile::TOPRAK);
+					break;
+				case 'F':
+					tiles[i][j].setType(MapTile::TOPRAKKIYIS);
+					break;
+				case 'G':
+					tiles[i][j].setType(MapTile::TOPRAKKIYIW);
+					break;
+				case 'H':
+					tiles[i][j].setType(MapTile::TOPRAKKIYIN);
+					break;
+				case 'I':
+					tiles[i][j].setType(MapTile::TOPRAKKIYIE);
+					break;
+				case 'J':
+					tiles[i][j].setType(MapTile::TOPRAKKIYINE);
+					break;
+				case 'K':
+					tiles[i][j].setType(MapTile::TOPRAKKIYISE);
+					break;
+				case 'L':
+					tiles[i][j].setType(MapTile::TOPRAKKIYISW);
+					break;
+				case 'M':
+					tiles[i][j].setType(MapTile::TOPRAKKIYINW);
+					break;
+				case 'N':
+					tiles[i][j].setType(MapTile::TOPRAKKIYISEB);
+					break;
+				case 'O':
+					tiles[i][j].setType(MapTile::TOPRAKKIYISWB);
+					break;
+				case 'P':
+					tiles[i][j].setType(MapTile::TOPRAKKIYINWB);
+					break;
+				case 'R':
+					tiles[i][j].setType(MapTile::TOPRAKKIYINEB);
+					break;
+				case 'S':
+					tiles[i][j].setType(MapTile::SARICIM);
+					break;
+				case 'T':
+					tiles[i][j].setType(MapTile::AGAC, true);
+					break;
+				case 'U':
+					tiles[i][j].setType(MapTile::AGACKESIK);
+					break;
+				case 'V':
+					tiles[i][j].setType(MapTile::DAGLIK, true);
+					break;
+				case 'W':
+					tiles[i][j].setType(MapTile::DAGLIKKIYIS, true);
+					break;
+				case 'X':
+					tiles[i][j].setType(MapTile::DAGLIKKIYIW, true);
+					break;
+				case 'Y':
+					tiles[i][j].setType(MapTile::DAGLIKKIYIN, true);
+					break;
+				case 'Z':
+					tiles[i][j].setType(MapTile::DAGLIKKIYIE, true);
+					break;
+				case '!':
+					tiles[i][j].setType(MapTile::DAGLIKKIYINE, true);
+					break;
+				case '-':
+					tiles[i][j].setType(MapTile::DAGLIKKIYISE, true);
+					break;
+				case '+':
+					tiles[i][j].setType(MapTile::DAGLIKKIYISW, true);
+					break;
+				case '%':
+					tiles[i][j].setType(MapTile::DAGLIKKIYINW, true);
+					break;
+				case '&':
+					tiles[i][j].setType(MapTile::DAGLIKKIYISEB, true);
+					break;
+				case '*':
+					tiles[i][j].setType(MapTile::DAGLIKKIYISWB, true);
+					break;
+				case '<':
+					tiles[i][j].setType(MapTile::DAGLIKKIYINWB, true);
+					break;
+				case '>':
+					tiles[i][j].setType(MapTile::DAGLIKKIYINEB, true);
+					break;
+			}
 		}
+		j++;
 	}
-	startpx = 1;
-	startpy = 0;
+		
+	startpx = 28;
+	startpy = 2;
 	startcx = 2000;
 	startcy = 2000; 
 	
 	vx = vy = ax = ay = mtx = mty = 0;
-	cx = 0; cy = 0; // aslında bu da map'ten okunacak
+	cx = 640; cy = 0; // aslında bu da map'ten okunacak
+}
+
+int Map::get_map(char *f)
+{
+	Map::map.clear();
+	ifstream infile (f, ios_base::in);
+	
+	while (getline(infile, line, '\n'))
+	{
+		map.push_back (line);
+	}
+	
+// 	w = map.size();
+// 	h = map.at(0).size();
 }
 
 int Map::getPx() { return startpx; }
@@ -264,6 +517,18 @@ void Map::drawMiniMap()
 						boxColor(screen,sx, sy, ex, ey, 0xCDC30DFF);
 						break;
 					case MapTile::TOPRAK:
+					case MapTile::TOPRAKKIYIS:
+					case MapTile::TOPRAKKIYIW:
+					case MapTile::TOPRAKKIYIN:
+					case MapTile::TOPRAKKIYIE:
+					case MapTile::TOPRAKKIYISE:
+					case MapTile::TOPRAKKIYINE:
+					case MapTile::TOPRAKKIYISW:
+					case MapTile::TOPRAKKIYINW:
+					case MapTile::TOPRAKKIYISEB:
+					case MapTile::TOPRAKKIYINWB:
+					case MapTile::TOPRAKKIYISWB:
+					case MapTile::TOPRAKKIYINEB:
 						boxColor(screen,sx, sy, ex, ey, 0x5E3001FF);
 						break;
 					case MapTile::AGAC:
@@ -273,9 +538,33 @@ void Map::drawMiniMap()
 						boxColor(screen,sx, sy, ex, ey, 0x065B12FF);
 						break;
 					case MapTile::DAGLIK:
+					case MapTile::DAGLIKKIYIS:
+					case MapTile::DAGLIKKIYIW:
+					case MapTile::DAGLIKKIYIN:
+					case MapTile::DAGLIKKIYIE:
+					case MapTile::DAGLIKKIYISE:
+					case MapTile::DAGLIKKIYINE:
+					case MapTile::DAGLIKKIYISW:
+					case MapTile::DAGLIKKIYINW:
+					case MapTile::DAGLIKKIYISEB:
+					case MapTile::DAGLIKKIYINWB:
+					case MapTile::DAGLIKKIYISWB:
+					case MapTile::DAGLIKKIYINEB:
 						boxColor(screen,sx, sy, ex, ey, 0x5B5B5BFF);
 						break;
 					case MapTile::DENIZ:
+					case MapTile::DENIZKIYIS:
+					case MapTile::DENIZKIYIW:
+					case MapTile::DENIZKIYIN:
+					case MapTile::DENIZKIYIE:
+					case MapTile::DENIZKIYISE:
+					case MapTile::DENIZKIYINE:
+					case MapTile::DENIZKIYISW:
+					case MapTile::DENIZKIYINW:
+					case MapTile::DENIZKIYISEB:
+					case MapTile::DENIZKIYINWB:
+					case MapTile::DENIZKIYISWB:
+					case MapTile::DENIZKIYINEB:
 						boxColor(screen,sx, sy, ex, ey, 0x093284FF);
 						break;
 					default:

@@ -19,6 +19,7 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	kills = 0; // no kills
 	
 	tip = UNIT;
+	tax = tay = 0;
 	
 	waitingCommand = "yok";
 	waiting = false;
@@ -180,16 +181,11 @@ void BaseUnit::draw(SDL_Rect s, SDL_Rect d)
 	}
 }
 
-void BaseUnit::moveToTarget(int tx, int ty)
+void BaseUnit::calWalkTile(int tx, int ty)
 {
-// 	cout << tx << " - " << ty << endl;
-	SDLCursor::locked = false;
-	SDLCursor::setCursorMain();
 	target.clear();
 	int smx = wx;
 	int smy = wy;
-// 	tx -= cx;
-// 	ty -= cy;
 	tx = tx*32;
 	ty = ty*32;
 	
@@ -256,7 +252,15 @@ void BaseUnit::moveToTarget(int tx, int ty)
 	}
 	
 	commandList.push_back("yuru");
-	
+}
+
+void BaseUnit::moveToTarget(int tx, int ty)
+{
+	SDLCursor::locked = false;
+	SDLCursor::setCursorMain();
+	tax = tx;
+	tay = ty;
+	calWalkTile(tx, ty);
 }
 
 void BaseUnit::doUpdate()

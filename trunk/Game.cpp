@@ -18,7 +18,7 @@ bool operator==(BaseObject &a, BaseObject &b)
 Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 {
 	screen = scr;
-	harita = new Map(screen, 70, 70);
+	harita = new Map(screen, 69, 69);
 	harita->setOrigin(10, 25);
 	harita->setPane(630, 566);
 	harita->setMiniMapPos(653, 45);

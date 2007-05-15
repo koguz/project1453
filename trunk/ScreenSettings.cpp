@@ -4,49 +4,49 @@ ScreenSettings::ScreenSettings(SDL_Surface *screen):SDLScreen(screen)
 {
 	ScreenSettings *me = this;
 
-	arka = new SDLWidget("ui/arkaKirmizi.jpg");
+	arka = new SDLWidget("ui/ana_sayfa3.jpg");
 	arka->setPosition(0, 0);
 	addWidget(arka);
 	
-	optionPane = new SDLWidget("ui/optionPane.jpg");
-	optionPane->setPosition( (800-optionPane->getWidth())/2, 250);
-	addWidget(optionPane);
+// 	optionPane = new SDLWidget("ui/optionPane.jpg");
+// 	optionPane->setPosition( (800-optionPane->getWidth())/2, 250);
+// 	addWidget(optionPane);
 	
-	imgYeniceri2 = new SDLWidget("ui/img_yeniceri2.jpg");
-	imgYeniceri2->setPosition(12, 12);
-	addWidget(imgYeniceri2);
+// 	imgYeniceri2 = new SDLWidget("ui/img_yeniceri2.jpg");
+// 	imgYeniceri2->setPosition(12, 12);
+// 	addWidget(imgYeniceri2);
 	
-	baslik = new SDLLabel("Ayarlar", 36);
-	baslik->setPosition( (800-baslik->getWidth()) / 2, 200);
+	baslik = new SDLLabel("Ayarlar", 28);
+	baslik->setPosition(550, 170);
 	addWidget(baslik);
 	
 	monoff = new SDLCheckBox("Müzikler Açık");
-	monoff->setPosition(280, 280);
+	monoff->setPosition(530, 250);
 	if (SDLMusic::musicOn)
 		monoff->setOn();
 	else monoff->setOff();
 	addWidget(monoff);
 	
 	muzikvol = new SDLLabel("Müzik Ses Seviyesi");
-	muzikvol->setPosition(280, 320);
+	muzikvol->setPosition(530, 300);
 	addWidget(muzikvol);
 	
 	mvol = new SDLCombo();
-	mvol->setPosition(440, 320);
+	mvol->setPosition(560, 330);
 	mvol->addOption("Yüksek", "1", true);
 	mvol->addOption("Orta", "2");
 	mvol->addOption("Kısık", "4");
 	addWidget(mvol);
 	
 	
-	tamam = new SDLButton("ui/kucukDugme.jpg", "Uygula");
-	tamam->setPosition(566, 470);
+	tamam = new SDLButton("ui/button.png", "Tamam");
+	tamam->setPosition(470, 435);
 	tamam->clicked = makeFunctor((CBFunctor0*)0, *me, &ScreenSettings::accept);
 	addWidget(tamam);
 	
 	
-	iptal = new SDLButton("ui/kucukDugme.jpg", "Ana Ekran");
-	iptal->setPosition(566, 510);
+	iptal = new SDLButton("ui/button.png", "İptal");
+	iptal->setPosition(470, 485);
 	addWidget(iptal);
 }
 
