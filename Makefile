@@ -8,10 +8,10 @@ all: g1453
 again: clean all
 
 g1453: main.o \
+	Player.o \
 	Map.o \
 	Application.o \
 	Game.o \
-	Player.o \
 	SDLCursor.o \
 	SDLMixer.o \
 	SDLMusic.o \
@@ -29,6 +29,7 @@ g1453: main.o \
 	ScreenMain.o \
 	ScreenGameType.o \
 	ScreenSettings.o \
+	ScreenCredits.o \
 	Resource.o \
 	Resources.o \
 	Cost.o \
@@ -45,10 +46,10 @@ g1453: main.o \
 	Sprite.o 
 	
 	$(CC) $(LIBS) main.o \
+	Player.o \
 	Map.o \
 	Application.o \
 	Game.o \
-	Player.o \
 	SDLCursor.o \
 	SDLMixer.o \
 	SDLMusic.o \
@@ -66,6 +67,7 @@ g1453: main.o \
 	ScreenMain.o \
 	ScreenGameType.o \
 	ScreenSettings.o \
+	ScreenCredits.o \
 	Resource.o \
 	Resources.o \
 	Cost.o \
@@ -95,6 +97,9 @@ ScreenGameType.o: ScreenGameType.cpp
 	
 ScreenSettings.o: ScreenSettings.cpp
 	$(CC) $(FLAGS) ScreenSettings.cpp
+
+ScreenCredits.o: ScreenCredits.cpp
+	$(CC) $(FLAGS) ScreenCredits.cpp
 
 SDLCursor.o: SDLCursor.cpp
 	$(CC) $(FLAGS) SDLCursor.cpp

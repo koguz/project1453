@@ -42,6 +42,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	}
 	
 	void moveToTarget(int tx, int ty);
+	void calWalkTile(int tx, int ty);
 	void actionDur();
 	void setCommandYuru();
 	void cancelActions();
@@ -73,6 +74,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int morale;
 	int xp;
 	int kills;
+	int tax, tay; // target x, target y
 	
 	int lastUpdate;
 	

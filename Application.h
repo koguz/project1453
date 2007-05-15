@@ -8,6 +8,7 @@
 #include "ScreenMain.h"
 #include "ScreenGameType.h"
 #include "ScreenSettings.h"
+#include "ScreenCredits.h"
 #include "SDLMusic.h"
 #include "SDLCursor.h"
 #include "Game.h"
@@ -27,6 +28,7 @@ class Application
 	ScreenMain *ana;
 	ScreenGameType *gt;
 	ScreenSettings *ayar;
+	ScreenCredits *emek;
 	Game *game;
 	SDLMusic *muse;
 	SDLLabel *lblFps;
@@ -42,6 +44,7 @@ class Application
 	void screenMain();
 	void screenGameType();
 	void screenSettings();
+	void screenCredits();
 	void startSingleGame();
 	void Quit();
 };

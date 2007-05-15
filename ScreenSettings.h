@@ -12,7 +12,7 @@
 class ScreenSettings:public SDLScreen
 {
 	public:
-	SDLWidget *arka, *imgYeniceri2, *optionPane;
+	SDLWidget *arka;
 	SDLLabel *baslik, *muzikvol;
 	SDLCheckBox *monoff;
 	SDLCombo *mvol;

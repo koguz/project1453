@@ -17,7 +17,7 @@ ScreenMain::ScreenMain(SDL_Surface *screen):SDLScreen(screen)
 	credits = new SDLButton("ui/button.png", "Emeği Geçenler");
 	credits->setPosition(470, 435);
 	addWidget(credits);
-		
+	
 	cikis = new SDLButton("ui/button.png", "Oyunu Kapat");
 	cikis->setPosition(470, 485);
 	addWidget(cikis);

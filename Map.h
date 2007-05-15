@@ -2,6 +2,9 @@
 #define MAP__H__
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>    // file operations
 #include "Headers.h"
 #include "Player.h"
 #define TILESIZE 32
@@ -17,17 +20,53 @@ class MapTile
 	public:
 	enum tileType 
 	{
-		CIM,
-		SARICIM,
-		TOPRAK,
-		AGAC,
-		AGACKESIK,
-		DAGLIK,
-		DENIZ
+		CIM, // 0 
+		DENIZKIYIS, // 1
+		DENIZKIYIW, // 2
+		DENIZKIYIN, // 3
+		DENIZKIYIE, // 4
+		DENIZKIYINE, // 5
+		DENIZKIYISE, // 6
+		DENIZKIYISW, // 7
+		DENIZKIYINW, // 8
+		DENIZKIYISEB, // 9
+		DENIZKIYISWB, // A 
+		DENIZKIYINWB, // B
+		DENIZKIYINEB, // C
+		DENIZ, // D
+		TOPRAK, // E 
+		TOPRAKKIYIS, // F 
+		TOPRAKKIYIW, // G
+		TOPRAKKIYIN, // H
+		TOPRAKKIYIE, // I
+		TOPRAKKIYINE, // J
+		TOPRAKKIYISE, // K
+		TOPRAKKIYISW, // L
+		TOPRAKKIYINW, // M
+		TOPRAKKIYISEB, // N
+		TOPRAKKIYISWB, // O
+		TOPRAKKIYINWB, // P
+		TOPRAKKIYINEB, // R
+		SARICIM, // S
+		AGAC, // T
+		AGACKESIK, // U 
+		DAGLIK, // V 
+		DAGLIKKIYIS, // W 
+		DAGLIKKIYIW, // X 
+		DAGLIKKIYIN, // Y 
+		DAGLIKKIYIE, // Z 
+		DAGLIKKIYINE, // !
+		DAGLIKKIYISE, // -
+		DAGLIKKIYISW, // +
+		DAGLIKKIYINW, // % 
+		DAGLIKKIYISEB, // &
+		DAGLIKKIYISWB, // *
+		DAGLIKKIYINWB, // <
+		DAGLIKKIYINEB // >
 	};
 	
 	MapTile();
-	void setType(tileType t, bool obs);
+	void setType(tileType t, bool obs=false);
 	void draw(SDL_Rect src, SDL_Rect dest);
 	tileType getTip();
 	bool isExplored();
@@ -102,6 +141,11 @@ class Map
 	MapTile::tileType buildtype;
 	MapTile** tiles;
 	SDL_Surface* screen;
+	
+	vector<string> map;
+	string line;
+	int get_map(char *f);
+	
 	int ox, oy; // ekrandaki posizyon, sol üst
 	int cx, cy; // current x & y
 	int pw, ph; // ekrandaki genişlik / yükseklik
