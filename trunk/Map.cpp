@@ -852,8 +852,9 @@ void Map::draw(bool running)
 	{
 		exploreTiles( human->units[i]->getTx(), human->units[i]->getTy(), human->units[i]->getSight());
 		
-		if (human->units[i]->onScreen(xb, xs, yb, ys))
+		if (human->units[i]->onScreen(cx, cx+pw, cy, cy+ph))
 		{
+// 			cout << "on screen" << endl;
 			int ux = human->units[i]->getX();
 			int uy = human->units[i]->getY();
 			
@@ -871,8 +872,8 @@ void Map::draw(bool running)
 			else 
 			{
 				s.x = 0;
-				s.w = d.w = pw + ox - ux;
-				d.x = ux + ox;
+				s.w = d.w = abs(pw + cx - ux);
+				d.x = ux + ox - cx;
 			}
 			
 			// y
@@ -890,8 +891,8 @@ void Map::draw(bool running)
 			else 
 			{
 				s.y = 0;
-				s.h = d.h = (ph + oy) - uy;
-				d.y = uy + oy;
+				s.h = d.h = abs((ph + cy) - uy);
+				d.y = uy + oy - cy;
 			}
 			human->units[i]->draw(s,d);
 		}
@@ -929,8 +930,8 @@ void Map::draw(bool running)
 			else 
 			{
 				s.x = 0;
-				s.w = d.w = pw + ox - ux;
-				d.x = ux + ox;
+				s.w = d.w = abs(pw + cx - ux);
+				d.x = ux + ox - cx;
 			}
 			
 			// y
@@ -948,8 +949,8 @@ void Map::draw(bool running)
 			else 
 			{
 				s.y = 0;
-				s.h = d.h = (ph + oy) - uy;
-				d.y = uy + oy;
+				s.h = d.h = abs((ph + cy) - uy);
+				d.y = uy + oy - cy;
 			}
 			
 			human->buildings[i]->draw(s,d);

@@ -116,13 +116,12 @@ void BaseUnit::setCommandYuru()
 	waiting = true;
 }
 
-void BaseUnit::cancelActions()
+void BaseUnit::cancelBaseActions()
 {
 	SDLCursor::locked = false;
 	SDLCursor::setCursorMain();
 	waiting = false;
 	waitingCommand = "yok";
-// 	parent->harita->endBuildSel();
 }
 
 int BaseUnit::getSight()
@@ -133,12 +132,21 @@ int BaseUnit::getSight()
 
 bool BaseUnit::onScreen(int x1, int x2, int y1, int y2)
 {
-	return 
-	( 
-		(posx >= x1) &&
-		(posx <= x2) &&
-		(posy >= y1) &&
-		(posy <= y2)
+	int px1 = wx;
+	int py1 = wy;
+	int px2 = px1 + 32;
+	int py2 = py1 + 32;
+	
+	return
+	(
+		(
+			((px1 >= x1) && (px1 < x2)) ||
+			((px2 >= x1) && (px2 < x2)) 
+		) && 
+		(
+			((py1 >= y1) && (py1 < y2)) ||
+			((py2 >= y1) && (py2 < y2)) 
+		)
 	);
 }
 
