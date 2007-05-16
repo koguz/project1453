@@ -207,6 +207,11 @@ void Koylu::kUpdate()
 	}
 }
 
+void Koylu::iptal()
+{
+	parent->harita->endBuildSel();
+}
+
 void Koylu::buildBina(BaseBuilding* b)
 {
 	if (!b->tam())

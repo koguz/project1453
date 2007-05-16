@@ -41,11 +41,16 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 		return r;
 	}
 	
+	virtual void cancelActions()
+	{
+		cancelBaseActions();
+	}
+	
 	void moveToTarget(int tx, int ty);
 	void calWalkTile(int tx, int ty);
 	void actionDur();
 	void setCommandYuru();
-	void cancelActions();
+	void cancelBaseActions();
 	list<Coordinates> target;
 	list<string>commandList;
 	int getSight();

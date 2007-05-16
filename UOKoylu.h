@@ -29,6 +29,12 @@ class Koylu:public BaseUnit
 		kUpdate();
 	}
 	
+	virtual void cancelActions()
+	{
+		BaseUnit::cancelActions();
+		iptal();
+	}
+	
 	virtual void playSelected()
 	{ sndSelected->play(); }
 	
@@ -38,6 +44,8 @@ class Koylu:public BaseUnit
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
 	void setCommandMerkezYap();
+	
+	void iptal();
 	
 	void command(int x, int y);
 	void defAct(int tx, int ty);
