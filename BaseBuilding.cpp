@@ -98,7 +98,7 @@ void BaseBuilding::update()
 {
 	if (selected)
 	{
-		healthBar->setValue(currentHp);
+// 		healthBar->setValue(currentHp);
 		sbar->setValue(currentHp);
 	}
 	if (nowBuilding != 0)

@@ -116,6 +116,8 @@ class Map
 	void handleEvents(SDL_Event *event);
 	int getPx();
 	int getPy();
+	int getTx();
+	int getTy();
 	int getCpux();
 	int getCpuy();
 	void setPlayers(Player* h, Player* c);

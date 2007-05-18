@@ -48,7 +48,7 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	setState("insaa");
 	
-	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
+// 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
 	
 // 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;

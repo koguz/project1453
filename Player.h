@@ -44,9 +44,17 @@ class Player
 	void hepsiYuru();
 	void hepsiDur();
 	
+	bool yeniBirim(BaseUnit *u);
+	bool yeniBina(BaseBuilding *b);
+	
 	bool yeniKoylu();
 	bool yeniOsMerkez();
+	bool yeniOsEv();
 	void addOsMerkez(int x, int y);
+	void addOsEv(int x, int y);
+	
+	string getHousingCount();
+	int getHousing();
  	
  	vector<BaseUnit*> units;
  	vector<BaseBuilding*> buildings;
@@ -62,7 +70,7 @@ class Player
 	
 	Uint32 lastMsgTime;
 	string faction;
-	SDL_Surface *screen;;
+	SDL_Surface *screen;
 	
 	Wood wood;
 	Food food;

@@ -137,9 +137,8 @@ void Player::subtractCost(Cost a)
 	stone.setAmount(stone.getAmount() - a.getStoneAmount());
 }
 
-bool Player::yeniKoylu()
+bool Player::yeniBirim(BaseUnit *temp)
 {
-	Koylu *temp = new Koylu();
 	if (!haveReqs(temp))
 	{
 		addMessage("Bu birim için gereksinimler karşılanmamış...");
@@ -152,14 +151,20 @@ bool Player::yeniKoylu()
 		delete temp;
 		return false;
 	}
+	if (units.size() >= getHousing())
+	{
+		addMessage("Bu birim için yeterli ev yok...");
+		delete temp;
+		return false;
+	}
+	
 	subtractCost(temp->getCost());
 	delete temp;
 	return true;
 }
 
-bool Player::yeniOsMerkez()
+bool Player::yeniBina(BaseBuilding *temp)
 {
-	SehirMerkezi *temp = new SehirMerkezi();
 	if (!haveReqs(temp))
 	{
 		addMessage("Bu bina için gereksinimler karşılanmamış...");
@@ -172,14 +177,40 @@ bool Player::yeniOsMerkez()
 		delete temp;
 		return false;
 	}
-// 	subtractCost(temp->getCost());
 	delete temp;
 	return true;
 }
 
+bool Player::yeniKoylu()
+{
+	Koylu *temp = new Koylu();
+	return yeniBirim(temp);
+}
+
+bool Player::yeniOsMerkez()
+{
+	SehirMerkezi *temp = new SehirMerkezi();
+	return yeniBina(temp);
+}
+
+bool Player::yeniOsEv()
+{
+	Ev *temp = new Ev();
+	return yeniBina(temp);
+}
+
+
 void Player::addOsMerkez(int x, int y)
 {
 	SehirMerkezi *t = new SehirMerkezi(screen, this);
+	subtractCost(t->getCost());
+	t->setTilePos(x, y);
+	addBuilding(t);
+}
+
+void Player::addOsEv(int x, int y)
+{
+	Ev *t = new Ev(screen, this);
 	subtractCost(t->getCost());
 	t->setTilePos(x, y);
 	addBuilding(t);
@@ -212,6 +243,32 @@ void Player::update(int mx, int my)
 	}
 }
 
+int Player::getHousing()
+{
+	int t = 0;
+	for(int i=0;i<buildings.size();i++)
+	{
+		if ( (buildings[i]->getName() == "Şehir Merkezi") 
+			&& (buildings[i]->getState() == "saglam") )
+			t += 5;
+		else if ( (buildings[i]->getName() == "Ev")
+			&& (buildings[i]->getState() == "saglam") )
+			t += 4;
+	}
+	return t;
+}
+
+string Player::getHousingCount()
+{
+	int t = getHousing();
+	int u = units.size();
+	
+	stringstream ss;
+	ss << u << "/" << t;
+	string g;
+	ss >> g;
+	return g;
+}
 
 void Player::eventHandler(SDL_Event *event)
 {

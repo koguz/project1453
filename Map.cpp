@@ -206,7 +206,7 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 		
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
-// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
+	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }
@@ -380,7 +380,7 @@ Map::Map(SDL_Surface* scr, int w, int h)
 		j++;
 	}
 		
-	startpx = 28;
+	startpx = 24;
 	startpy = 2;
 	startcx = 2000;
 	startcy = 2000; 
@@ -407,7 +407,8 @@ int Map::getPx() { return startpx; }
 int Map::getPy() { return startpy; }
 int Map::getCpux() { return startcx; }
 int Map::getCpuy() { return startcy; }
-
+int Map::getTx() { return tx; }
+int Map::getTy() { return ty; }
 
 bool Map::isMultipleSelecting() { return (drawing && dragging); }
 
@@ -691,6 +692,7 @@ Map::tileInfo Map::getTileInfo(int ex, int ey)
 	
 	*/
 	
+	
 	for(int i=0;i<human->buildings.size();i++)
 	{
 		int tempx = human->buildings[i]->getTx();
@@ -704,6 +706,41 @@ Map::tileInfo Map::getTileInfo(int ex, int ey)
 		 {
 		 	return Map::BINA;
 		 }
+	}
+	
+	switch(tiles[ex][ey].getTip())
+	{
+		case MapTile::DENIZ:
+		case MapTile::DENIZKIYIS:
+		case MapTile::DENIZKIYIW:
+		case MapTile::DENIZKIYIN:
+		case MapTile::DENIZKIYIE:
+		case MapTile::DENIZKIYISE:
+		case MapTile::DENIZKIYINE:
+		case MapTile::DENIZKIYISW:
+		case MapTile::DENIZKIYINW:
+		case MapTile::DENIZKIYISEB:
+		case MapTile::DENIZKIYINWB:
+		case MapTile::DENIZKIYISWB:
+		case MapTile::DENIZKIYINEB:
+		case MapTile::DAGLIK:
+		case MapTile::DAGLIKKIYIS:
+		case MapTile::DAGLIKKIYIW:
+		case MapTile::DAGLIKKIYIN:
+		case MapTile::DAGLIKKIYIE:
+		case MapTile::DAGLIKKIYISE:
+		case MapTile::DAGLIKKIYINE:
+		case MapTile::DAGLIKKIYISW:
+		case MapTile::DAGLIKKIYINW:
+		case MapTile::DAGLIKKIYISEB:
+		case MapTile::DAGLIKKIYINWB:
+		case MapTile::DAGLIKKIYISWB:
+		case MapTile::DAGLIKKIYINEB:
+			return Map::DOLU;
+			break;
+		case MapTile::AGAC:
+			return Map::AGACLIK;
+			break;
 	}
 	
 	return Map::BOS;

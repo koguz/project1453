@@ -75,7 +75,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	lblStone->setPosition(254, 2);
 	ui->addWidget(lblStone);
 	
-	lblHouse = new SDLLabel("?/?");
+	lblHouse = new SDLLabel("1/0");
 	lblHouse->setPosition(370, 2);
 	ui->addWidget(lblHouse);
 	
@@ -242,6 +242,7 @@ void Game::update()
 	lblWood->setText(human->getWoodAmount());
 	lblFood->setText(human->getFoodAmount());
 	lblStone->setText(human->getStoneAmount());
+	lblHouse->setText(human->getHousingCount());
 	harita->update();
 	// TODO cpu->update() AI yazılınca
 }

@@ -12,12 +12,6 @@ SDLWidget* SDLCursor::okne = new SDLWidget("ui/okne.png");
 SDLWidget* SDLCursor::oknw = new SDLWidget("ui/oknw.png");
 SDLWidget* SDLCursor::okse = new SDLWidget("ui/okse.png");
 SDLWidget* SDLCursor::oksw = new SDLWidget("ui/oksw.png");
-SDLWidget* SDLCursor::b64 = new SDLWidget("ui/insa64.png");
-SDLWidget* SDLCursor::b64n = new SDLWidget("ui/insa64n.png");
-SDLWidget* SDLCursor::b96 = new SDLWidget("ui/insa96.png");
-SDLWidget* SDLCursor::b96n = new SDLWidget("ui/insa96n.png");
-SDLWidget* SDLCursor::b128 = new SDLWidget("ui/insa128.png");
-SDLWidget* SDLCursor::b128n = new SDLWidget("ui/insa128n.png");
 	
 SDLWidget* SDLCursor::cCurrent = cMain;
 
@@ -37,15 +31,6 @@ void SDLCursor::updateAll(int x, int y)
 	
 	int tx = x / 32;
 	int ty = y / 32;
-	
-	// uff kopya cekiyoruz burada, 10 ve 25 haritanin 
-	// offset degerleri
-	b64->setPosition(tx*32 + 10, ty*32 + 25);
-	b64n->setPosition(tx*32 + 10, ty*32 + 25);
-	b96->setPosition(tx*32 + 10, ty*32 + 25);
-	b96n->setPosition(tx*32 + 10, ty*32 + 25);
-	b128->setPosition(tx*32 + 10, ty*32 + 25);
-	b128n->setPosition(tx*32 + 10, ty*32 + 25);
 }
 
 void SDLCursor::setCursorTarget() { cCurrent = cTarget; }
@@ -59,14 +44,4 @@ void SDLCursor::setNe() { if (!locked) cCurrent = okne; }
 void SDLCursor::setNw() { if (!locked) cCurrent = oknw; }
 void SDLCursor::setSe() { if (!locked) cCurrent = okse; }
 void SDLCursor::setSw() { if (!locked) cCurrent = oksw; }
-
-
-void SDLCursor::set64() { if (!locked) cCurrent = b64; }
-void SDLCursor::set64n() { if (!locked) cCurrent = b64n; }
-void SDLCursor::set96() { if (!locked) cCurrent = b96; }
-void SDLCursor::set96n() { if (!locked) cCurrent = b96n; }
-void SDLCursor::set128() { if (!locked) cCurrent = b128; }
-void SDLCursor::set128n() { if (!locked) cCurrent = b128n; }
-
-
 

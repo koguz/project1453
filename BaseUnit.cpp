@@ -23,6 +23,7 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	
 	waitingCommand = "yok";
 	waiting = false;
+	areWeThereYet = true;
 	
 	komutlar = new SDLScreen(screen);
 	
@@ -104,6 +105,7 @@ bool BaseUnit::isWaiting() { return waiting; }
 void BaseUnit::actionDur()
 {
 	target.clear();
+	targetTiles.clear();
 	commandList.clear();
 	setState("dur");
 }
@@ -157,18 +159,10 @@ void BaseUnit::draw(SDL_Rect s, SDL_Rect d)
 	src.y += s.y + hotspot.y;
 	src.w = s.w;
 	src.h = s.h;
-// 	rectangleColor(screen, wx, wy, wx+32, wy+32, 0xFFFFFFFF);
 	SDL_BlitSurface(getImg(), &src, screen, &d);
 	if (isSelected())
 	{
-		// TODO -- sonra düşünüces bunu
 		SDL_Rect m = d;
-// 		if (m.w != 32 || m.h != 32)
-// 		{
-// 			m.x = m.x - (32 - m.w);
-// 			m.y = m.y - (32 - m.h);
-// 			m.w = m.h = 32;
-// 		}
 		int ux1 = m.x; 
 		int ux2 = ux1 + 4;
 		int ux3 = m.x + m.w - 4; 
@@ -264,11 +258,16 @@ void BaseUnit::calWalkTile(int tx, int ty)
 
 void BaseUnit::moveToTarget(int tx, int ty)
 {
+	if ( (tx == posx) && (ty == posy) ) // oyalama beni :)
+		return;
 	SDLCursor::locked = false;
 	SDLCursor::setCursorMain();
 	tax = tx;
 	tay = ty;
-	calWalkTile(tx, ty);
+	areWeThereYet = false;
+	targetTiles.clear();
+	target.clear();
+// 	calWalkTile(tx, ty);
 }
 
 void BaseUnit::doUpdate()
@@ -276,7 +275,6 @@ void BaseUnit::doUpdate()
 // 	parent->harita->exploreTiles(getTx(), getTy(), getSight());
 	if (selected)
 	{
-		healthBar->setValue(currentHp);
 		sbar->setValue(currentHp);
 		stArmorVal->setText(armor);
 		stDamageVal->setText(damage);

@@ -4,7 +4,7 @@ BaseGraphicObject::BaseGraphicObject()
 {
 	komutlar = 0;
 	komutTanim = 0;
-	healthBar = 0;
+// 	healthBar = 0;
 	wx = wy = 0;
 }
 
@@ -15,7 +15,7 @@ BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
 	komutlar = 0;
 	komutTanim = 0;
 	selected = false;
-	healthBar = 0;
+// 	healthBar = 0;
 	wx = wy = 0;
 }
 
@@ -23,7 +23,7 @@ BaseGraphicObject::~BaseGraphicObject()
 {
 	delete komutlar;
 	delete komutTanim;
-	delete healthBar;
+// 	delete healthBar;
 }
 
 int BaseGraphicObject::getX() { return wx; }
