@@ -44,11 +44,14 @@ class Koylu:public BaseUnit
 	static SDL_Surface* spriteImg;
 	void setCommandCalis();
 	void setCommandMerkezYap();
+	void setCommandEvYap();
 	
 	void iptal();
 	
 	void command(int x, int y);
 	void defAct(int tx, int ty);
+	
+	void recurseTargetTiles(int tx, int ty);
 	
 	void buildBina(BaseBuilding* b);
 	void kUpdate(); // koyluUpdate, isim bulamiyorum artik...

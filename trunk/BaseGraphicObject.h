@@ -49,7 +49,7 @@ class BaseGraphicObject
 	SDL_Rect hotspot;
 	
 	SDLScreen* getScreen();
-	SDLProgressBar *healthBar;
+// 	SDLProgressBar *healthBar;
 	SDLScreen *komutlar;
 	SDLScreen *komutTanim;
 	

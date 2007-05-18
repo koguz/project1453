@@ -1,3 +1,8 @@
+2007.05.19
+00:43
+	- Pathfinding oldu gibi... bir iki hata var, uzun mesafelerde vs. seg. 
+	fault alıyorum. Onlarla ilgileniyorum şimdi...
+
 2007.05.16
 23:18
 	- Bir iki bugfix...

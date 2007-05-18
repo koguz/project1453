@@ -52,6 +52,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	void setCommandYuru();
 	void cancelBaseActions();
 	list<Coordinates> target;
+	list<Coordinates> targetTiles;
 	list<string>commandList;
 	int getSight();
 	bool onScreen(int x1, int x2, int y1, int y2);
@@ -80,8 +81,10 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int xp;
 	int kills;
 	int tax, tay; // target x, target y
+	int cux, cuy;
 	
 	int lastUpdate;
+	bool areWeThereYet;
 	
 	// grafikler için
 	string waitingCommand;

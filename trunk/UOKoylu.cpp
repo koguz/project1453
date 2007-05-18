@@ -69,7 +69,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	
 	yon = S;
 	setState("dur");
-	healthBar = new SDLProgressBar(32, 4, GREEN, 0, hitpoints);
+// 	healthBar = new SDLProgressBar(32, 4, GREEN, 0, hitpoints);
 	
 	insa = 0;
 	
@@ -115,6 +115,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	trect.x = 64; trect.y = 32;
 	ev = new SDLCommandButton(screen, trect, "Ev Yap", Ev().getCost());
 	ev->setPosition(705, 335);
+	ev->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandEvYap);
 	komutlar->addWidget(ev);
 	
 	trect.x = 160; trect.y = 32;
@@ -168,6 +169,19 @@ void Koylu::command(int x, int y)
 			parent->addMessage("Burası uygun değil!");
 		}
 	}
+	if (waitingCommand == "evYap")
+	{
+		if (parent->harita->uygun())
+		{
+			waiting = false;
+			parent->harita->endBuildSel();
+			parent->addOsEv(x, y);
+		}
+		else
+		{
+			parent->addMessage("Burası uygun değil!");
+		}
+	}
 }
 
 void Koylu::defAct(int tx, int ty)
@@ -182,7 +196,7 @@ void Koylu::defAct(int tx, int ty)
 			buildBina(parent->harita->getBuilding(tx, ty));
 			break;
 		default:
-			cout << "wassup?" << endl;
+			parent->addMessage("Burası için bana bir görev tanımlanmamış :(");
 			break;
 	}
 }
@@ -204,6 +218,86 @@ void Koylu::kUpdate()
 				curState = "dur";
 			}
 		}
+	}
+	if (!areWeThereYet && targetTiles.empty())
+	{
+		recurseTargetTiles(posx, posy);
+		areWeThereYet = true;
+// 		for(int i=0;i<targetTiles.size();i++)
+// 		{
+// 			cout << targetTiles[i].x << ", " << targetTiles[i].y << endl;
+// 		}
+	}
+	else if (!targetTiles.empty())
+	{
+		Coordinates temp = targetTiles.front();
+		if (!(temp.x == posx && temp.y == posy))
+		{
+			calWalkTile(temp.x, temp.y);
+		}
+		else
+		{
+			targetTiles.pop_front();
+		}
+	}
+
+}
+
+void Koylu::recurseTargetTiles(int tx, int ty)
+{
+	int is = tx - 1;
+	if (is < 0) is=0;
+	int ie = tx + 1;
+	if (ie > parent->harita->getTx()) ie = parent->harita->getTx();
+	
+	int js = ty - 1;
+	if (js < 0) js=0;
+	int je = ty + 1;
+	if (je > parent->harita->getTy()) je = parent->harita->getTy();
+	
+	int g, h, min; // f = g+h;
+	vector<int> fl; // buraya degerleri aticas
+	vector<Coordinates> cl;
+	
+	Coordinates tmp;
+	
+	for(int i=is;i<=ie;i++)
+	{
+		for(int j=js;j<=je;j++)
+		{
+			if (parent->harita->getTileInfo(i, j) == Map::BOS)
+			{
+				if ( abs(i-tx) == 1 && abs(j-ty) == 1 )
+					g = 14; // capraz daha zahmetli
+				else g = 10;
+				h = 10*(abs(tax-i) + abs(tay-j)); // caprazlar olmadan kac kare mesafe
+				if ( !(i == tx && j == ty))
+				{
+					tmp.x = i;
+					tmp.y = j;
+					fl.push_back(g + h);
+					cl.push_back(tmp);
+				}
+			}
+		}
+	}
+	
+	min = fl[0];
+	int sec = 0;
+	for (int i=1;i<fl.size();i++)
+	{
+		if (fl[i] < min)
+		{
+			min = fl[i];
+			sec = i;
+		}
+	}
+	
+	targetTiles.push_back(cl[sec]);
+	
+	if (!(cl[sec].x == tax && cl[sec].y == tay))
+	{
+		recurseTargetTiles(cl[sec].x, cl[sec].y);
 	}
 }
 
@@ -233,5 +327,14 @@ void Koylu::setCommandMerkezYap()
 	waitingCommand = "merkezYap";
 	waiting = true;
 	parent->harita->startBuildSel(4, MapTile::CIM);
+}
+
+void Koylu::setCommandEvYap()
+{
+	if(!parent->yeniOsEv())
+		return;
+	waitingCommand = "evYap";
+	waiting = true;
+	parent->harita->startBuildSel(2, MapTile::CIM);
 }
 
