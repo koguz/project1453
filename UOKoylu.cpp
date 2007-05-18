@@ -223,24 +223,27 @@ void Koylu::kUpdate()
 	{
 		recurseTargetTiles(posx, posy);
 		areWeThereYet = true;
-// 		for(int i=0;i<targetTiles.size();i++)
+// 		list<Coordinates>::iterator i;
+// 		for(i=targetTiles.begin();i != targetTiles.end(); i++)
 // 		{
-// 			cout << targetTiles[i].x << ", " << targetTiles[i].y << endl;
+// 			cout << (*i).x << ", " << (*i).y << endl;
 // 		}
 	}
 	else if (!targetTiles.empty())
 	{
 		Coordinates temp = targetTiles.front();
-		if (!(temp.x == posx && temp.y == posy))
+		if (target.empty())
+// 		if (!(temp.x == posx && temp.y == posy))
 		{
 			calWalkTile(temp.x, temp.y);
+			calc = true;
 		}
-		else
+		else if (calc)
 		{
 			targetTiles.pop_front();
+			calc = false;
 		}
 	}
-
 }
 
 void Koylu::recurseTargetTiles(int tx, int ty)
@@ -265,16 +268,17 @@ void Koylu::recurseTargetTiles(int tx, int ty)
 	{
 		for(int j=js;j<=je;j++)
 		{
-			if (parent->harita->getTileInfo(i, j) == Map::BOS)
+			if (parent->harita->getTileInfo(i, j) == Map::BOS && !buVarMi(i, j))
 			{
 				if ( abs(i-tx) == 1 && abs(j-ty) == 1 )
 					g = 14; // capraz daha zahmetli
 				else g = 10;
-				h = 10*(abs(tax-i) + abs(tay-j)); // caprazlar olmadan kac kare mesafe
+				h = 10*hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
 				if ( !(i == tx && j == ty))
 				{
 					tmp.x = i;
 					tmp.y = j;
+// 					cout << "(" << i << ", " << j << ") : " << g+h << endl;
 					fl.push_back(g + h);
 					cl.push_back(tmp);
 				}
@@ -294,6 +298,7 @@ void Koylu::recurseTargetTiles(int tx, int ty)
 	}
 	
 	targetTiles.push_back(cl[sec]);
+// 	cout << "seni sectim: " << cl[sec].x << ", " << cl[sec].y << endl;
 	
 	if (!(cl[sec].x == tax && cl[sec].y == tay))
 	{

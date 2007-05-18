@@ -24,6 +24,7 @@ BaseUnit::BaseUnit(SDL_Surface *scr, Player *p, string n):BaseObject(n), BaseGra
 	waitingCommand = "yok";
 	waiting = false;
 	areWeThereYet = true;
+	calc = false;
 	
 	komutlar = new SDLScreen(screen);
 	
@@ -268,6 +269,22 @@ void BaseUnit::moveToTarget(int tx, int ty)
 	targetTiles.clear();
 	target.clear();
 // 	calWalkTile(tx, ty);
+}
+
+bool BaseUnit::buVarMi(int a, int b)
+{
+	if (a == posx && b == posy)
+		return true;
+// 	if (targetTiles.size() > 0)
+// 	{
+		list<Coordinates>::iterator i;
+		for(i=targetTiles.begin();i != targetTiles.end(); i++)
+		{
+			if ((*i).x == a && (*i).y == b)
+				return true;
+		}
+// 	}
+	return false;
 }
 
 void BaseUnit::doUpdate()

@@ -81,10 +81,12 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int xp;
 	int kills;
 	int tax, tay; // target x, target y
-	int cux, cuy;
+// 	int cux, cuy;
 	
 	int lastUpdate;
 	bool areWeThereYet;
+	bool buVarMi(int a, int b);
+	bool calc;
 	
 	// grafikler için
 	string waitingCommand;
