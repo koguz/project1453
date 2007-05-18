@@ -1,7 +1,7 @@
 CC=g++
 FLAGS=`sdl-config --cflags` -c -g -O0 # bu ikisi debug icin
 # FLAGS=`sdl-config --cflags` -c -march=i686 -O3 -mfpmath=sse -pipe -mmmx -msse -msse2 -fomit-frame-pointer
-LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf -lSDL_mixer
+LIBS=`sdl-config --libs` -lSDL_image -lSDL_gfx -lSDL_ttf -lSDL_mixer -lm
 
 all: g1453
 

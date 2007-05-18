@@ -1,4 +1,10 @@
 2007.05.19
+02:28
+	- Pathfinding, bizim için yeterli seviyeye geldi. Bazen çok saçmalıyor,
+	ama genel olarak iyi. Geçen seferki seg. fault, daha önce aldığı kareye
+	geri dönmesi nedeniyle bir sonsuz döngü oluşturup, list<>'i şişirmesindenmiş
+	anladığım kadarıyla. Onu da düzelttim. Yarın devam, evlere vs. 
+
 00:43
 	- Pathfinding oldu gibi... bir iki hata var, uzun mesafelerde vs. seg. 
 	fault alıyorum. Onlarla ilgileniyorum şimdi...
