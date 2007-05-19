@@ -235,8 +235,17 @@ void Koylu::kUpdate()
 		if (target.empty())
 // 		if (!(temp.x == posx && temp.y == posy))
 		{
-			calWalkTile(temp.x, temp.y);
-			calc = true;
+			// bu sırada bu yeni gideceğimiz tile dolmuş olabilir?
+			if (parent->harita->getTileInfo(temp.x, temp.y) == Map::BOS)
+			{
+				calWalkTile(temp.x, temp.y);
+				calc = true;
+			}
+			else
+			{
+				targetTiles.clear();
+				recurseTargetTiles(posx, posy);
+			}
 		}
 		else if (calc)
 		{
@@ -248,6 +257,12 @@ void Koylu::kUpdate()
 
 void Koylu::recurseTargetTiles(int tx, int ty)
 {
+	if (parent->harita->getTileInfo(tax, tay) != Map::BOS)
+	{
+		actionDur();
+// 		parent->addMessage("Oraya yürüyemiyorum :(");
+		return;
+	}
 	int is = tx - 1;
 	if (is < 0) is=0;
 	int ie = tx + 1;

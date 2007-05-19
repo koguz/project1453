@@ -1,4 +1,7 @@
 2007.05.19
+13:08
+	- İyileştirmeler...
+
 02:28
 	- Pathfinding, bizim için yeterli seviyeye geldi. Bazen çok saçmalıyor,
 	ama genel olarak iyi. Geçen seferki seg. fault, daha önce aldığı kareye

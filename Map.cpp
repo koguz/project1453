@@ -380,13 +380,13 @@ Map::Map(SDL_Surface* scr, int w, int h)
 		j++;
 	}
 		
-	startpx = 24;
-	startpy = 2;
+	startpx = 44;
+	startpy = 6;
 	startcx = 2000;
 	startcy = 2000; 
 	
 	vx = vy = ax = ay = mtx = mty = 0;
-	cx = 640; cy = 0; // aslında bu da map'ten okunacak
+	cx = 1100; cy = 0; // aslında bu da map'ten okunacak
 }
 
 int Map::get_map(char *f)
@@ -692,6 +692,12 @@ Map::tileInfo Map::getTileInfo(int ex, int ey)
 	
 	*/
 	
+	
+	for(int i=0;i<human->units.size();i++)
+	{
+		if (human->units[i]->getTx() == ex && human->units[i]->getTy() == ey)
+			return Map::BIRIM;
+	}
 	
 	for(int i=0;i<human->buildings.size();i++)
 	{
