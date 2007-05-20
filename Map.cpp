@@ -206,7 +206,7 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 		
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
-	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
+// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }

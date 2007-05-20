@@ -27,13 +27,12 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	range = 1;
 	sight = 3;
 	speed = 20;
-// 	speed = rand() % 20; // tmmdir :)
 	morale = 60;
 	xp = 10;
 	kills = 0;
 	
 	// grafiksel bileşenler
-	hotspot.x = hotspot.y = 16;
+	hotspot.x = hotspot.y = 0;
 	hotspot.w = hotspot.h = 32;
 	cx = cy = 32; 
 	
@@ -54,16 +53,23 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 		sprites[i].addState("yuru");
 		sprites[i].addState("calis");
 		
-		t.x = i*64;
+		t.x = i*32;
 		t.y = 0;
 		sprites[i].addFrameToState("dur", t, 1000);
 		sprites[i].addFrameToState("calis", t, 1000);
 		
+		for (int j=0;j<4;j++)
+		{
+			t.x = i*32;
+			t.y = 32 + (j*32);
+			sprites[i].addFrameToState("yuru", t, 100);
+		}
+		
 		for (int j=0;j<2;j++)
 		{
-			t.x = i*64;
-			t.y = 64 + (j*64);
-			sprites[i].addFrameToState("yuru", t, 100);
+			t.x = i*32;
+			t.y = 160 + (j*32);
+			sprites[i].addFrameToState("calis", t, 100);
 		}
 	}
 	
@@ -134,8 +140,9 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	komutlar->addWidget(demirci);
 	
 	trect.x = 0; trect.y = 32;
-	asker = new SDLCommandButton(screen, trect, "Asker Ocağı Yap");
+	asker = new SDLCommandButton(screen, trect, "Asker Ocağı Yap", AskerOcagi().getCost());
 	asker->setPosition(745, 375);
+	asker->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Koylu::setCommandAskerOcagiYap);
 	komutlar->addWidget(asker);
 	
 	sbar = new SDLProgressBar(90, 14, GREEN, 0, hitpoints);
@@ -151,6 +158,7 @@ Koylu::~Koylu()
 
 void Koylu::command(int x, int y)
 {
+// 	cout << commandList.size() << endl;
 	if (waitingCommand == "yuru")
 	{
 		waiting = false;
@@ -163,6 +171,7 @@ void Koylu::command(int x, int y)
 			waiting = false;
 			parent->harita->endBuildSel();
 			parent->addOsMerkez(x, y);
+			goToAndBuild(x, y, 4);
 		}
 		else
 		{
@@ -176,12 +185,90 @@ void Koylu::command(int x, int y)
 			waiting = false;
 			parent->harita->endBuildSel();
 			parent->addOsEv(x, y);
+			goToAndBuild(x, y, 2);
 		}
 		else
 		{
 			parent->addMessage("Burası uygun değil!");
 		}
 	}
+	if (waitingCommand == "askerYap")
+	{
+		if (parent->harita->uygun())
+		{
+			waiting = false;
+			parent->harita->endBuildSel();
+			parent->addAsker(x, y);
+		}
+		else
+		{
+			parent->addMessage("Burası uygun değil!");
+		}
+	}
+}
+
+void Koylu::goToAndBuild(int x, int y, int s)
+{
+	waitingCommand = "gitVeYap";
+	
+	int is = x - 1;
+	if (is < 0) is=0;
+	int ie = x + s;
+	if (ie > parent->harita->getTx()) ie = parent->harita->getTx();
+	
+	int js = y - 1;
+	if (js < 0) js=0;
+	int je = y + s;
+	if (je > parent->harita->getTy()) je = parent->harita->getTy();
+	
+	insax = x;
+	insay = y;
+	insa = parent->harita->getBuilding(x, y);
+	
+// 	int gitx, gity;
+	int g, h, min; // f = g+h;
+	vector<int> fl; // buraya degerleri aticas
+	vector<Coordinates> cl;
+	
+	Coordinates tmp;
+	
+	for(int i=is;i<=ie;i++)
+	{
+		for(int j=js;j<=je;j++)
+		{
+			if (posx == i && posy == j)
+			{
+				tax = i;
+				tay = j;
+				return;
+			}
+			if (parent->harita->getTileInfo(i, j) == Map::BOS)
+			{
+				if ( abs(i-x) == 1 && abs(j-y) == 1 )
+					g = 14; // capraz daha zahmetli
+				else g = 10;
+				h = 10*hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
+				tmp.x = i;
+				tmp.y = j;
+				fl.push_back(g + h);
+				cl.push_back(tmp);
+			}
+		}
+	}
+	
+	min = fl[0];
+	int sec = 0;
+	for (int i=1;i<fl.size();i++)
+	{
+		if (fl[i] < min)
+		{
+			min = fl[i];
+			sec = i;
+		}
+	}
+	
+	moveToTarget(cl[sec].x, cl[sec].y);
+	
 }
 
 void Koylu::defAct(int tx, int ty)
@@ -193,7 +280,8 @@ void Koylu::defAct(int tx, int ty)
 			moveToTarget(tx, ty);
 			break;
 		case Map::BINA:
-			buildBina(parent->harita->getBuilding(tx, ty));
+			goToAndBuild(tx, ty, parent->harita->getBuilding(tx, ty)->getSize());
+// 			buildBina(parent->harita->getBuilding(tx, ty));
 			break;
 		default:
 			parent->addMessage("Burası için bana bir görev tanımlanmamış :(");
@@ -203,6 +291,16 @@ void Koylu::defAct(int tx, int ty)
 
 void Koylu::kUpdate()
 {
+	if (waitingCommand == "gitVeYap")
+	{
+		if (tax == posx && tay == posy)
+		{
+			waitingCommand = "yok";
+			setState("calis");
+			yoneBak(insax, insay);
+			buildBina(insa);
+		}
+	}
 	if (curState == "calis")
 	{
 		if (insa != 0)
@@ -215,7 +313,7 @@ void Koylu::kUpdate()
 				insa->setState("saglam");
 				parent->addMessage("Bina yapımı tamamlandı: " + insa->getName());
 				insa = 0;
-				curState = "dur";
+				setState("dur");
 			}
 		}
 	}
@@ -223,19 +321,12 @@ void Koylu::kUpdate()
 	{
 		recurseTargetTiles(posx, posy);
 		areWeThereYet = true;
-// 		list<Coordinates>::iterator i;
-// 		for(i=targetTiles.begin();i != targetTiles.end(); i++)
-// 		{
-// 			cout << (*i).x << ", " << (*i).y << endl;
-// 		}
 	}
 	else if (!targetTiles.empty())
 	{
 		Coordinates temp = targetTiles.front();
 		if (target.empty())
-// 		if (!(temp.x == posx && temp.y == posy))
 		{
-			// bu sırada bu yeni gideceğimiz tile dolmuş olabilir?
 			if (parent->harita->getTileInfo(temp.x, temp.y) == Map::BOS)
 			{
 				calWalkTile(temp.x, temp.y);
@@ -293,7 +384,6 @@ void Koylu::recurseTargetTiles(int tx, int ty)
 				{
 					tmp.x = i;
 					tmp.y = j;
-// 					cout << "(" << i << ", " << j << ") : " << g+h << endl;
 					fl.push_back(g + h);
 					cl.push_back(tmp);
 				}
@@ -313,8 +403,6 @@ void Koylu::recurseTargetTiles(int tx, int ty)
 	}
 	
 	targetTiles.push_back(cl[sec]);
-// 	cout << "seni sectim: " << cl[sec].x << ", " << cl[sec].y << endl;
-	
 	if (!(cl[sec].x == tax && cl[sec].y == tay))
 	{
 		recurseTargetTiles(cl[sec].x, cl[sec].y);
@@ -328,6 +416,8 @@ void Koylu::iptal()
 
 void Koylu::buildBina(BaseBuilding* b)
 {
+	if (b == 0)
+		return;
 	if (!b->tam())
 	{
 		insa = b;
@@ -347,6 +437,17 @@ void Koylu::setCommandMerkezYap()
 	waitingCommand = "merkezYap";
 	waiting = true;
 	parent->harita->startBuildSel(4, MapTile::CIM);
+	parent->addMessage("Bu bina sadece yeşil çimler üzerine yapılabilir.");
+}
+
+void Koylu::setCommandAskerOcagiYap()
+{
+	if(!parent->yeniAsker())
+		return;
+	waitingCommand = "askerYap";
+	waiting = true;
+	parent->harita->startBuildSel(4, MapTile::CIM);
+	parent->addMessage("Bu bina sadece yeşil çimler üzerine yapılabilir.");
 }
 
 void Koylu::setCommandEvYap()
@@ -356,5 +457,6 @@ void Koylu::setCommandEvYap()
 	waitingCommand = "evYap";
 	waiting = true;
 	parent->harita->startBuildSel(2, MapTile::CIM);
+	parent->addMessage("Bu bina sadece yeşil çimler üzerine yapılabilir.");
 }
 

@@ -1,32 +1,32 @@
-#include "BOEv.h"
+#include "BOAsker.h"
 
-SDL_Surface* Ev::spriteImg = 0;
+SDL_Surface* AskerOcagi::spriteImg = 0;
 
-Ev::Ev()
+AskerOcagi::AskerOcagi()
 {
-	cost.set(500, 0, 200); 
+	cost.set(700, 0, 400); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 }
 
-Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
+AskerOcagi::AskerOcagi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Asker Ocağı")
 {
-	cost.set(500, 0, 200); 
+	cost.set(700, 0, 400); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 	
-	hitpoints = 400;
+	hitpoints = 800;
 	buildRate = 50;
-	sight = 4;
-	size = 2;
+	sight = 5;
+	size = 4;
 	
 	hotspot.x = hotspot.y = 0;
-	hotspot.w = hotspot.h = 64;
-	cx = cy = 32;
+	hotspot.w = hotspot.h = 128;
+	cx = cy = 64;
 	
 	if (spriteImg == 0)
 	{
-		spriteImg = loadImg("graphics/buildings/osmanli/ev.png");
+		spriteImg = loadImg("graphics/buildings/osmanli/asker.png");
 	}
 	
 	sprite = Sprite(spriteImg);
@@ -35,11 +35,12 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	
 	SDL_Rect t;
 	t.x = t.y = 0;
-	t.w = spriteImg->w;
-	t.h = spriteImg->h/2;
+	t.w = 128;
+	t.h = 128;
 
 	sprite.addFrameToState("saglam", t, 1000);
-	t.y = 64;
+	
+	t.y = 128;
 	sprite.addFrameToState("insaa", t, 1000);
 	
 	setState("insaa");
@@ -50,7 +51,7 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	curState = "insaa";
 	
 	SDL_Rect trect;
-	trect.x = 64; trect.y = 32;
+	trect.x = 0; trect.y = 32;
 	trect.w = trect.h = 32;
 	
 	resim = new SDLCommandButton(screen, trect, name);
@@ -61,7 +62,7 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 }
 
 
-Ev::~Ev()
+AskerOcagi::~AskerOcagi()
 {
 	
 }

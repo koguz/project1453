@@ -187,6 +187,20 @@ bool Player::yeniKoylu()
 	return yeniBirim(temp);
 }
 
+bool Player::yeniAsker()
+{
+	AskerOcagi *temp = new AskerOcagi();
+	return yeniBina(temp);
+}
+
+void Player::addAsker(int x, int y)
+{
+	AskerOcagi *t = new AskerOcagi(screen, this);
+	subtractCost(t->getCost());
+	t->setTilePos(x, y);
+	addBuilding(t);
+}
+
 bool Player::yeniOsMerkez()
 {
 	SehirMerkezi *temp = new SehirMerkezi();

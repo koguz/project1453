@@ -50,8 +50,10 @@ class Player
 	bool yeniKoylu();
 	bool yeniOsMerkez();
 	bool yeniOsEv();
+	bool yeniAsker();
 	void addOsMerkez(int x, int y);
 	void addOsEv(int x, int y);
+	void addAsker(int x, int y);
 	
 	string getHousingCount();
 	int getHousing();

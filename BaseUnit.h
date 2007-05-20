@@ -53,10 +53,11 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	void cancelBaseActions();
 	list<Coordinates> target;
 	list<Coordinates> targetTiles;
-	list<string>commandList;
 	int getSight();
 	bool onScreen(int x1, int x2, int y1, int y2);
 	void draw(SDL_Rect s, SDL_Rect d); 
+	void lookDirection(int x, int y); // bu yururken gecerli
+	void yoneBak(int x, int y);
 	
 	void doUpdate();
 	

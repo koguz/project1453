@@ -23,7 +23,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	harita->setPane(630, 566);
 	harita->setMiniMapPos(653, 45);
 	
-	human = new Player(screen, userFaction, 1000, 1000, 1000);
+	human = new Player(screen, userFaction, 2000, 2000, 2000);
 	human->buildStartingUnits(harita->getPx(), harita->getPy());
 	
 	string cpuFaction;
@@ -32,7 +32,7 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	else if (userFaction == "Bizans")
 		cpuFaction = "Osmanlı";
 		
-	cpu = new Player(screen, cpuFaction, 1000, 1000, 1000);
+	cpu = new Player(screen, cpuFaction, 2000, 2000, 2000);
 	cpu->buildStartingUnits(harita->getCpux(), harita->getCpuy());
 	
 	harita->setPlayers(human, cpu);

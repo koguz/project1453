@@ -41,6 +41,7 @@ g1453: main.o \
 	BaseBuilding.o \
 	BOEv.o \
 	BOSehirMerkezi.o \
+	BOAsker.o \
 	Tech.o \
 	TTemelTech.o \
 	Sprite.o 
@@ -79,6 +80,7 @@ g1453: main.o \
 	BaseBuilding.o \
 	BOEv.o \
 	BOSehirMerkezi.o \
+	BOAsker.o \
 	Tech.o \
 	TTemelTech.o \
 	Sprite.o -o g1453
@@ -169,6 +171,9 @@ BOSehirMerkezi.o: BOSehirMerkezi.cpp
 	
 UOKoylu.o: UOKoylu.cpp
 	$(CC) $(FLAGS) UOKoylu.cpp
+
+BOAsker.o: BOAsker.cpp
+	$(CC) $(FLAGS) BOAsker.cpp
 
 
 # Bizans Birimleri
