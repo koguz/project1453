@@ -107,7 +107,7 @@ void BaseUnit::actionDur()
 {
 	target.clear();
 	targetTiles.clear();
-	commandList.clear();
+// 	commandList.clear();
 	setState("dur");
 }
 
@@ -254,7 +254,8 @@ void BaseUnit::calWalkTile(int tx, int ty)
 		}
 	}
 	
-	commandList.push_back("yuru");
+// 	commandList.push_back("yuru");
+// 	cout << "base: "  << commandList.size() << endl;
 }
 
 void BaseUnit::moveToTarget(int tx, int ty)
@@ -268,6 +269,7 @@ void BaseUnit::moveToTarget(int tx, int ty)
 	areWeThereYet = false;
 	targetTiles.clear();
 	target.clear();
+// 	commandList.push_back("yuru");
 // 	calWalkTile(tx, ty);
 }
 
@@ -287,9 +289,48 @@ bool BaseUnit::buVarMi(int a, int b)
 	return false;
 }
 
+void BaseUnit::yoneBak(int x, int y)
+{
+	if ( (posx > x) && (posy == y) )
+		setYon(W);
+	else if ( (posx > x) && (posy > y) )
+		setYon(NW);
+	else if ( (posx > x) && (posy < y) )
+		setYon(SW);
+	else if ( (posx < x) && (posy == y) )
+		setYon(E);
+	else if ( (posx < x) && (posy > y) )
+		setYon(NE);
+	else if ( (posx < x) && (posy < y) )
+		setYon(SE);
+	else if ( (posx == x) && (posy > y) )
+		setYon(N);
+	else if ( (posx == x) && (posy < y) )
+		setYon(S);
+}
+
+void BaseUnit::lookDirection(int x, int y)
+{
+	if ( (wx > x) && (wy == y) )
+		setYon(W);
+	else if ( (wx > x) && (wy > y) )
+		setYon(NW);
+	else if ( (wx > x) && (wy < y) )
+		setYon(SW);
+	else if ( (wx < x) && (wy == y) )
+		setYon(E);
+	else if ( (wx < x) && (wy > y) )
+		setYon(NE);
+	else if ( (wx < x) && (wy < y) )
+		setYon(SE);
+	else if ( (wx == x) && (wy > y) )
+		setYon(N);
+	else if ( (wx == x) && (wy < y) )
+		setYon(S);
+}
+
 void BaseUnit::doUpdate()
 {
-// 	parent->harita->exploreTiles(getTx(), getTy(), getSight());
 	if (selected)
 	{
 		sbar->setValue(currentHp);
@@ -303,30 +344,38 @@ void BaseUnit::doUpdate()
 		stKillsVal->setText(kills);
 	}
 	
-	Coordinates temp;
+// 	if (commandList.size() > 0)
+// 	{
+// 		string tstate = commandList.front();
+// 		if (tstate == "yuru")
+// 		{
+// 			if ( (SDL_GetTicks() - lastUpdate) > (1000 / speed) )
+// 			{
+// 				Coordinates temp;
+// 				temp = target.front();
+// 				// ne tarafa bakacagiz?
+// 				lookDirection(temp.x, temp.y);
+// 				
+// 				wx = temp.x;
+// 				wy = temp.y;
+// 				posx = wx / 32;
+// 				posy = wy / 32;
+// 				target.pop_front();
+// 				
+// 				lastUpdate = SDL_GetTicks();
+// 			}	
+// 		}
+// 	}
+	
 	if (!target.empty())
 	{
 		setState("yuru");
 		if ( (SDL_GetTicks() - lastUpdate) > (1000 / speed) )
 		{
+			Coordinates temp;
 			temp = target.front();
 			// ne tarafa bakacagiz?
-			if ( (wx > temp.x) && (wy == temp.y) )
-				setYon(W);
-			else if ( (wx > temp.x) && (wy > temp.y) )
-				setYon(NW);
-			else if ( (wx > temp.x) && (wy < temp.y) )
-				setYon(SW);
-			else if ( (wx < temp.x) && (wy == temp.y) )
-				setYon(E);
-			else if ( (wx < temp.x) && (wy > temp.y) )
-				setYon(NE);
-			else if ( (wx < temp.x) && (wy < temp.y) )
-				setYon(SE);
-			else if ( (wx == temp.x) && (wy > temp.y) )
-				setYon(N);
-			else if ( (wx == temp.x) && (wy < temp.y) )
-				setYon(S);
+			lookDirection(temp.x, temp.y);
 			
 			wx = temp.x;
 			wy = temp.y;
@@ -339,20 +388,27 @@ void BaseUnit::doUpdate()
 	}
 	else 
 	{
-		if (!commandList.empty())
+// 		cout << "commandList size: " << commandList.size() << endl;
+// 		string tstate = commandList.front();
+		if (curState == "yuru")
 		{
-			string tstate = commandList.front();
-			if (tstate == "yuru")
-			{
-				commandList.pop_front();
-				setState("dur");
-			}
-			else if (tstate == "vur")
-			{
-				commandList.pop_front();
-				setState("vur");
-			}
+// 			commandList.pop_front();
+			setState("dur");
 		}
+// 		if (!commandList.empty())
+// 		{
+// 			string tstate = commandList.front();
+// 			if (tstate == "yuru")
+// 			{
+// 				commandList.pop_front();
+// 				setState("dur");
+// 			}
+// 			else if (tstate == "vur")
+// 			{
+// 				commandList.pop_front();
+// 				setState("vur");
+// 			}
+// 		}
 	}
 }
 

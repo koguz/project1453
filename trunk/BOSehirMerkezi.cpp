@@ -4,7 +4,7 @@ SDL_Surface* SehirMerkezi::spriteImg = 0;
 
 SehirMerkezi::SehirMerkezi()
 {
-	cost.set(400, 0, 400); 
+	cost.set(800, 0, 800); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 	btnKoylu = resim = 0;
@@ -12,12 +12,12 @@ SehirMerkezi::SehirMerkezi()
 
 SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şehir Merkezi")
 {
-	cost.set(400, 0, 400); 
+	cost.set(800, 0, 800); 
 	addReq("Temel Teknoloji");
 	faction = "Osmanlı";
 	
 	state = 1;
-	hitpoints = 1000;
+	hitpoints = 1200;
 	currentHp = 1;
 	sight = 4;
 	size = 4;

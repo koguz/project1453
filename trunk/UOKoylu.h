@@ -5,6 +5,7 @@
 #include "BaseUnit.h"
 #include "BOEv.h"
 #include "BOSehirMerkezi.h"
+#include "BOAsker.h"
 
 class Koylu:public BaseUnit
 {
@@ -45,6 +46,7 @@ class Koylu:public BaseUnit
 	void setCommandCalis();
 	void setCommandMerkezYap();
 	void setCommandEvYap();
+	void setCommandAskerOcagiYap();
 	
 	void iptal();
 	
@@ -53,10 +55,12 @@ class Koylu:public BaseUnit
 	
 	void recurseTargetTiles(int tx, int ty);
 	
+	void goToAndBuild(int x, int y, int s);
 	void buildBina(BaseBuilding* b);
 	void kUpdate(); // koyluUpdate, isim bulamiyorum artik...
 	
 	BaseBuilding* insa;
+	int insax, insay; // insaa koordinatlari
 	
 	SDLMixer *sndSelected;
 	SDLMixer *sndConfirmed;
