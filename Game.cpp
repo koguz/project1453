@@ -336,9 +336,7 @@ void Game::closeMenu()
 void Game::display()
 {
 	ui->display();
-	
 	harita->draw(running);
-	
 	if (!running)
 	{
 		current->display();

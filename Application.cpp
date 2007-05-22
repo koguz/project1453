@@ -78,13 +78,6 @@ bool Application::Init()
 
 void Application::startSingleGame()
 {
-// 	if (!strcmp(gt->haritalar->getValue().c_str(), "NONE"))
-// 	{
-// 		gt->err->setText("Lütfen bir harita seçiniz!");
-// 		return;
-// 	}
-// 	gt->err->setText(" ");
-// 	
 	muse->stop();
 	
 	game = new Game(screen, "Osmanlı", 1, "dummy");
@@ -189,6 +182,31 @@ int Application::Run()
 		}
 		else fps++;
 	}
+	
+	// statikleri yok edelim
+	
+	delete SDLCursor::cMain;
+	delete SDLCursor::cTarget;
+	delete SDLCursor::oke;
+	delete SDLCursor::oks;
+	delete SDLCursor::okw;
+	delete SDLCursor::okn;
+	delete SDLCursor::okne;
+	delete SDLCursor::oknw;
+	delete SDLCursor::okse;
+	delete SDLCursor::oksw;
+	SDL_FreeSurface(Koylu::spriteImg);
+	SDL_FreeSurface(AskerOcagi::spriteImg);
+	SDL_FreeSurface(Ev::spriteImg);
+	SDL_FreeSurface(SehirMerkezi::spriteImg);
+	
+	map<int, TTF_Font*>::iterator iter;
+	for(iter=SDLFont::font.begin();iter != SDLFont::font.end(); iter++)
+	{
+		TTF_CloseFont(iter->second);
+	}
+	
+	
 	
 	return 0;
 }

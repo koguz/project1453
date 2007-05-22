@@ -32,9 +32,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	kills = 0;
 	
 	// grafiksel bileşenler
-	hotspot.x = hotspot.y = 0;
+// 	hotspot.x = hotspot.y = 0;
+	hotspot.x = 20; hotspot.y = 29;
 	hotspot.w = hotspot.h = 32;
-	cx = cy = 32; 
+	cx = 36; cy = 44; 
 	
 	selected = false;
 	
@@ -43,7 +44,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	
 	if (spriteImg == 0)
 	{
-		spriteImg = loadImg("graphics/units/osmanli/koylu.png");
+		spriteImg = loadImg("graphics/units/osmanli/koylu2.png");
 	}
 	
 	for(int i=0;i<8;i++)
@@ -53,22 +54,22 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 		sprites[i].addState("yuru");
 		sprites[i].addState("calis");
 		
-		t.x = i*32;
+		t.x = i*72;
 		t.y = 0;
 		sprites[i].addFrameToState("dur", t, 1000);
 		sprites[i].addFrameToState("calis", t, 1000);
 		
 		for (int j=0;j<4;j++)
 		{
-			t.x = i*32;
-			t.y = 32 + (j*32);
+			t.x = i*72;
+			t.y = 72 + (j*72);
 			sprites[i].addFrameToState("yuru", t, 100);
 		}
 		
 		for (int j=0;j<2;j++)
 		{
-			t.x = i*32;
-			t.y = 160 + (j*32);
+			t.x = i*72;
+			t.y = 360 + (j*72);
 			sprites[i].addFrameToState("calis", t, 100);
 		}
 	}
