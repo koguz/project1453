@@ -13,9 +13,7 @@ class ScreenGameType:public SDLScreen
 {
 	public:
 	SDLWidget *arka;
-// 	SDLCombo *ulke, *rakipTip;
-// 	SDLListView *haritalar;
-	SDLLabel *title; /*, *lblUlke, *lblRakip, *lblHarita, *lblAciklama, *err;*/
+	SDLLabel *title;
 	SDLButton *anaEkranaDon, *baslat;
 	SDLTextView *aciklama;
 	

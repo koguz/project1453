@@ -18,7 +18,7 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	BaseUnit(SDL_Surface *scr, Player *p, string n);
 	virtual ~BaseUnit();
 	
-	enum direction { N=0, NE=1, E=2, SE=3, S=4, SW=5, W=6, NW=7 };
+	enum direction { S=0, SW=1, W=2, NW=3, N=4, NE=5, E=6, SE=7 };
 	void setState(string state);
 	void setYon(direction d);
 	bool isWaiting();

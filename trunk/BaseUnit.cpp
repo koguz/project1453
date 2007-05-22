@@ -163,6 +163,7 @@ void BaseUnit::draw(SDL_Rect s, SDL_Rect d)
 	SDL_BlitSurface(getImg(), &src, screen, &d);
 	if (isSelected())
 	{
+// 		rectangleColor(screen, d.x, d.y, d.x + d.w, d.y + d.h, 0x00FF00FF);
 		SDL_Rect m = d;
 		int ux1 = m.x; 
 		int ux2 = ux1 + 4;

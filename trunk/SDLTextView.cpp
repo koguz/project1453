@@ -12,7 +12,7 @@ SDLTextView::SDLTextView(string text, int w, int r)
 	
 	show = true;
 	
-	satirlar.clear();
+// 	satirlar.clear();
 	lines = 0;
 	setText(text);
 	
@@ -93,6 +93,7 @@ void SDLTextView::setText(string text)
 	if (lines < rows)
 		downpos = lines;
 	else downpos = rows;
+	delete t2;
 	repositionLabels();
 }
 
