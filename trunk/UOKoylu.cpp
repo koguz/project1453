@@ -248,7 +248,7 @@ void Koylu::goToAndBuild(int x, int y, int s)
 				if ( abs(i-x) == 1 && abs(j-y) == 1 )
 					g = 14; // capraz daha zahmetli
 				else g = 10;
-				h = 10*hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
+				h = 10*(int)hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
 				tmp.x = i;
 				tmp.y = j;
 				fl.push_back(g + h);
@@ -380,7 +380,7 @@ void Koylu::recurseTargetTiles(int tx, int ty)
 				if ( abs(i-tx) == 1 && abs(j-ty) == 1 )
 					g = 14; // capraz daha zahmetli
 				else g = 10;
-				h = 10*hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
+				h = 10*(int)hypot(abs(tax-i), abs(tay-j)); // hypot = hipotenüsü ne kadar... tek tek alinca sorun cikiyor :(
 				if ( !(i == tx && j == ty))
 				{
 					tmp.x = i;

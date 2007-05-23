@@ -93,7 +93,6 @@ void SDLTextView::setText(string text)
 	if (lines < rows)
 		downpos = lines;
 	else downpos = rows;
-	delete t2;
 	repositionLabels();
 }
 
@@ -103,8 +102,11 @@ void SDLTextView::repositionLabels()
 	for (int i=uppos;i<downpos;i++)
 	{
 		// sağdan 4 piksel içe- bir de satir boyuna göre ortalama...
-		satirlar[i]->setPosition(px1+4, py1+(lineHeight*j)+((lineHeight-satirlar[i]->getHeight()) / 2));
-		j++;
+		if (i < lines)
+		{
+			satirlar[i]->setPosition(px1+4, py1+(lineHeight*j)+((lineHeight-satirlar[i]->getHeight()) / 2));
+			j++;
+		}
 	}
 }
 
