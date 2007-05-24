@@ -79,12 +79,6 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	lblHouse->setPosition(370, 2);
 	ui->addWidget(lblHouse);
 	
-	tileCim = new SDLWidget("graphics/terrain/yesil.png");
-	tileSari = new SDLWidget("graphics/terrain/sariYesil.png");
-	tileAgac = new SDLWidget("graphics/terrain/agac.png");
-	tileToprak = new SDLWidget("graphics/terrain/toprak.png");
-	tileDeniz = new SDLWidget("graphics/terrain/deniz.png");
-	
 	menu = new SDLButton("ui/dugme100.jpg", "Menü", 12);
 	menu->setPosition(680, 12);
 	menu->clicked = makeFunctor((CBFunctor0*)0, *me, &Game::displayMenu);
@@ -194,11 +188,6 @@ Game::~Game()
 	delete human;
 	delete cpu;
 	
-	delete tileCim;
-	delete tileSari;
-	delete tileAgac;
-	delete tileToprak;
-	delete tileDeniz;
 	delete muse;
 }
 

@@ -10,6 +10,8 @@
 #include "BOSehirMerkezi.h"
 #include "TTemelTech.h"
 #include "UOKoylu.h"
+#include "UOPiyade.h"
+#include "UOYeniceri.h"
 #include "UBSerf.h"
 #include "SDLTextView.h"
 #include "Map.h"
@@ -48,6 +50,8 @@ class Player
 	bool yeniBina(BaseBuilding *b);
 	
 	bool yeniKoylu();
+	bool yeniPiyade();
+	bool yeniYeniceri();
 	bool yeniOsMerkez();
 	bool yeniOsEv();
 	bool yeniAsker();

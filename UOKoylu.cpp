@@ -40,11 +40,11 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	selected = false;
 	
 	SDL_Rect t;
-	t.w = t.h = 64;
+	t.w = t.h = 72;
 	
 	if (spriteImg == 0)
 	{
-		spriteImg = loadImg("graphics/units/osmanli/koylu2.png");
+		spriteImg = loadImg("graphics/units/osmanli/koylu.png");
 	}
 	
 	for(int i=0;i<8;i++)
@@ -200,6 +200,7 @@ void Koylu::command(int x, int y)
 			waiting = false;
 			parent->harita->endBuildSel();
 			parent->addAsker(x, y);
+			goToAndBuild(x, y, 4);
 		}
 		else
 		{
