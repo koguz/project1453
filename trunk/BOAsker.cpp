@@ -50,6 +50,8 @@ AskerOcagi::AskerOcagi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Asker 
 	selected = false;
 	curState = "insaa";
 	
+	AskerOcagi* me = this;
+	
 	SDL_Rect trect;
 	trect.x = 0; trect.y = 32;
 	trect.w = trect.h = 32;
@@ -58,9 +60,69 @@ AskerOcagi::AskerOcagi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Asker 
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);
 	
-// 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
+	nowBuildingBar = new SDLProgressBar(130, 10, GREEN, 0, 1);
+	nowBuildingBar->setPosition(655,250);
+	nowBuildingBar->setShow(false);
+	komutlar->addWidget(nowBuildingBar);
+ 	
+	trect.x = 160; trect.y = 0;
+	piyade = new SDLCommandButton(screen, trect, "Yeni Piyade", Piyade().getCost());
+	piyade->setPosition(665, 270);
+	piyade->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &AskerOcagi::createPiyade);
+	komutlar->addWidget(piyade);
+
+	trect.x = 224; 
+	yeniceri = new SDLCommandButton(screen, trect, "Yeni Yeniçeri", Yeniceri().getCost());
+	yeniceri->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &AskerOcagi::createYeniceri);
+	yeniceri->setPosition(705, 270);
+	komutlar->addWidget(yeniceri);
 }
 
+
+void AskerOcagi::createPiyade() 
+{
+	if (curState == "insaa")
+	{
+		parent->addMessage("Bina henüz inşaa edilmedi!");
+		return;
+	}
+	if (nowBuilding != 0)
+	{
+		parent->addMessage("Şu an başka bir birim üretiliyor!");
+		return;
+	}
+	if (!parent->yeniPiyade())
+		return;
+	
+	Piyade *ypiyade = new Piyade(screen, parent);
+	ypiyade->setTilePos(posx+2, posy+4);
+	
+	nowBuilding = (BaseObject*) ypiyade;
+	nowBuildingBar->setMax(ypiyade->getMaxHp());
+	nowBuildingBar->setShow(true);
+}
+void AskerOcagi::createYeniceri() 
+{
+	if (curState == "insaa")
+	{
+		parent->addMessage("Bina henüz inşaa edilmedi!");
+		return;
+	}
+	if (nowBuilding != 0)
+	{
+		parent->addMessage("Şu an başka bir birim üretiliyor!");
+		return;
+	}
+	if (!parent->yeniYeniceri())
+		return;
+	
+	Yeniceri *yceri = new Yeniceri(screen, parent);
+	yceri->setTilePos(posx+2, posy+4);
+	
+	nowBuilding = (BaseObject*) yceri;
+	nowBuildingBar->setMax(yceri->getMaxHp());
+	nowBuildingBar->setShow(true);
+}
 
 AskerOcagi::~AskerOcagi()
 {

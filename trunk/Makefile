@@ -37,6 +37,8 @@ g1453: main.o \
 	BaseGraphicObject.o \
 	BaseUnit.o \
 	UOKoylu.o \
+	UOPiyade.o \
+	UOYeniceri.o \
 	UBSerf.o \
 	BaseBuilding.o \
 	BOEv.o \
@@ -76,6 +78,8 @@ g1453: main.o \
 	BaseGraphicObject.o \
 	BaseUnit.o \
 	UOKoylu.o \
+	UOPiyade.o \
+	UOYeniceri.o \
 	UBSerf.o \
 	BaseBuilding.o \
 	BOEv.o \
@@ -171,6 +175,12 @@ BOSehirMerkezi.o: BOSehirMerkezi.cpp
 	
 UOKoylu.o: UOKoylu.cpp
 	$(CC) $(FLAGS) UOKoylu.cpp
+
+UOPiyade.o: UOPiyade.cpp
+	$(CC) $(FLAGS) UOPiyade.cpp
+	
+UOYeniceri.o: UOYeniceri.cpp
+	$(CC) $(FLAGS) UOYeniceri.cpp
 
 BOAsker.o: BOAsker.cpp
 	$(CC) $(FLAGS) BOAsker.cpp

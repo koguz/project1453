@@ -187,6 +187,18 @@ bool Player::yeniKoylu()
 	return yeniBirim(temp);
 }
 
+bool Player::yeniPiyade()
+{
+	Piyade *temp = new Piyade();
+	return yeniBirim(temp);
+}
+
+bool Player::yeniYeniceri()
+{
+	Yeniceri *temp = new Yeniceri();
+	return yeniBirim(temp);
+}
+
 bool Player::yeniAsker()
 {
 	AskerOcagi *temp = new AskerOcagi();

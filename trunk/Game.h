@@ -26,7 +26,6 @@ class Game
 	SDLCheckBox *monoff;
 	SDLCombo *mvol;
 	SDLLabel *lblWood, *lblFood, *lblStone, *lblHouse;
-	SDLWidget *tileCim, *tileSari, *tileAgac, *tileToprak, *tileDeniz;//, *commandList;
 	SDLMusic *muse;
 	Map *harita;
 	
