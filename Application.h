@@ -16,6 +16,11 @@
 
 using namespace std;
 
+/* There is only one Application object 
+ * throughout the whole game. It is also
+ * responsible for initializing SDL and 
+ * manages the Screens
+ */
 class Application
 {
 	private:

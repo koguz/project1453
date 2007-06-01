@@ -7,7 +7,13 @@
 #include "Headers.h"
 #include "Cost.h"
 
-// temel olan 3 nesne: tech, bina, birim
+/* BaseObject is the parent of three main objects;
+ * Technology, Unit and Building.
+ * These three have a lot in common, like the
+ * Cost or Requirements list. So they share this
+ * parent 
+ */
+
 class BaseObject
 {
 	public:

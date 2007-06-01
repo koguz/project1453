@@ -24,9 +24,9 @@ Application::~Application()
 	int numtimesopened, frequency, channels;
 	Uint16 format;
 	numtimesopened=Mix_QuerySpec(&frequency, &format, &channels);
+	/* Turning sound off */
 	if(numtimesopened) 
 	{
-		// sesi kapatalım
 		for (int i=0;i<numtimesopened;i++)
 			Mix_CloseAudio();
 	}
@@ -79,7 +79,6 @@ bool Application::Init()
 void Application::startSingleGame()
 {
 	muse->stop();
-	
 	game = new Game(screen, "Osmanlı", 1, "dummy");
 }
 
@@ -160,8 +159,6 @@ int Application::Run()
 		else
 		{
 			current->display();
-			// oyun yoksa, ekranlardan birindedir
-			// o sırada müzik çalacağız :D
 			if (!muse->isPlaying() && muse->musicOn)
 				muse->play();
 			else if (!muse->musicOn)
@@ -171,7 +168,6 @@ int Application::Run()
 		if (showFps)
 			lblFps->drawWidget(screen);
 		SDL_Flip(screen);
-// 		SDL_UpdateRect(screen, 0, 0, 0, 0);
 		SDL_Delay(10);
 		if (SDL_GetTicks() - sonfps > 1000)
 		{
@@ -183,7 +179,7 @@ int Application::Run()
 		else fps++;
 	}
 	
-	// statikleri yok edelim
+	// Deleting static values
 	
 	delete SDLCursor::cMain;
 	delete SDLCursor::cTarget;

@@ -6,6 +6,7 @@
 
 using namespace std;
 
+/* Base class for Wood, Food and Stone */
 class Resource
 {
 	protected:

@@ -8,6 +8,10 @@
 
 using namespace std;
 
+
+/* The city center is where more villagers come from. 
+ * It also provides accomodation for 5 units 
+ */
 class SehirMerkezi:public BaseBuilding
 {
 	public:

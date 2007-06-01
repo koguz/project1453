@@ -9,6 +9,9 @@
 
 using namespace std;
 
+/* The building for the Ottoman Empire which 
+ * creates new units for the army
+ */
 class AskerOcagi:public BaseBuilding
 {
 	public:

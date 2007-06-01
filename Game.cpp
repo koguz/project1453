@@ -150,7 +150,6 @@ Game::Game(SDL_Surface *scr, string userFaction, short ai, string mapName)
 	mvol->addOption("Kısık", "4");
 	sesayar->addWidget(mvol);
 	
-	// emin mi diyaloglari icin
 	eminmi = new SDLScreen(screen);
 	
 	arka3 = new SDLWidget("ui/optionPane.jpg");

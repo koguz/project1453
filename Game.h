@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/* Game represents a game with new players, goals and a map. There
+ * can only be one game object at a time. 
+ */
 
 class Game
 {

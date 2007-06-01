@@ -15,6 +15,8 @@
 
 using namespace std;
 
+/* Base class for all the widgets. */
+
 class SDLWidget
 {
 	public:

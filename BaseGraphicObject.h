@@ -16,6 +16,10 @@ struct Coordinates
 	int y;
 };
 
+
+/* This class is the parent for the BaseObjects 
+ * which are displayed on the screen
+ */
 class BaseGraphicObject
 {
 	public:
@@ -36,7 +40,7 @@ class BaseGraphicObject
 	void unselect();
 	bool isSelected(); 
 	
-	bool isMouseOver(int x, int y); // burada da dikkat etmek gerekecek
+	bool isMouseOver(int x, int y);
 	
 	virtual SDL_Surface* getImg() { return 0; }
 	virtual SDL_Rect getFrame() { return hotspot; }
@@ -49,7 +53,6 @@ class BaseGraphicObject
 	SDL_Rect hotspot;
 	
 	SDLScreen* getScreen();
-// 	SDLProgressBar *healthBar;
 	SDLScreen *komutlar;
 	SDLScreen *komutTanim;
 	

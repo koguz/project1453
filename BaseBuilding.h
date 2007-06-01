@@ -10,6 +10,10 @@
 
 using namespace std;
 
+/* The base class which all other buildings are derived. 
+ * It derives from both BaseObject & BaseGraphicObject
+ */
+
 class BaseBuilding:public BaseObject, public BaseGraphicObject
 {
 	public:

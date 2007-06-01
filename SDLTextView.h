@@ -22,7 +22,6 @@ class SDLTextView:public SDLWidget
 	
 	virtual void drawWidget(SDL_Surface* screen)
 	{
-// 		boxColor(screen, px1, py1, px2, py2, DARKERGRAY);
 		for(int i=uppos;i<downpos;i++)
 		{
 			satirlar[i]->drawWidget(screen);

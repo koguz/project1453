@@ -7,6 +7,7 @@ SDL_Surface* loadimg(char* f)
 	return temp;
 }
 
+/* all tile type are on one image */
 SDL_Surface* MapTile::tileList = loadimg("graphics/terrain/tiles.png");
 SDL_Surface* MapTile::screen = 0;
 
@@ -206,7 +207,8 @@ void MapTile::draw(SDL_Rect src, SDL_Rect dest)
 		
 	}
 	SDL_BlitSurface(tileList, &src, screen, &dest);
-// 	rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
+	// uncomment the line below to see the borders of the tiles
+ 	// rectangleColor(screen, dest.x, dest.y, dest.x+dest.w, dest.y+dest.h, 0x000000FF);
 }
 
 MapTile::tileType MapTile::getTip() { return tip; }
@@ -398,9 +400,6 @@ int Map::get_map(char *f)
 	{
 		map.push_back (line);
 	}
-	
-// 	w = map.size();
-// 	h = map.at(0).size();
 }
 
 int Map::getPx() { return startpx; }
@@ -665,9 +664,7 @@ bool Map::tileEmpty(int ex, int ey)
 }
 
 Map::tileInfo Map::getTileInfo(int ex, int ey)
-{
-	// bu üstteki tileEmpty de bunun gibi bişii diil mi?
-	
+{	
 	/* öncelik
 		- oyuncunun birimlerden biri var mi
 		- bilg. birimlerden biri var mi
@@ -897,7 +894,6 @@ void Map::draw(bool running)
 		
 		if (human->units[i]->onScreen(cx, cx+pw, cy, cy+ph))
 		{
-// 			cout << "on screen" << endl;
 			int ux = human->units[i]->getX();
 			int uy = human->units[i]->getY();
 			
@@ -1150,11 +1146,6 @@ void Map::handleEvents(SDL_Event *event)
 				{
 					int sayac = 0;
 					int smx, smy;
-// 					rsx1 = rsx1 - ox + cx;
-// 					rsx2 = rsx2 - ox + cx;
-// 					rsy1 = rsy1 - oy + cy;
-// 					rsy2 = rsy2 - oy + cy;
-// 					mx-ox+cx
 					if (isValidSelection())
 					{
 						rsx1 = (rsx1-ox+cx)/TILESIZE; 
@@ -1263,7 +1254,6 @@ void Map::handleEvents(SDL_Event *event)
 							if (human->units[i]->isWaiting())
 							{
 								human->units[i]->issueCommand(tilex, tiley);
-								human->units[i]->playConfirmed();
 								tmm = true;
 							}
 						}
@@ -1324,7 +1314,6 @@ void Map::handleEvents(SDL_Event *event)
 							if (human->units[i]->isSelected() && !human->units[i]->isWaiting())
 							{
 								human->units[i]->defaultAction(tilex, tiley);
-								human->units[i]->playConfirmed();
 							}
 							else if (human->units[i]->isWaiting())
 							{

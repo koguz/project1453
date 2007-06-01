@@ -48,9 +48,6 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 	
 	setState("insaa");
 	
-// 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
-	
-// 	komutlar = new SDLScreen(screen);
 	SDL_Rect trect;
 	trect.x = 96; trect.y = 0;
 	trect.w = trect.h = 32;
@@ -82,7 +79,6 @@ SehirMerkezi::SehirMerkezi(SDL_Surface *scr, Player *p):BaseBuilding(scr, p,"Şe
 
 SehirMerkezi::~SehirMerkezi()
 {
-// 	delete btnKoylu;
 }
 
 void SehirMerkezi::createKoylu()

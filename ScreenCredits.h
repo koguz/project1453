@@ -5,7 +5,6 @@
 #include "SDLWidget.h"
 #include "SDLButton.h"
 
-
 class ScreenCredits:public SDLScreen
 {
 	public:

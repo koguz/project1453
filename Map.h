@@ -15,6 +15,8 @@ using namespace std;
 
 class Player;
 
+/* MapTile represents each tile on a map. */
+
 class MapTile
 {
 	public:
@@ -84,7 +86,10 @@ class MapTile
 	static SDL_Surface *tileList;
 };
 
-
+/* Map is the class which the user interacts the most. The 
+ * units and buildings are drawn on it, their orders are 
+ * given on the map etc. 
+ */
 class Map
 {
 	public:
@@ -92,7 +97,7 @@ class Map
 	enum tileInfo 
 	{
 		BOS,
-		DOLU, // deniz ya da daglik cikarsa :D
+		DOLU, // deniz ya da daglik cikarsa 
 		AGACLIK,
 		MADEN,
 		TARLA,
@@ -122,7 +127,6 @@ class Map
 	int getCpuy();
 	void setPlayers(Player* h, Player* c);
 	
-	// playerdan gelenler
 	bool multipleSelect;
 	int rsx1, rsx2, rsy1, rsy2;
 	bool isMultipleSelecting();

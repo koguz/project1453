@@ -53,15 +53,13 @@ int SDLMusic::getVolume()
 void SDLMusic::loadFile(char *f)
 {
 	if (m != 0)
-		Mix_FreeMusic(m); // sismesin :)
+		Mix_FreeMusic(m); 
 	
 	m = Mix_LoadMUS(f);
 	if (!m)
 	{
 		cerr << "Müzik yüklenemedi: " << f << endl;
 	}
-	
-// 	setVolume(2);
 }
 
 void SDLMusic::setVolume(int oran)
