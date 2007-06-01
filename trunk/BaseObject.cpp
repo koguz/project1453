@@ -34,7 +34,7 @@ void BaseObject::addReq(string r)
 
 void BaseObject::addCurHp(int v)
 {
-	// eksi deger ile cikariladabilir
+	// Negative values can also be added
 	currentHp += v;
 	if (currentHp > hitpoints)
 		currentHp = hitpoints;

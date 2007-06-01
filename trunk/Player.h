@@ -20,6 +20,10 @@ using namespace std;
 
 class Map;
 
+/* Player holds the BaseObjects and Resources 
+ * of a player; either cpu controlled or user controlled
+ */
+
 class Player
 {
 	public:

@@ -21,7 +21,7 @@ Piyade::Piyade(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Piyade")
 	faction = "Osmanlı";
 	
 	hitpoints = 30;
-	buildRate = 1500;
+	buildRate = 1200;
 	armor = 4;
 	damage = 20;
 	range = 1;

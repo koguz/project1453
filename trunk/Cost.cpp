@@ -16,9 +16,9 @@ Cost::Cost(int wc, int fc, int sc)
 
 void Cost::set(int w, int f, int s)
 {
-	WoodCost.setAmount(w);// = Wood(wc);
-	FoodCost.setAmount(f);// = Food(fc);
-	StoneCost.setAmount(s); // = Stone(sc);
+	WoodCost.setAmount(w);
+	FoodCost.setAmount(f);
+	StoneCost.setAmount(s);
 }
 
 bool Cost::compare(Wood wc, Food fc, Stone sc)

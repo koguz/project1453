@@ -9,6 +9,10 @@ Koylu::Koylu()
 	faction = "Osmanlı";
 	sndSelected = 0;
 	sndConfirmed = 0;
+	sndBuilding = 0;
+	sndOk = 0;
+	sndTamam = 0;
+	sndHata = 0;
 	yuru = dur = calis = resim = 0;
 	insa = 0;
 }
@@ -83,6 +87,10 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	// sesler
 	sndSelected = new SDLMixer("wavs/ottoman/koylu01.ogg");
 	sndConfirmed = new SDLMixer("wavs/ottoman/koylu02.ogg");
+	sndBuilding = new SDLMixer("wavs/ottoman/koylu03.ogg");
+	sndOk = new SDLMixer("wavs/ottoman/koylu04.ogg");
+	sndTamam = new SDLMixer("wavs/ottoman/koylu05.ogg");
+	sndHata = new SDLMixer("wavs/ottoman/koylu06.ogg");
 	
 	// alt ekran: komutlar
 	SDL_Rect trect;
@@ -155,6 +163,9 @@ Koylu::~Koylu()
 {
 	delete sndSelected;
 	delete sndConfirmed;
+	delete sndBuilding;
+	delete sndOk;
+	delete sndTamam;
 }
 
 void Koylu::command(int x, int y)
@@ -164,6 +175,8 @@ void Koylu::command(int x, int y)
 	{
 		waiting = false;
 		moveToTarget(x, y);
+		sndConfirmed->play();
+		return;
 	}
 	if (waitingCommand == "merkezYap")
 	{
@@ -173,11 +186,14 @@ void Koylu::command(int x, int y)
 			parent->harita->endBuildSel();
 			parent->addOsMerkez(x, y);
 			goToAndBuild(x, y, 4);
+			sndBuilding->play();
 		}
 		else
 		{
 			parent->addMessage("Burası uygun değil!");
+			sndHata->play();
 		}
+		return;
 	}
 	if (waitingCommand == "evYap")
 	{
@@ -187,11 +203,14 @@ void Koylu::command(int x, int y)
 			parent->harita->endBuildSel();
 			parent->addOsEv(x, y);
 			goToAndBuild(x, y, 2);
+			sndTamam->play();
 		}
 		else
 		{
 			parent->addMessage("Burası uygun değil!");
+			sndHata->play();
 		}
+		return;
 	}
 	if (waitingCommand == "askerYap")
 	{
@@ -201,11 +220,14 @@ void Koylu::command(int x, int y)
 			parent->harita->endBuildSel();
 			parent->addAsker(x, y);
 			goToAndBuild(x, y, 4);
+			sndBuilding->play();
 		}
 		else
 		{
 			parent->addMessage("Burası uygun değil!");
+			sndHata->play();
 		}
+		return;
 	}
 }
 
@@ -268,7 +290,6 @@ void Koylu::goToAndBuild(int x, int y, int s)
 			sec = i;
 		}
 	}
-	
 	moveToTarget(cl[sec].x, cl[sec].y);
 	
 }
@@ -280,9 +301,11 @@ void Koylu::defAct(int tx, int ty)
 	{
 		case Map::BOS:
 			moveToTarget(tx, ty);
+			sndConfirmed->play();
 			break;
 		case Map::BINA:
 			goToAndBuild(tx, ty, parent->harita->getBuilding(tx, ty)->getSize());
+			sndOk->play();
 // 			buildBina(parent->harita->getBuilding(tx, ty));
 			break;
 		default:

@@ -246,7 +246,7 @@ void Player::update(int mx, int my)
 {
 	int top = 26;
 	for(int i=0;i<5/*messages.size()*/;i++) 
-	// NOTE 5 burada sabit olsun, şişmesin 
+	// NOTE: 5 burada sabit olsun, şişmesin 
 	{
 		if (i == messages.size()) break;
 		SDLLabel *temp = new SDLLabel(messages[i]);
@@ -310,7 +310,6 @@ void Player::eventHandler(SDL_Event *event)
 	}
 }
 
-// TODO - buna bi ara bak
 bool Player::haveReqs(BaseObject *u)
 {
 	vector<string> t = u->getReqs();

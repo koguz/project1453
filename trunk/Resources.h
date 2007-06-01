@@ -3,6 +3,8 @@
 
 #include "Resource.h"
 
+/* Resources Wood, Food and Stone */
+
 class Wood:public Resource
 {
 	public:

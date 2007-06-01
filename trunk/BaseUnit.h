@@ -11,6 +11,10 @@
 
 using namespace std;
 
+/* BaseUnit is the parent of the units in the game. They
+ * are different from the buildings as they can move, 
+ * interact with the map, etc.
+ */
 class BaseUnit:public BaseObject, public BaseGraphicObject
 {
 	public: 
@@ -56,8 +60,8 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int getSight();
 	bool onScreen(int x1, int x2, int y1, int y2);
 	void draw(SDL_Rect s, SDL_Rect d); 
-	void lookDirection(int x, int y); // bu yururken gecerli
-	void yoneBak(int x, int y);
+	void lookDirection(int x, int y); // bu yururken geçerli
+	void yoneBak(int x, int y); 
 	
 	void doUpdate();
 	
@@ -82,7 +86,6 @@ class BaseUnit:public BaseObject, public BaseGraphicObject
 	int xp;
 	int kills;
 	int tax, tay; // target x, target y
-// 	int cux, cuy;
 	
 	int lastUpdate;
 	bool areWeThereYet;

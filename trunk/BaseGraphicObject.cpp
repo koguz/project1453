@@ -4,7 +4,6 @@ BaseGraphicObject::BaseGraphicObject()
 {
 	komutlar = 0;
 	komutTanim = 0;
-// 	healthBar = 0;
 	wx = wy = 0;
 }
 
@@ -15,7 +14,6 @@ BaseGraphicObject::BaseGraphicObject(SDL_Surface *scr, Player *p)
 	komutlar = 0;
 	komutTanim = 0;
 	selected = false;
-// 	healthBar = 0;
 	wx = wy = 0;
 }
 
@@ -23,7 +21,6 @@ BaseGraphicObject::~BaseGraphicObject()
 {
 	delete komutlar;
 	delete komutTanim;
-// 	delete healthBar;
 }
 
 int BaseGraphicObject::getX() { return wx; }
@@ -50,7 +47,6 @@ void BaseGraphicObject::setTilePos(int x, int y)
 
 Coordinates BaseGraphicObject::getCenter()
 {
-	// bu fonksiyona değinmek gerekecek
 	Coordinates t;
 	t.x = posx + cx;
 	t.y = posy + cy;
@@ -85,9 +81,6 @@ SDL_Surface* BaseGraphicObject::loadImg(char* f)
 {
 	SDL_Surface *t = IMG_Load(f);
 	SDL_SetAlpha(t, SDL_SRCALPHA | SDL_RLEACCEL, SDL_ALPHA_OPAQUE);
-// 	SDL_Surface *toRet = SDL_DisplayFormatAlpha(t);
-// 	SDL_FreeSurface(t);
-// 	return toRet;
 	return t;
 }
 

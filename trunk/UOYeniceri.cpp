@@ -21,7 +21,7 @@ Yeniceri::Yeniceri(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Yeniçeri")
 	faction = "Osmanlı";
 	
 	hitpoints = 40;
-	buildRate = 1800;
+	buildRate = 1300;
 	armor = 6;
 	damage = 30;
 	range = 1;

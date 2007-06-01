@@ -56,8 +56,6 @@ Ev::Ev(SDL_Surface *scr, Player *p):BaseBuilding(scr, p, "Ev")
 	resim = new SDLCommandButton(screen, trect, name);
 	resim->setPosition(655, 205);
 	komutlar->addWidget(resim);
-	
-// 	healthBar = new SDLProgressBar(128, 4, GREEN, 0, hitpoints);
 }
 
 

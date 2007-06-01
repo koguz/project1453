@@ -107,7 +107,6 @@ void BaseUnit::actionDur()
 {
 	target.clear();
 	targetTiles.clear();
-// 	commandList.clear();
 	setState("dur");
 }
 
@@ -163,7 +162,6 @@ void BaseUnit::draw(SDL_Rect s, SDL_Rect d)
 	SDL_BlitSurface(getImg(), &src, screen, &d);
 	if (isSelected())
 	{
-// 		rectangleColor(screen, d.x, d.y, d.x + d.w, d.y + d.h, 0x00FF00FF);
 		SDL_Rect m = d;
 		int ux1 = m.x; 
 		int ux2 = ux1 + 4;
@@ -254,9 +252,6 @@ void BaseUnit::calWalkTile(int tx, int ty)
 			target.push_back(temp);
 		}
 	}
-	
-// 	commandList.push_back("yuru");
-// 	cout << "base: "  << commandList.size() << endl;
 }
 
 void BaseUnit::moveToTarget(int tx, int ty)
@@ -270,23 +265,18 @@ void BaseUnit::moveToTarget(int tx, int ty)
 	areWeThereYet = false;
 	targetTiles.clear();
 	target.clear();
-// 	commandList.push_back("yuru");
-// 	calWalkTile(tx, ty);
 }
 
 bool BaseUnit::buVarMi(int a, int b)
 {
 	if (a == posx && b == posy)
 		return true;
-// 	if (targetTiles.size() > 0)
-// 	{
-		list<Coordinates>::iterator i;
-		for(i=targetTiles.begin();i != targetTiles.end(); i++)
-		{
-			if ((*i).x == a && (*i).y == b)
-				return true;
-		}
-// 	}
+	list<Coordinates>::iterator i;
+	for(i=targetTiles.begin();i != targetTiles.end(); i++)
+	{
+		if ((*i).x == a && (*i).y == b)
+			return true;
+	}
 	return false;
 }
 
@@ -345,29 +335,6 @@ void BaseUnit::doUpdate()
 		stKillsVal->setText(kills);
 	}
 	
-// 	if (commandList.size() > 0)
-// 	{
-// 		string tstate = commandList.front();
-// 		if (tstate == "yuru")
-// 		{
-// 			if ( (SDL_GetTicks() - lastUpdate) > (1000 / speed) )
-// 			{
-// 				Coordinates temp;
-// 				temp = target.front();
-// 				// ne tarafa bakacagiz?
-// 				lookDirection(temp.x, temp.y);
-// 				
-// 				wx = temp.x;
-// 				wy = temp.y;
-// 				posx = wx / 32;
-// 				posy = wy / 32;
-// 				target.pop_front();
-// 				
-// 				lastUpdate = SDL_GetTicks();
-// 			}	
-// 		}
-// 	}
-	
 	if (!target.empty())
 	{
 		setState("yuru");
@@ -389,27 +356,10 @@ void BaseUnit::doUpdate()
 	}
 	else 
 	{
-// 		cout << "commandList size: " << commandList.size() << endl;
-// 		string tstate = commandList.front();
 		if (curState == "yuru")
 		{
-// 			commandList.pop_front();
 			setState("dur");
 		}
-// 		if (!commandList.empty())
-// 		{
-// 			string tstate = commandList.front();
-// 			if (tstate == "yuru")
-// 			{
-// 				commandList.pop_front();
-// 				setState("dur");
-// 			}
-// 			else if (tstate == "vur")
-// 			{
-// 				commandList.pop_front();
-// 				setState("vur");
-// 			}
-// 		}
 	}
 }
 

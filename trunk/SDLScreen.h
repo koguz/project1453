@@ -6,6 +6,12 @@
 
 using namespace std;
 
+/* SDLScreen is like a Window class in a GUI application.
+ * This class holds widgets; displays them and passes 
+ * them the SDL_Event which is passed to it... 
+ * It does not have a layout manager, so the widgets should be
+ * placed manually on fixed positions
+ */
 class SDLScreen
 {
 	public:

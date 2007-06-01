@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/* This class is needed for easier calculating 
+ * the Cost of the BaseObjects. Cost consists of
+ * Resources like Food, Wood and Stone
+ */
+
 class Cost
 {
 	private:

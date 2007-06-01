@@ -97,10 +97,8 @@ void BaseBuilding::draw(SDL_Rect s,SDL_Rect d)
 void BaseBuilding::update() 
 {
 	if (selected)
-	{
-// 		healthBar->setValue(currentHp);
-		sbar->setValue(currentHp);
-	}
+	{ sbar->setValue(currentHp); }
+	
 	if (nowBuilding != 0)
 	{
 		if (nowBuilding->build())
@@ -120,7 +118,6 @@ void BaseBuilding::update()
 					cerr << "Yapılan nesne eklenemedi..." << endl;
 					break;
 			}
-// 			parent->addObject(nowBuilding);
 			nowBuilding = 0;
 			nowBuildingBar->setShow(false);
 		}

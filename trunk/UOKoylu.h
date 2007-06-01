@@ -62,8 +62,8 @@ class Koylu:public BaseUnit
 	BaseBuilding* insa;
 	int insax, insay; // insaa koordinatlari
 	
-	SDLMixer *sndSelected;
-	SDLMixer *sndConfirmed;
+	SDLMixer *sndSelected, *sndBuilding, *sndOk, *sndTamam;
+	SDLMixer *sndConfirmed, *sndHata;
 	SDLCommandButton 
 		*resim, 
 		*yuru, 
