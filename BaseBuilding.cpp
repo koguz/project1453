@@ -23,6 +23,7 @@ BaseBuilding::BaseBuilding(SDL_Surface *scr, Player *p, string n):BaseObject(n),
 	birimAdi->setPosition(695, 205);
 	komutlar->addWidget(birimAdi);
 	selected = false;
+	birimTamam = new SDLMixer("wavs/ui/birimTamam.ogg");
 }
 
 bool BaseBuilding::isClicked(int x, int y)
@@ -41,7 +42,7 @@ int BaseBuilding::getSize() { return size; }
 int BaseBuilding::getSizeSqr() { return size*size; }
 int BaseBuilding::getSight() { return sight; }
 
-BaseBuilding::~BaseBuilding() { }
+BaseBuilding::~BaseBuilding() { /*delete birimTamam;*/ }
 
 bool BaseBuilding::onScreen(int x1, int x2, int y1, int y2)
 {
@@ -106,6 +107,7 @@ void BaseBuilding::update()
 			switch(nowBuilding->getType())
 			{
 				case BaseObject::UNIT:
+					birimTamam->play();
 					parent->addUnit((BaseUnit*)nowBuilding);
 					break;
 				case BaseObject::BUILDING:

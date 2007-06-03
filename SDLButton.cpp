@@ -27,11 +27,16 @@ SDLButton::SDLButton(string f, string label=string(), int size)
 	else metin = 0;
 	clicked = 0;
 	show = true;
+	over = new SDLMixer("wavs/ui/over.ogg");
+	click = new SDLMixer("wavs/ui/click.ogg");
+	playOnce = false;
 }
 
 SDLButton::~SDLButton()
 {
 	delete metin;
+	delete over;
+	delete click;
 }
 
 void SDLButton::setState(ButtonState s) { bState = s; }
@@ -46,10 +51,16 @@ void SDLButton::handleEvent(int eventType, int button, int x, int y)
 			if ( isMouseOver(x, y) && getState() != PRESSED )
 			{
 				setState(SDLButton::OVER);
+				if (!playOnce)
+				{
+					over->play();
+					playOnce = true;
+				}
 			}
 			else if (getState() != PRESSED)
 			{
 				setState(NORMAL);
+				playOnce = false;
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -69,7 +80,10 @@ void SDLButton::handleEvent(int eventType, int button, int x, int y)
 				if (isMouseOver(x, y) && getState() == PRESSED)
 				{
 					if (clicked != 0)
+					{
+						click->play();
 						clicked();
+					}
 				}
 				setState(NORMAL);
 			}

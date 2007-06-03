@@ -7,6 +7,7 @@
 #include "BaseObject.h"
 #include "BaseGraphicObject.h"
 #include "Sprite.h"
+#include "SDLMixer.h"
 
 using namespace std;
 
@@ -55,6 +56,7 @@ class BaseBuilding:public BaseObject, public BaseGraphicObject
 	protected:
 	int sight;
 	int size;
+	SDLMixer *birimTamam;
 	
 	// grafikler
 	string curState;

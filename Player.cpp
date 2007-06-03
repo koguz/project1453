@@ -51,6 +51,10 @@ Player::Player(SDL_Surface *scr, string p_faction, int w, int f, int s)
 	dur->setPosition(705,295);
 	dur->dugme->clicked = makeFunctor((CBFunctor0*)0, *me, &Player::hepsiDur);
 	cok->addWidget(dur);
+	
+	birim = new SDLMixer("wavs/ui/birim.ogg");
+	bina = new SDLMixer("wavs/ui/bina.ogg");
+	birimEv = new SDLMixer("wavs/ui/ev.ogg");
 }
 
 Player::~Player()
@@ -76,6 +80,10 @@ Player::~Player()
 		delete t;
 	}
 	techs.clear();
+	
+	delete birim; 
+	delete bina; 
+	delete birimEv;
 }
 
 string Player::getFaction() { return faction; }
@@ -147,12 +155,14 @@ bool Player::yeniBirim(BaseUnit *temp)
 	}
 	if (!temp->getCost().compare(wood, food, stone))
 	{
+		birim->play();
 		addMessage("Bu birim için kaynaklar yetersiz...");
 		delete temp;
 		return false;
 	}
 	if (units.size() >= getHousing())
 	{
+		birimEv->play();
 		addMessage("Bu birim için yeterli ev yok...");
 		delete temp;
 		return false;
@@ -173,6 +183,7 @@ bool Player::yeniBina(BaseBuilding *temp)
 	}
 	if (!temp->getCost().compare(wood, food, stone))
 	{
+		bina->play();
 		addMessage("Bu bina için kaynaklar yetersiz...");
 		delete temp;
 		return false;

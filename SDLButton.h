@@ -5,6 +5,7 @@
 #include "Headers.h"
 #include "SDLWidget.h"
 #include "SDLLabel.h"
+#include "SDLMixer.h"
 
 using namespace std;
 
@@ -15,7 +16,6 @@ class SDLButton:public SDLWidget
 	
 	SDLButton(string f, string label, int size=-1);
 	~SDLButton();
-	
 	
 	CBFunctor0 clicked; 
 	virtual void drawWidget(SDL_Surface *screen)
@@ -60,7 +60,9 @@ class SDLButton:public SDLWidget
 	protected:
 	ButtonState bState;
 	SDLLabel *metin;
+	SDLMixer *over, *click;
 	void setState(ButtonState s);
+	bool playOnce;
 	ButtonState getState();
 	void handleEvent(int eventType, int button, int x, int y);
 };
