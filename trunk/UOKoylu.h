@@ -64,6 +64,7 @@ class Koylu:public BaseUnit
 	
 	SDLMixer *sndSelected, *sndBuilding, *sndOk, *sndTamam;
 	SDLMixer *sndConfirmed, *sndHata;
+	SDLMixer *binaTamam;
 	SDLCommandButton 
 		*resim, 
 		*yuru, 

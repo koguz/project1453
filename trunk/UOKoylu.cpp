@@ -14,7 +14,7 @@ Koylu::Koylu()
 	sndTamam = 0;
 	sndHata = 0;
 	yuru = dur = calis = resim = 0;
-	insa = 0;
+	insa = 0; binaTamam = 0;
 }
 
 Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
@@ -91,6 +91,7 @@ Koylu::Koylu(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Köylü")
 	sndOk = new SDLMixer("wavs/ottoman/koylu04.ogg");
 	sndTamam = new SDLMixer("wavs/ottoman/koylu05.ogg");
 	sndHata = new SDLMixer("wavs/ottoman/koylu06.ogg");
+	binaTamam = new SDLMixer("wavs/ui/binaTamam.ogg");
 	
 	// alt ekran: komutlar
 	SDL_Rect trect;
@@ -166,6 +167,7 @@ Koylu::~Koylu()
 	delete sndBuilding;
 	delete sndOk;
 	delete sndTamam;
+	delete binaTamam;
 }
 
 void Koylu::command(int x, int y)
@@ -337,6 +339,7 @@ void Koylu::kUpdate()
 			{
 				insa->setState("saglam");
 				parent->addMessage("Bina yapımı tamamlandı: " + insa->getName());
+				binaTamam->play();
 				insa = 0;
 				setState("dur");
 			}

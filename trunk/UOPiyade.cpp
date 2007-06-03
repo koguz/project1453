@@ -68,8 +68,8 @@ Piyade::Piyade(SDL_Surface *scr, Player *p):BaseUnit(scr, p, "Piyade")
 	yon = S;
 	setState("dur");
 	
-	sndSelected = new SDLMixer("wavs/ottoman/koylu01.ogg");
-	sndConfirmed = new SDLMixer("wavs/ottoman/koylu02.ogg");
+	sndSelected = new SDLMixer("wavs/ottoman/piyade01.ogg");
+	sndConfirmed = new SDLMixer("wavs/ottoman/piyade02.ogg");
 	
 	SDL_Rect trect;
 	trect.x = trect.y = 0;
@@ -111,6 +111,7 @@ void Piyade::defAct(int tx, int ty)
 	{
 		case Map::BOS:
 			moveToTarget(tx, ty);
+			sndConfirmed->play();
 			break;
 		default:
 			parent->addMessage("Burası için bana bir görev tanımlanmamış :(");
@@ -219,6 +220,7 @@ void Piyade::command(int x, int y)
 	{
 		waiting = false;
 		moveToTarget(x, y);
+		sndConfirmed->play();
 	}
 }
 

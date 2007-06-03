@@ -15,6 +15,7 @@
 #include "UBSerf.h"
 #include "SDLTextView.h"
 #include "Map.h"
+#include "SDLMixer.h"
 
 using namespace std;
 
@@ -77,6 +78,7 @@ class Player
 	deque<string> messages;
 	
 	SDLCommandButton *yuru, *dur;
+	SDLMixer *birim, *bina, *birimEv;
 	
 	Uint32 lastMsgTime;
 	string faction;
