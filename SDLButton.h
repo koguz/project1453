@@ -57,10 +57,12 @@ class SDLButton:public SDLWidget
 		handleEvent(eventType, button, x, y);
 	}
 	
+	static SDLMixer *over;
+	static SDLMixer* click;
+	
 	protected:
 	ButtonState bState;
 	SDLLabel *metin;
-	SDLMixer *over, *click;
 	void setState(ButtonState s);
 	bool playOnce;
 	ButtonState getState();

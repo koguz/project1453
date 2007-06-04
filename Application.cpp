@@ -202,7 +202,8 @@ int Application::Run()
 		TTF_CloseFont(iter->second);
 	}
 	
-	
+	delete SDLButton::over;
+	delete SDLButton::click;
 	
 	return 0;
 }

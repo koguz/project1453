@@ -18,7 +18,6 @@ class SDLMixer
 	protected:
 	Mix_Chunk *ses;
 	int musicChannel;
-	bool loop;
 };
 
 #endif
