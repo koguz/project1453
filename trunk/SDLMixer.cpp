@@ -4,7 +4,6 @@ SDLMixer::SDLMixer(char *f)
 {
 	if(SetMixer())
 	{
-		loop = false;
 		loadFile(f);
 	}
 }
@@ -48,10 +47,6 @@ bool SDLMixer::loadFile(char *f)
 
 void SDLMixer::play()
 {
-	int l;
-	if (loop)
-		l = -1;
-	else l = 0;
-	musicChannel = Mix_PlayChannel(-1, ses, l);
+	musicChannel = Mix_PlayChannel(-1, ses, 0);
 }
 

@@ -2,6 +2,9 @@
 
 using namespace std;
 
+SDLMixer* SDLButton::over = 0;
+SDLMixer* SDLButton::click = 0;
+
 SDLButton::SDLButton(string f, string label=string(), int size)
 {
 	SDL_Surface *temp = IMG_Load(f.c_str());
@@ -27,16 +30,14 @@ SDLButton::SDLButton(string f, string label=string(), int size)
 	else metin = 0;
 	clicked = 0;
 	show = true;
-	over = new SDLMixer("wavs/ui/over.ogg");
-	click = new SDLMixer("wavs/ui/click.ogg");
+	if (over == 0) over = new SDLMixer("wavs/ui/over.ogg");
+	if (click == 0) click = new SDLMixer("wavs/ui/click.ogg");
 	playOnce = false;
 }
 
 SDLButton::~SDLButton()
 {
 	delete metin;
-	delete over;
-	delete click;
 }
 
 void SDLButton::setState(ButtonState s) { bState = s; }
